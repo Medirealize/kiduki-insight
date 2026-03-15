@@ -1,0 +1,2882 @@
+[
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "social_role",
+    "insight": "仕事や役割に穴を開けることへの焦りが、病気そのもの以上に気になっていませんか？",
+    "action": "先生、今の状態から仕事を続ける場合、注意すべきポイントを教えていただけますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "self_control",
+    "insight": "体調の変化を『まだ大丈夫』と論理的に整理しすぎて、相談のタイミングを少し遅らせていませんか？",
+    "action": "先生、この症状はどの段階で受診すべきものだったのか、目安を教えてください。"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "efficiency",
+    "insight": "診察時間を無駄にしないよう、話す内容を頭の中で整理しすぎて、本当に気になっていることを後回しにしていませんか？",
+    "action": "先生、まず一番重要なポイントから確認させてください。"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "family_responsibility",
+    "insight": "自分の体調よりも、家族に心配をかけないことを優先してしまっていませんか？",
+    "action": "先生、家族に説明するなら、この症状はどう伝えるのが適切でしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "risk_management",
+    "insight": "最悪のケースを冷静に想定しながらも、その可能性を一人で抱えていませんか？",
+    "action": "先生、一般的にはこの症状はどんな原因が考えられるのでしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "data_oriented",
+    "insight": "インターネットで多くの情報を調べた結果、逆に整理が難しくなっていませんか？",
+    "action": "先生、調べてみると色々出てくるのですが、医学的にはどこを重視すればいいでしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "future_planning",
+    "insight": "今の症状だけでなく、数ヶ月先の生活への影響まで先回りして考えていませんか？",
+    "action": "先生、この症状は長期的に見るとどのような経過になることが多いですか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "responsibility",
+    "insight": "周囲に迷惑をかけないよう、自分の体調管理は自分で解決しようとしていませんか？",
+    "action": "先生、自分で気をつけておくべき生活面のポイントを教えていただけますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "precision",
+    "insight": "症状を正確に伝えようとして、言葉選びに慎重になりすぎていませんか？",
+    "action": "先生、症状の説明がうまくできているか不安ですが、今の伝え方で大丈夫でしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "performance",
+    "insight": "体調よりも『普段通りのパフォーマンスを維持できるか』が気になっていませんか？",
+    "action": "先生、この症状がある状態で日常生活はどの程度まで続けても大丈夫でしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "control_loss",
+    "insight": "自分の体の状態が思った通りにコントロールできないことに、少し戸惑いを感じていませんか？",
+    "action": "先生、この症状が起きる仕組みを簡単に教えていただけますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "decision_making",
+    "insight": "治療の選択肢がある場合、できるだけ合理的に判断したいと思っていませんか？",
+    "action": "先生、もし治療方法が複数あるなら、それぞれの違いを教えてください。"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "symptom_analysis",
+    "insight": "症状の原因を自分なりに分析してみたものの、確信が持てずにいませんか？",
+    "action": "先生、私の考えている原因が見当違いかどうか、一度確認してもらえますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "time_efficiency",
+    "insight": "忙しい日常の中で、受診のタイミングをできるだけ合理的に選ぼうとしていませんか？",
+    "action": "先生、この症状の場合、どのくらいの間隔で受診するのが適切でしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "self_reliance",
+    "insight": "できるだけ自分で対処しようとして、医師に聞くべきことを控えていませんか？",
+    "action": "先生、こういう時は医師にどんなことを相談するのが一般的でしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "family_balance",
+    "insight": "自分の体調よりも、家族や周囲への影響を先に考えてしまっていませんか？",
+    "action": "先生、この症状は日常生活でどの程度気をつければよいでしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "symptom_tracking",
+    "insight": "体調の変化を細かく観察しているものの、どこまでが正常なのか迷っていませんか？",
+    "action": "先生、この症状は一般的にどのくらい続くものなのでしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "self_responsibility",
+    "insight": "体調管理は自分の責任だと考え、少し無理を続けてしまっていませんか？",
+    "action": "先生、この状態で無理をしない方がいいポイントを教えていただけますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "information_overload",
+    "insight": "調べれば調べるほど情報が増えて、逆に判断が難しくなっていませんか？",
+    "action": "先生、医学的にはどの情報を参考にするのがよいでしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "future_concern",
+    "insight": "今の症状だけでなく、これからの生活への影響を少し先まで考えていませんか？",
+    "action": "先生、この症状は長期的に問題になることはありますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "precision",
+    "insight": "症状を正確に伝えようとして、説明の順番を頭の中で整理していませんか？",
+    "action": "先生、症状の説明がうまくできているか確認してもらえますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "control",
+    "insight": "体の変化を自分でコントロールできないことに少し戸惑いを感じていませんか？",
+    "action": "先生、この症状が起きる仕組みを簡単に教えていただけますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "daily_function",
+    "insight": "普段通りに生活できるかどうかを、まず冷静に判断しようとしていませんか？",
+    "action": "先生、この症状のとき日常生活はどこまで続けて大丈夫でしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "caregiving_role",
+    "insight": "家族の世話や仕事を優先して、自分の体調は後回しになっていませんか？",
+    "action": "先生、今は体を休めた方がいい状態でしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "symptom_analysis",
+    "insight": "症状の原因を自分なりに分析してみたものの、確信が持てずにいませんか？",
+    "action": "先生、私が考えている原因は医学的にあり得るでしょうか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "efficiency",
+    "insight": "診察時間を大切にしようとして、質問を絞り込んでいませんか？",
+    "action": "先生、まず一番重要なポイントから教えていただけますか？"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "risk_awareness",
+    "insight": "もしもの可能性を冷静に想像しながら、少し不安を抱えていませんか？",
+    "action": "先生、この症状で注意すべきサインがあれば教えてください。"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "health_management",
+    "insight": "体調管理の方法をできるだけ合理的に知りたいと思っていませんか？",
+    "action": "先生、自分でできる予防やケアがあれば教えてください。"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "decision_logic",
+    "insight": "治療の選択肢があるなら、できるだけ納得して決めたいと思っていませんか？",
+    "action": "先生、もし治療法が複数あるなら違いを教えてください。"
+  },
+  {
+    "type_code": "A1",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "self_reliance",
+    "insight": "なるべく自分で対処しようとして、相談するタイミングを迷っていませんか？",
+    "action": "先生、この症状はどの段階で相談するのが一般的でしょうか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "long_term",
+    "insight": "今の症状だけでなく、将来の健康への影響まで考えていませんか？",
+    "action": "先生、この症状は長期的にはどのような経過になることが多いですか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "risk_evaluation",
+    "insight": "複数の可能性を頭の中で比較していませんか？",
+    "action": "先生、一般的にこの症状で考えられる原因を教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "strategy",
+    "insight": "最も合理的な対処方法を知りたいと思っていませんか？",
+    "action": "先生、今の段階で一番効果的な対応は何でしょうか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "decision",
+    "insight": "判断材料をできるだけ集めてから決めたいと思っていませんか？",
+    "action": "先生、この症状について判断のポイントを教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "planning",
+    "insight": "治療の見通しを先に知っておきたいと思っていませんか？",
+    "action": "先生、一般的な治療の流れを教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "efficiency",
+    "insight": "最短で改善する方法を考えていませんか？",
+    "action": "先生、回復を早めるために大事なことは何ですか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "information_filter",
+    "insight": "情報が多すぎて、何を信じればいいか整理したいと思っていませんか？",
+    "action": "先生、この症状について信頼できる情報の見方を教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "self_management",
+    "insight": "生活習慣で改善できる部分を探していませんか？",
+    "action": "先生、生活面で気をつけることはありますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "uncertainty",
+    "insight": "確率としてどの可能性が高いのか知りたいと思っていませんか？",
+    "action": "先生、医学的にはどの原因が多いのでしょうか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "timeline",
+    "insight": "回復までの時間をある程度予測したいと思っていませんか？",
+    "action": "先生、この症状はどのくらいで改善することが多いですか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "control",
+    "insight": "状況を把握して安心したいと思っていませんか？",
+    "action": "先生、今の状態はどの程度の段階でしょうか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "monitoring",
+    "insight": "今後どの変化を注意して見ればいいのか知りたいと思っていませんか？",
+    "action": "先生、悪化のサインがあれば教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "strategy_update",
+    "insight": "状況に応じて対処を変える必要があるか気になっていませんか？",
+    "action": "先生、今後の経過で対応は変わりますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "comparison",
+    "insight": "いくつかの治療法を比較して考えていませんか？",
+    "action": "先生、治療法の違いを教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "rational_assurance",
+    "insight": "納得できる説明があれば安心できると思っていませんか？",
+    "action": "先生、この症状の仕組みを簡単に教えていただけますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "long_term_health",
+    "insight": "今の症状だけでなく、数年先の健康への影響まで考えていませんか？",
+    "action": "先生、この症状は長期的に見て問題になることがありますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "information_sorting",
+    "insight": "いろいろ調べた結果、どの情報を信じればいいか迷っていませんか？",
+    "action": "先生、この症状について医学的に信頼できる考え方を教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "future_planning",
+    "insight": "治療の流れや見通しを、先に理解しておきたいと思っていませんか？",
+    "action": "先生、この症状の一般的な治療の流れを教えていただけますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "risk_assessment",
+    "insight": "もし別の原因だった場合の可能性も、少し考えていませんか？",
+    "action": "先生、この症状で考えられる原因にはどんなものがありますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "decision_support",
+    "insight": "治療を選ぶなら、納得した上で決めたいと思っていませんか？",
+    "action": "先生、治療法がある場合それぞれの違いを教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "self_management",
+    "insight": "生活習慣で改善できる部分があるか気になっていませんか？",
+    "action": "先生、自分で気をつける生活習慣はありますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "timeline",
+    "insight": "症状の経過をある程度予測したいと思っていませんか？",
+    "action": "先生、この症状はどのくらいで改善することが多いでしょうか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "uncertainty",
+    "insight": "今の段階でどの程度心配する必要があるのか知りたいと思っていませんか？",
+    "action": "先生、今の状態は一般的にはどの程度の段階でしょうか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "monitoring",
+    "insight": "今後どの変化を注意すればよいのか気になっていませんか？",
+    "action": "先生、注意すべき症状の変化があれば教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "health_strategy",
+    "insight": "これをきっかけに健康管理を見直そうと思っていませんか？",
+    "action": "先生、再発を防ぐためにできることはありますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "probability",
+    "insight": "どの可能性が一番多いのか知りたいと思っていませんか？",
+    "action": "先生、この症状ではどんな原因が多いのでしょうか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "efficiency",
+    "insight": "できるだけ効率よく改善する方法を知りたいと思っていませんか？",
+    "action": "先生、回復を早めるために大事なことはありますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "comparison",
+    "insight": "複数の選択肢を比較して理解したいと思っていませんか？",
+    "action": "先生、検査や治療の選択肢があれば教えてください。"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "logic",
+    "insight": "症状の理由がわかれば安心できると思っていませんか？",
+    "action": "先生、この症状が起きる仕組みを教えていただけますか？"
+  },
+  {
+    "type_code": "A2",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "planning_security",
+    "insight": "今後の生活を考えるための目安が欲しいと思っていませんか？",
+    "action": "先生、この症状の経過の目安を教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "self_solution",
+    "insight": "まずは自分で解決できないか考えてから受診していませんか？",
+    "action": "先生、この症状は自分で対処できる部分もありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "practicality",
+    "insight": "実際に役立つ対処法を知りたいと思っていませんか？",
+    "action": "先生、日常生活でできる対処法を教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "independence",
+    "insight": "できるだけ自分のペースで治したいと思っていませんか？",
+    "action": "先生、この症状はどこまで自分で管理できますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "efficiency",
+    "insight": "必要なことだけを知りたいと思っていませんか？",
+    "action": "先生、まず一番大事なポイントを教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "pragmatic",
+    "insight": "理屈よりも実際の改善方法が気になっていませんか？",
+    "action": "先生、今すぐできる対処はありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "minimalist",
+    "insight": "できるだけシンプルに解決したいと思っていませんか？",
+    "action": "先生、この症状の基本的な対応を教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "self_monitoring",
+    "insight": "症状の変化を自分で観察していませんか？",
+    "action": "先生、どの変化があれば受診すべきでしょうか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "practical_risk",
+    "insight": "実際に困る状況だけを避けたいと思っていませんか？",
+    "action": "先生、生活で気をつけることは何でしょうか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "functionality",
+    "insight": "生活に支障が出るかどうかを判断基準にしていませんか？",
+    "action": "先生、この症状で日常生活は続けて大丈夫でしょうか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "self_control",
+    "insight": "体調も自分でコントロールしたいと思っていませんか？",
+    "action": "先生、体調管理のコツを教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "experience",
+    "insight": "過去の経験と比べて判断していませんか？",
+    "action": "先生、以前の症状と似ているか教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "simplicity",
+    "insight": "難しい説明より結論を知りたいと思っていませんか？",
+    "action": "先生、結論としてはどう考えればいいでしょうか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "self_management",
+    "insight": "医療に頼りすぎない方がいいと思っていませんか？",
+    "action": "先生、自分で管理する方法はありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "practical_question",
+    "insight": "具体的に何をすればいいか知りたいと思っていませんか？",
+    "action": "先生、今日から気をつけることを教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "realistic",
+    "insight": "現実的な対応だけを知りたいと思っていませんか？",
+    "action": "先生、今の状態で一番大事なことは何でしょうか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "self_care",
+    "insight": "まずは自分で対処してみようと思っていませんか？",
+    "action": "先生、自分でできるケアがあれば教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "practical_solution",
+    "insight": "実際に役立つ方法を知りたいと思っていませんか？",
+    "action": "先生、生活でできる対処法を教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "independence",
+    "insight": "なるべく自分で管理したいと思っていませんか？",
+    "action": "先生、自分で気をつけるポイントはありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "efficiency",
+    "insight": "必要な情報だけ知りたいと思っていませんか？",
+    "action": "先生、一番大事なポイントを教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "daily_life",
+    "insight": "日常生活をどう続ければいいか気になっていませんか？",
+    "action": "先生、生活で注意することはありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "functionality",
+    "insight": "普段通り生活できるかを基準に考えていませんか？",
+    "action": "先生、この症状で普段の生活は続けられますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "self_monitor",
+    "insight": "症状を自分で観察していませんか？",
+    "action": "先生、どんな変化があれば相談すべきでしょうか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "experience",
+    "insight": "過去の体調と比べて考えていませんか？",
+    "action": "先生、以前の症状と似ているでしょうか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "control",
+    "insight": "体調も自分でコントロールしたいと思っていませんか？",
+    "action": "先生、体調管理のコツを教えてください。"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "simple_answer",
+    "insight": "難しい説明より結論を知りたいと思っていませんか？",
+    "action": "先生、結論としてどう考えればいいでしょうか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "practical_help",
+    "insight": "具体的な行動を知りたいと思っていませんか？",
+    "action": "先生、今日からできることはありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "health_routine",
+    "insight": "健康習慣を見直したいと思っていませんか？",
+    "action": "先生、普段の生活で改善できることはありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "self_reliance",
+    "insight": "医療に頼りすぎない方がいいと思っていませんか？",
+    "action": "先生、自分で管理する方法はありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "practical_risk",
+    "insight": "困る状況だけ避けたいと思っていませんか？",
+    "action": "先生、注意すべき症状はありますか？"
+  },
+  {
+    "type_code": "A3",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "clarity",
+    "insight": "シンプルに理解したいと思っていませんか？",
+    "action": "先生、この症状を簡単に説明してもらえますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "evidence",
+    "insight": "説明の根拠を知りたいと思っていませんか？",
+    "action": "先生、この判断の医学的な理由を教えてください。"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "verification",
+    "insight": "納得できるまで理解したいと思っていませんか？",
+    "action": "先生、この症状はどういう仕組みで起こるのでしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "logic",
+    "insight": "論理的に説明されると安心できませんか？",
+    "action": "先生、医学的にはどう考えればいいでしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "comparison",
+    "insight": "他の可能性も気になっていませんか？",
+    "action": "先生、別の原因の可能性はありますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "evidence_check",
+    "insight": "情報の信頼性を確認したいと思っていませんか？",
+    "action": "先生、この症状で一般的な原因は何でしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "data",
+    "insight": "客観的な情報を知りたいと思っていませんか？",
+    "action": "先生、この症状はどのくらい多いのでしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "probability",
+    "insight": "どの可能性が高いのか知りたいと思っていませんか？",
+    "action": "先生、医学的にはどの原因が一番多いですか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "monitoring",
+    "insight": "状況を冷静に観察したいと思っていませんか？",
+    "action": "先生、経過を見る場合のポイントを教えてください。"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "logic_check",
+    "insight": "説明が筋道立っているか確認したくなっていませんか？",
+    "action": "先生、その理由をもう少し教えていただけますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "mechanism",
+    "insight": "原因のメカニズムを理解したいと思っていませんか？",
+    "action": "先生、この症状の仕組みを教えてください。"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "evaluation",
+    "insight": "医学的評価を知りたいと思っていませんか？",
+    "action": "先生、今の状態は一般的にはどう評価されますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "analysis",
+    "insight": "状況を冷静に分析していませんか？",
+    "action": "先生、医学的にはどの段階でしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "rational_decision",
+    "insight": "合理的な判断をしたいと思っていませんか？",
+    "action": "先生、最も合理的な対応は何でしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "understanding",
+    "insight": "理解できれば安心できると思っていませんか？",
+    "action": "先生、この状態を簡単に説明してもらえますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "clarification",
+    "insight": "曖昧な部分をはっきりさせたいと思っていませんか？",
+    "action": "先生、この症状の判断基準を教えてください。"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "evidence",
+    "insight": "説明の根拠がわかると安心できると思っていませんか？",
+    "action": "先生、この判断の理由を教えていただけますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "understanding",
+    "insight": "症状の仕組みを理解したいと思っていませんか？",
+    "action": "先生、この症状が起きる理由を教えてください。"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "logic",
+    "insight": "筋道の通った説明を求めていませんか？",
+    "action": "先生、医学的にはどう考えればよいでしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "comparison",
+    "insight": "他の可能性も確認したくなっていませんか？",
+    "action": "先生、別の原因の可能性はありますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "information_check",
+    "insight": "情報の正確さを確認したいと思っていませんか？",
+    "action": "先生、この症状では何が多い原因ですか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "data",
+    "insight": "客観的な情報を知りたいと思っていませんか？",
+    "action": "先生、この症状はよくあるものですか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "probability",
+    "insight": "どの可能性が一番高いのか知りたいと思っていませんか？",
+    "action": "先生、医学的にはどの原因が多いのでしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "monitoring",
+    "insight": "経過を冷静に見たいと思っていませんか？",
+    "action": "先生、どんな変化に注意すればいいでしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "logic_question",
+    "insight": "説明が理解できているか確認したくなっていませんか？",
+    "action": "先生、その理由をもう少し教えてください。"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "mechanism",
+    "insight": "体の仕組みを知りたいと思っていませんか？",
+    "action": "先生、この症状の仕組みを教えてください。"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "evaluation",
+    "insight": "医学的にどう評価されるのか気になっていませんか？",
+    "action": "先生、今の状態は一般的にどう見られますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "analysis",
+    "insight": "状況を冷静に整理しようとしていませんか？",
+    "action": "先生、医学的にはどの段階でしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "decision_logic",
+    "insight": "合理的に判断したいと思っていませんか？",
+    "action": "先生、今の対応として一番合理的なのは何でしょうか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "clarity",
+    "insight": "理解できれば安心できると思っていませんか？",
+    "action": "先生、この状態を簡単に説明していただけますか？"
+  },
+  {
+    "type_code": "A4",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "criteria",
+    "insight": "判断の基準を知りたいと思っていませんか？",
+    "action": "先生、この症状の判断基準を教えてください。"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "relationship",
+    "insight": "自分の症状よりも、周りに迷惑をかけないかが気になっていませんか？",
+    "action": "先生、この状態で周りに心配をかけない生活の仕方を教えていただけますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "communication",
+    "insight": "症状をうまく伝えられているか少し気になっていませんか？",
+    "action": "先生、症状の説明がうまくできているか確認していただけますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "reassurance",
+    "insight": "大きな問題ではないと聞ければ安心できると思っていませんか？",
+    "action": "先生、この症状はよくあるものなのでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "family",
+    "insight": "家族が心配しすぎないようにしたいと思っていませんか？",
+    "action": "先生、家族にはどう説明すればいいでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "trust",
+    "insight": "医師の考えをきちんと理解したいと思っていませんか？",
+    "action": "先生、今の状態を簡単に説明していただけますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "emotional_balance",
+    "insight": "自分では冷静にしているつもりでも、少し不安を抱えていませんか？",
+    "action": "先生、この症状で心配する必要はありますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "support",
+    "insight": "一人で抱え込まなくてもいいのか確認したいと思っていませんか？",
+    "action": "先生、この症状は相談してよかったのでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "daily_life",
+    "insight": "普段の生活をどう続ければいいか気になっていませんか？",
+    "action": "先生、生活で気をつけることがあれば教えてください。"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "peace_of_mind",
+    "insight": "安心できる言葉を少し求めていませんか？",
+    "action": "先生、この症状はよくあるものですか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "mutual_understanding",
+    "insight": "医師と同じ理解を持ちたいと思っていませんか？",
+    "action": "先生、今の状況をどう理解すればいいでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "care",
+    "insight": "周りの人への影響を少し気にしていませんか？",
+    "action": "先生、周りにうつる心配はありますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "guidance",
+    "insight": "安心できる行動の目安が欲しいと思っていませんか？",
+    "action": "先生、生活で注意することを教えてください。"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "communication_support",
+    "insight": "医師ときちんと話せているか少し気になっていませんか？",
+    "action": "先生、質問しても大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "relationship_safety",
+    "insight": "安心できる関係の中で相談したいと思っていませんか？",
+    "action": "先生、この症状について気をつけることはありますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "empathy",
+    "insight": "自分の気持ちも少し理解してもらえたらと思っていませんか？",
+    "action": "先生、少し不安なのですが今の状態は大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "relationship",
+    "insight": "自分の症状よりも周りへの影響が気になっていませんか？",
+    "action": "先生、周りに心配をかけない生活の仕方を教えてください。"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "emotional",
+    "insight": "少し不安を感じているのに、それを言葉にするのを迷っていませんか？",
+    "action": "先生、少し不安なのですが相談してもよいでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "family",
+    "insight": "家族が心配しないようにしたいと思っていませんか？",
+    "action": "先生、家族にはどう説明したらよいでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "reassurance",
+    "insight": "安心できる言葉を少し求めていませんか？",
+    "action": "先生、この症状はよくあるものですか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "communication",
+    "insight": "自分の症状をきちんと伝えられているか気になっていませんか？",
+    "action": "先生、説明がうまくできているか確認していただけますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "support",
+    "insight": "一人で抱えなくてもいいのか知りたいと思っていませんか？",
+    "action": "先生、この症状は相談してよかったでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "peace",
+    "insight": "安心して生活したいと思っていませんか？",
+    "action": "先生、生活で気をつけることを教えてください。"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "trust",
+    "insight": "医師の説明をしっかり理解したいと思っていませんか？",
+    "action": "先生、今の状態を簡単に説明していただけますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "care",
+    "insight": "周りの人への影響が少し気になっていませんか？",
+    "action": "先生、周りにうつる心配はありますか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "daily",
+    "insight": "普段の生活をどう続ければいいか気になっていませんか？",
+    "action": "先生、生活で注意することを教えてください。"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "empathy",
+    "insight": "気持ちを理解してもらえたらと思っていませんか？",
+    "action": "先生、少し不安なのですが今の状態は大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "communication_safe",
+    "insight": "質問しても大丈夫か少し迷っていませんか？",
+    "action": "先生、質問しても大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "understanding",
+    "insight": "状況をしっかり理解したいと思っていませんか？",
+    "action": "先生、今の状態をどう理解すればいいでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "reassurance_family",
+    "insight": "家族も安心できる説明が欲しいと思っていませんか？",
+    "action": "先生、家族にどう伝えればよいでしょうか？"
+  },
+  {
+    "type_code": "B1",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "comfort",
+    "insight": "安心して過ごしたいと思っていませんか？",
+    "action": "先生、この症状で心配する必要はありますか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "trust",
+    "insight": "医師に相談してよかったのか少し気になっていませんか？",
+    "action": "先生、この症状は相談してよかったのでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "guidance",
+    "insight": "専門家の考えを聞いて安心したいと思っていませんか？",
+    "action": "先生、この症状は一般的にはどう考えるのでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "relationship",
+    "insight": "医師と同じ理解を持てたら安心できると思っていませんか？",
+    "action": "先生、今の状態をどう理解すればいいでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "reassurance",
+    "insight": "大きな問題ではないと聞ければ安心できると思っていませんか？",
+    "action": "先生、この症状はよくあるものなのでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "communication",
+    "insight": "症状がうまく伝わっているか少し気になっていませんか？",
+    "action": "先生、症状の説明は伝わっていますでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "confirmation",
+    "insight": "自分の判断が間違っていないか確認したいと思っていませんか？",
+    "action": "先生、受診した判断は正しかったでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "safety",
+    "insight": "安心して生活するための目安が欲しいと思っていませんか？",
+    "action": "先生、生活で気をつけることを教えてください。"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "shared_understanding",
+    "insight": "医師と同じ見方を共有したいと思っていませんか？",
+    "action": "先生、医学的にはどういう状態でしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "family",
+    "insight": "家族にも説明できる理解が欲しいと思っていませんか？",
+    "action": "先生、家族にはどう説明すればよいでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "clarity",
+    "insight": "今の状況をシンプルに理解したいと思っていませんか？",
+    "action": "先生、この症状を簡単に説明していただけますか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "support",
+    "insight": "一人で判断するのではなく専門家の意見を聞きたいと思っていませんか？",
+    "action": "先生、この状態ではどうするのが一般的でしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "peace",
+    "insight": "安心できる目安を知りたいと思っていませんか？",
+    "action": "先生、心配しなくてもよい状態でしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "trust_build",
+    "insight": "医師の考えをもう少し聞けたら安心できると思っていませんか？",
+    "action": "先生、この症状の見方を教えていただけますか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "daily",
+    "insight": "日常生活の中でどう過ごせばいいか気になっていませんか？",
+    "action": "先生、普段の生活は続けて大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "consultation",
+    "insight": "相談できていること自体に少し安心していませんか？",
+    "action": "先生、気になることをもう少し相談してもいいでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "trust",
+    "insight": "医師に相談できて少し安心していませんか？",
+    "action": "先生、この症状は相談してよかったでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "relationship",
+    "insight": "医師の考えを理解できれば安心できると思っていませんか？",
+    "action": "先生、この症状をどう理解すればよいでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "reassurance",
+    "insight": "大きな問題ではないと聞ければ安心できると思っていませんか？",
+    "action": "先生、この症状はよくあるものですか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "communication",
+    "insight": "症状をうまく伝えられているか少し気になっていませんか？",
+    "action": "先生、説明が伝わっていますでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "guidance",
+    "insight": "専門家の視点を聞きたいと思っていませんか？",
+    "action": "先生、この症状は医学的にはどう見えますか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "support",
+    "insight": "一人で判断しなくていいと知りたいと思っていませんか？",
+    "action": "先生、この症状はどう対応するのが一般的でしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "family",
+    "insight": "家族にも安心して説明できる言葉が欲しいと思っていませんか？",
+    "action": "先生、家族にはどう伝えればいいでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "clarity",
+    "insight": "状況をシンプルに理解したいと思っていませんか？",
+    "action": "先生、この症状を簡単に説明していただけますか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "peace",
+    "insight": "安心して生活したいと思っていませんか？",
+    "action": "先生、生活で気をつけることはありますか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "shared_understanding",
+    "insight": "医師と同じ理解を持てたら安心できると思っていませんか？",
+    "action": "先生、今の状態をどう理解すればよいでしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "consultation",
+    "insight": "相談できること自体に安心していませんか？",
+    "action": "先生、もう少し質問しても大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "confidence",
+    "insight": "専門家の判断を聞いて安心したいと思っていませんか？",
+    "action": "先生、この状態は心配するものですか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "relationship_safety",
+    "insight": "安心して相談できる関係を大切にしていませんか？",
+    "action": "先生、この症状について気をつけることはありますか？"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "daily",
+    "insight": "普段の生活をどう続ければよいか気になっていませんか？",
+    "action": "先生、生活で注意することを教えてください。"
+  },
+  {
+    "type_code": "B2",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "understanding",
+    "insight": "納得して帰りたいと思っていませんか？",
+    "action": "先生、この症状の見方を教えていただけますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "body_awareness",
+    "insight": "体の小さな変化が少し気になっていませんか？",
+    "action": "先生、この症状はよくあるものですか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "uncertainty",
+    "insight": "この感覚が普通なのか少し気になっていませんか？",
+    "action": "先生、この症状は心配するものですか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "anxiety",
+    "insight": "大きな問題ではないと聞ければ安心できると思っていませんか？",
+    "action": "先生、今の状態は大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "monitoring",
+    "insight": "症状をよく観察してきたのではありませんか？",
+    "action": "先生、この変化は普通でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "validation",
+    "insight": "気にしすぎではないか少し迷っていませんか？",
+    "action": "先生、相談してよかったでしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "peace",
+    "insight": "安心できる説明が欲しいと思っていませんか？",
+    "action": "先生、この症状を説明していただけますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "clarity",
+    "insight": "原因がわかれば安心できると思っていませんか？",
+    "action": "先生、この症状の原因は何でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "safety",
+    "insight": "大きな問題でないと知りたいと思っていませんか？",
+    "action": "先生、今は心配しなくていい状態でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "body_signal",
+    "insight": "体からのサインではないかと感じていませんか？",
+    "action": "先生、この症状は体のサインでしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "observation",
+    "insight": "自分なりに変化を観察してきていませんか？",
+    "action": "先生、この症状の見方を教えてください。"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "sensitivity",
+    "insight": "体の感覚に敏感な方かもしれませんね？",
+    "action": "先生、この症状は普通の範囲でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "explanation",
+    "insight": "理解できれば安心できると思っていませんか？",
+    "action": "先生、この状態を説明していただけますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "peace_of_mind",
+    "insight": "安心して帰りたいと思っていませんか？",
+    "action": "先生、心配する必要はありますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "clarify",
+    "insight": "曖昧な部分をはっきりさせたいと思っていませんか？",
+    "action": "先生、この症状の判断基準を教えてください。"
+  },
+  {
+    "type_code": "B3",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "support",
+    "insight": "専門家の意見を聞いて安心したいと思っていませんか？",
+    "action": "先生、医学的にはどう見えますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "body_awareness",
+    "insight": "体の小さな変化に気づいていませんか？",
+    "action": "先生、この症状はよくあるものですか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "uncertainty",
+    "insight": "この感覚が普通なのか気になっていませんか？",
+    "action": "先生、この状態は大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "anxiety",
+    "insight": "少し不安を感じていませんか？",
+    "action": "先生、心配する必要はありますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "monitoring",
+    "insight": "体の変化をよく観察してきたのではありませんか？",
+    "action": "先生、この変化は普通でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "validation",
+    "insight": "気にしすぎではないか迷っていませんか？",
+    "action": "先生、相談してよかったでしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "peace",
+    "insight": "安心できる説明が欲しいと思っていませんか？",
+    "action": "先生、この症状を説明していただけますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "clarity",
+    "insight": "原因がわかれば安心できると思っていませんか？",
+    "action": "先生、この症状の原因は何でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "safety",
+    "insight": "大きな問題でないと知りたいと思っていませんか？",
+    "action": "先生、今は心配しなくていい状態でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "body_signal",
+    "insight": "体からのサインではないかと思っていませんか？",
+    "action": "先生、この症状は体のサインでしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "observation",
+    "insight": "自分なりに変化を観察していませんか？",
+    "action": "先生、この症状の見方を教えてください。"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "sensitivity",
+    "insight": "体の感覚に敏感な方かもしれませんね？",
+    "action": "先生、この症状は普通の範囲でしょうか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "explanation",
+    "insight": "理解できれば安心できると思っていませんか？",
+    "action": "先生、この状態を説明していただけますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "peace_of_mind",
+    "insight": "安心して帰りたいと思っていませんか？",
+    "action": "先生、心配する必要はありますか？"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "clarify",
+    "insight": "曖昧な部分をはっきりさせたいと思っていませんか？",
+    "action": "先生、この症状の判断基準を教えてください。"
+  },
+  {
+    "type_code": "B3",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "support",
+    "insight": "専門家の意見を聞いて安心したいと思っていませんか？",
+    "action": "先生、医学的にはどう見えますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "family",
+    "insight": "自分の体調より家族への影響が気になっていませんか？",
+    "action": "先生、この状態で家族に心配をかけない生活はできますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "responsibility",
+    "insight": "自分の役割を続けられるか気になっていませんか？",
+    "action": "先生、この症状で仕事は続けて大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "care",
+    "insight": "周りの人に迷惑をかけたくないと思っていませんか？",
+    "action": "先生、周りに影響はありますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "family_explanation",
+    "insight": "家族にも安心して説明したいと思っていませんか？",
+    "action": "先生、家族にはどう説明すればいいでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "daily",
+    "insight": "普段の生活を続けたいと思っていませんか？",
+    "action": "先生、日常生活は続けて大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "support_role",
+    "insight": "誰かを支える立場ではありませんか？",
+    "action": "先生、この状態で無理をしない方がいいでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "peace",
+    "insight": "周囲も安心できる説明が欲しいと思っていませんか？",
+    "action": "先生、この症状は心配するものですか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "guidance",
+    "insight": "生活の目安が欲しいと思っていませんか？",
+    "action": "先生、生活で気をつけることを教えてください。"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "family_role",
+    "insight": "家族の役割を続けられるか気になっていませんか？",
+    "action": "先生、この状態で普段通り生活できますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "peace_of_mind",
+    "insight": "安心して周囲に接したいと思っていませんか？",
+    "action": "先生、この症状は大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "support",
+    "insight": "周囲の人を守りたいと思っていませんか？",
+    "action": "先生、周りにうつる心配はありますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "balance",
+    "insight": "自分と周囲のバランスを考えていませんか？",
+    "action": "先生、無理をしない方がいいでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "responsibility",
+    "insight": "責任感が強い方ではありませんか？",
+    "action": "先生、今は休んだ方がよいでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "guidance",
+    "insight": "どう行動すればいいか知りたいと思っていませんか？",
+    "action": "先生、生活の目安を教えてください。"
+  },
+  {
+    "type_code": "B4",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "reassurance",
+    "insight": "周りの人も安心できる説明が欲しいと思っていませんか？",
+    "action": "先生、この症状は心配ないでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "family",
+    "insight": "自分の体調より家族のことを先に考えていませんか？",
+    "action": "先生、この状態で家族の世話は続けられますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "caregiving",
+    "insight": "誰かを支える役割があるのではありませんか？",
+    "action": "先生、この症状で無理をしない方がいいでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "responsibility",
+    "insight": "周囲に迷惑をかけないか気になっていませんか？",
+    "action": "先生、周りに影響はありますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "family_explain",
+    "insight": "家族にも安心して説明したいと思っていませんか？",
+    "action": "先生、家族にはどう説明すればいいでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "daily",
+    "insight": "普段の生活を続けたいと思っていませんか？",
+    "action": "先生、日常生活は続けて大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "balance",
+    "insight": "家族と自分の体調のバランスを考えていませんか？",
+    "action": "先生、今は休んだ方がいいでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "support_role",
+    "insight": "誰かを支える立場ではありませんか？",
+    "action": "先生、この状態で無理をしても大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "peace",
+    "insight": "周囲も安心できる説明が欲しいと思っていませんか？",
+    "action": "先生、この症状は心配するものですか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "guidance",
+    "insight": "生活の目安を知りたいと思っていませんか？",
+    "action": "先生、生活で気をつけることを教えてください。"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "family_role",
+    "insight": "家族の役割を続けられるか気になっていませんか？",
+    "action": "先生、この状態で普段通り生活できますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "reassurance",
+    "insight": "安心して家族と過ごしたいと思っていませんか？",
+    "action": "先生、この症状は大丈夫でしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "support",
+    "insight": "周囲を守りたいと思っていませんか？",
+    "action": "先生、周りにうつる心配はありますか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "responsibility",
+    "insight": "責任感が強い方ではありませんか？",
+    "action": "先生、今は休んだ方がよいでしょうか？"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "guidance",
+    "insight": "どう行動すればよいか知りたいと思っていませんか？",
+    "action": "先生、生活の目安を教えてください。"
+  },
+  {
+    "type_code": "B4",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "peace_of_mind",
+    "insight": "安心して帰りたいと思っていませんか？",
+    "action": "先生、この症状は心配ないでしょうか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "solution",
+    "insight": "原因よりも、まず何をすればいいのか知りたいと思っていませんか？",
+    "action": "先生、まず何をすればいいか教えてください。"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "efficiency",
+    "insight": "遠回りではなく一番効率的な対処を知りたいと思っていませんか？",
+    "action": "先生、一番効率のよい治療はどれでしょうか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "timeline",
+    "insight": "どのくらいで良くなるのかが一番気になっていませんか？",
+    "action": "先生、どれくらいで回復しますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "action_plan",
+    "insight": "具体的な行動の順番が知りたいと思っていませんか？",
+    "action": "先生、今日から何をすればいいですか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "return",
+    "insight": "早く普段の生活に戻りたいと思っていませんか？",
+    "action": "先生、いつ頃普通の生活に戻れますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "work",
+    "insight": "仕事への影響を最小にしたいと思っていませんか？",
+    "action": "先生、仕事は続けても大丈夫でしょうか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "risk",
+    "insight": "放っておくと悪くなるのか気になっていませんか？",
+    "action": "先生、このままだと悪化しますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "priority",
+    "insight": "何を優先すればいいか知りたいと思っていませんか？",
+    "action": "先生、今一番大事なことは何ですか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "control",
+    "insight": "自分でできる対策を知りたいと思っていませんか？",
+    "action": "先生、自分でできる対策はありますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "improvement",
+    "insight": "少しでも早く良くしたいと思っていませんか？",
+    "action": "先生、早く治す方法はありますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "strategy",
+    "insight": "一番確実な方法を選びたいと思っていませんか？",
+    "action": "先生、最も確実な治療はどれでしょうか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "clarity",
+    "insight": "シンプルに今の状態を知りたいと思っていませんか？",
+    "action": "先生、今の状態を一言で言うとどうでしょうか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "planning",
+    "insight": "先の見通しが立つと安心すると思っていませんか？",
+    "action": "先生、今後の流れを教えてください。"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "decision",
+    "insight": "早く決断できる材料が欲しいと思っていませんか？",
+    "action": "先生、どの治療を選ぶのがよいでしょうか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "speed",
+    "insight": "時間を無駄にしたくないと思っていませんか？",
+    "action": "先生、今すぐやるべきことは何ですか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "solution",
+    "insight": "原因よりもまず対処法を知りたいと思っていませんか？",
+    "action": "先生、まず何をすればいいですか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "efficiency",
+    "insight": "できるだけ早く改善する方法を知りたいと思っていませんか？",
+    "action": "先生、早く良くなる方法はありますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "timeline",
+    "insight": "いつ頃よくなるのかが気になっていませんか？",
+    "action": "先生、どれくらいで治りますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "planning",
+    "insight": "これからどう進むのか見通しが欲しいと思っていませんか？",
+    "action": "先生、今後の流れを教えてください。"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "daily_life",
+    "insight": "日常生活にどう影響するのか気になっていませんか？",
+    "action": "先生、生活は普段通りで大丈夫ですか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "priority",
+    "insight": "今何を優先すべきか知りたいと思っていませんか？",
+    "action": "先生、今一番大事なことは何でしょうか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "control",
+    "insight": "自分でできることがあれば知りたいと思っていませんか？",
+    "action": "先生、自分でできるケアはありますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "return",
+    "insight": "早く普段の生活に戻りたいと思っていませんか？",
+    "action": "先生、いつ頃普通の生活に戻れますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "risk",
+    "insight": "このまま様子を見ていいのか気になっていませんか？",
+    "action": "先生、このまま様子を見ても大丈夫ですか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "clarity",
+    "insight": "今の状態をシンプルに知りたいと思っていませんか？",
+    "action": "先生、今の状態を簡単に教えてください。"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "decision",
+    "insight": "治療の選択肢を整理したいと思っていませんか？",
+    "action": "先生、治療の選択肢を教えてください。"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "improvement",
+    "insight": "少しでも早く良くしたいと思っていませんか？",
+    "action": "先生、早く良くする方法はありますか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "action",
+    "insight": "今日からできる行動が知りたいと思っていませんか？",
+    "action": "先生、今日からできることを教えてください。"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "strategy",
+    "insight": "一番よい方法を選びたいと思っていませんか？",
+    "action": "先生、どの治療が一番よいでしょうか？"
+  },
+  {
+    "type_code": "C1",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "confidence",
+    "insight": "納得して前に進みたいと思っていませんか？",
+    "action": "先生、どうするのが一番よいでしょうか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "control",
+    "insight": "自分で状況をコントロールしたいと思っていませんか？",
+    "action": "先生、自分でできる対策はありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "decision",
+    "insight": "自分で判断する材料が欲しいと思っていませんか？",
+    "action": "先生、治療の選択肢を教えてください。"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "risk",
+    "insight": "どこまでなら問題ないのか知りたいと思っていませんか？",
+    "action": "先生、どこまでなら運動して大丈夫ですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "challenge",
+    "insight": "体を動かしながら改善したいと思っていませんか？",
+    "action": "先生、運動は続けても大丈夫でしょうか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "limit",
+    "insight": "無理をしていいラインを知りたいと思っていませんか？",
+    "action": "先生、どこまで無理しても大丈夫でしょうか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "strategy",
+    "insight": "効率よく改善する戦略を知りたいと思っていませんか？",
+    "action": "先生、一番効果的な対処は何ですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "timeline",
+    "insight": "改善の目安を知りたいと思っていませんか？",
+    "action": "先生、回復までの目安はどれくらいですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "strength",
+    "insight": "体力的に問題ないのか知りたいと思っていませんか？",
+    "action": "先生、体を動かしても大丈夫ですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "self_management",
+    "insight": "自分で管理できる方法を知りたいと思っていませんか？",
+    "action": "先生、自分で管理するポイントはありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "limit_check",
+    "insight": "危険なラインだけ知っておきたいと思っていませんか？",
+    "action": "先生、やってはいけないことは何ですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "plan",
+    "insight": "自分なりの計画を立てたいと思っていませんか？",
+    "action": "先生、回復までの流れを教えてください。"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "performance",
+    "insight": "パフォーマンスへの影響が気になっていませんか？",
+    "action": "先生、体力に影響はありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "speed",
+    "insight": "最短で回復したいと思っていませんか？",
+    "action": "先生、最短で回復する方法はありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "training",
+    "insight": "トレーニングを止めたくないと思っていませんか？",
+    "action": "先生、軽い運動なら大丈夫ですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "decision_power",
+    "insight": "自分で納得して決めたいと思っていませんか？",
+    "action": "先生、判断材料を教えてください。"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "control",
+    "insight": "自分で体をコントロールしたいと思っていませんか？",
+    "action": "先生、自分でできるケアはありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "decision",
+    "insight": "納得して選びたいと思っていませんか？",
+    "action": "先生、治療の選択肢を教えてください。"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "risk",
+    "insight": "どこまでなら大丈夫なのか知りたいと思っていませんか？",
+    "action": "先生、やってはいけないことはありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "activity",
+    "insight": "できれば普段通り活動したいと思っていませんか？",
+    "action": "先生、運動しても大丈夫ですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "timeline",
+    "insight": "回復までの目安を知りたいと思っていませんか？",
+    "action": "先生、どれくらいで回復しますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "plan",
+    "insight": "自分で改善の計画を立てたいと思っていませんか？",
+    "action": "先生、改善の流れを教えてください。"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "limit",
+    "insight": "無理をしていい範囲を知りたいと思っていませんか？",
+    "action": "先生、どこまで活動していいですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "selfcare",
+    "insight": "自分でケアする方法を知りたいと思っていませんか？",
+    "action": "先生、自分でできる対策はありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "confidence",
+    "insight": "納得して前に進みたいと思っていませんか？",
+    "action": "先生、どうするのが一番よいでしょうか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "strategy",
+    "insight": "一番効果的な方法を知りたいと思っていませんか？",
+    "action": "先生、効果的な対処法はありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "strength",
+    "insight": "体力的に問題ないか知りたいと思っていませんか？",
+    "action": "先生、体を動かして大丈夫ですか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "risk_check",
+    "insight": "危険なことだけ知っておきたいと思っていませんか？",
+    "action": "先生、避けるべきことはありますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "planning",
+    "insight": "見通しを立てたいと思っていませんか？",
+    "action": "先生、今後の流れを教えてください。"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "return",
+    "insight": "早く元の生活に戻りたいと思っていませんか？",
+    "action": "先生、いつ頃戻れますか？"
+  },
+  {
+    "type_code": "C2",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "decision",
+    "insight": "自分で納得して決めたいと思っていませんか？",
+    "action": "先生、どう選ぶのがよいでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "cause",
+    "insight": "症状そのものよりも、なぜ起きているのかが気になっていませんか？",
+    "action": "先生、この症状の原因は何でしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "mechanism",
+    "insight": "体の中で何が起きているのか知りたいと思っていませんか？",
+    "action": "先生、体の中ではどんなことが起きているのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "understanding",
+    "insight": "仕組みがわかると安心できるのではありませんか？",
+    "action": "先生、この症状の仕組みを教えていただけますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "medical_reason",
+    "insight": "治療の理由を理解したいと思っていませんか？",
+    "action": "先生、この治療をする理由を教えてください。"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "logic",
+    "insight": "医学的な考え方を知りたいと思っていませんか？",
+    "action": "先生、この症状は医学的にはどう考えるのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "process",
+    "insight": "病気がどのような流れで起きるのか気になっていませんか？",
+    "action": "先生、この病気はどのように進むのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "detail",
+    "insight": "もう少し詳しく理解したいと思っていませんか？",
+    "action": "先生、もう少し詳しく説明していただけますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "comparison",
+    "insight": "他の可能性もあるのか気になっていませんか？",
+    "action": "先生、他の原因の可能性もありますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "diagnosis",
+    "insight": "どのように判断しているのか知りたいと思っていませんか？",
+    "action": "先生、この診断はどのように判断したのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "evidence",
+    "insight": "医学的な根拠を少し知りたいと思っていませんか？",
+    "action": "先生、この治療はどのような根拠があるのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "curiosity",
+    "insight": "体の変化の理由が気になっていませんか？",
+    "action": "先生、この症状はなぜ起きるのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "progression",
+    "insight": "今後どう変化するのか知りたいと思っていませんか？",
+    "action": "先生、この症状は今後どう変わりますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "biology",
+    "insight": "体の反応の仕組みを知りたいと思っていませんか？",
+    "action": "先生、体はなぜこの反応をするのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "research",
+    "insight": "最新の知見も少し気になっていませんか？",
+    "action": "先生、この病気は最近どんな研究がありますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "knowledge",
+    "insight": "知識として理解しておきたいと思っていませんか？",
+    "action": "先生、この症状について基本的なことを教えてください。"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "cause",
+    "insight": "症状の理由を知りたいと思っていませんか？",
+    "action": "先生、この症状の原因は何でしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "mechanism",
+    "insight": "体の中で何が起きているのか気になっていませんか？",
+    "action": "先生、体の中ではどんなことが起きていますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "understanding",
+    "insight": "仕組みがわかると安心できると思っていませんか？",
+    "action": "先生、この症状の仕組みを教えてください。"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "reason",
+    "insight": "治療の理由を理解したいと思っていませんか？",
+    "action": "先生、この治療をする理由は何でしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "logic",
+    "insight": "医学的にはどう考えるのか知りたいと思っていませんか？",
+    "action": "先生、この症状は医学的にどう説明されますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "process",
+    "insight": "病気がどのように進むのか気になっていませんか？",
+    "action": "先生、この症状はどのように進みますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "detail",
+    "insight": "もう少し詳しく理解したいと思っていませんか？",
+    "action": "先生、もう少し詳しく教えてください。"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "possibility",
+    "insight": "他の可能性も気になっていませんか？",
+    "action": "先生、他の原因の可能性はありますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "diagnosis",
+    "insight": "どのように判断したのか知りたいと思っていませんか？",
+    "action": "先生、この診断はどのように判断されたのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "evidence",
+    "insight": "医学的な根拠が気になっていませんか？",
+    "action": "先生、この治療の根拠を教えてください。"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "curiosity",
+    "insight": "体の変化の理由が気になっていませんか？",
+    "action": "先生、この症状はなぜ起きるのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "progress",
+    "insight": "今後どう変わるのか知りたいと思っていませんか？",
+    "action": "先生、この症状は今後どうなりますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "body",
+    "insight": "体の反応の仕組みが気になっていませんか？",
+    "action": "先生、体はなぜこの反応をするのでしょうか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "research",
+    "insight": "最近の医学情報も少し気になっていませんか？",
+    "action": "先生、この病気は最近どんな研究がありますか？"
+  },
+  {
+    "type_code": "C3",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "learning",
+    "insight": "理解しておきたいと思っていませんか？",
+    "action": "先生、この症状の基本を教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 1,
+    "focus": "decision",
+    "insight": "自分で納得して決めたいと思っていませんか？",
+    "action": "先生、選択肢を教えていただけますか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 2,
+    "focus": "comparison",
+    "insight": "治療の違いを整理したいと思っていませんか？",
+    "action": "先生、それぞれの治療の違いを教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 3,
+    "focus": "risk",
+    "insight": "リスクも含めて理解したいと思っていませんか？",
+    "action": "先生、この治療のリスクは何でしょうか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 4,
+    "focus": "benefit",
+    "insight": "メリットを知りたいと思っていませんか？",
+    "action": "先生、この治療のメリットは何ですか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 5,
+    "focus": "option",
+    "insight": "他の選択肢も気になっていませんか？",
+    "action": "先生、他の治療方法はありますか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 6,
+    "focus": "balance",
+    "insight": "リスクと効果のバランスを知りたいと思っていませんか？",
+    "action": "先生、効果とリスクを教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 7,
+    "focus": "choice",
+    "insight": "自分に合う方法を選びたいと思っていませんか？",
+    "action": "先生、私にはどの方法が合いそうですか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 8,
+    "focus": "priority",
+    "insight": "優先順位を整理したいと思っていませんか？",
+    "action": "先生、何を優先すべきでしょうか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 9,
+    "focus": "strategy",
+    "insight": "長期的な戦略を考えていませんか？",
+    "action": "先生、長期的にはどう考えるべきですか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 10,
+    "focus": "future",
+    "insight": "将来への影響が気になっていませんか？",
+    "action": "先生、将来への影響はありますか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 11,
+    "focus": "clarity",
+    "insight": "情報を整理したいと思っていませんか？",
+    "action": "先生、今の状況を整理して教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 12,
+    "focus": "decision_support",
+    "insight": "判断材料を集めたいと思っていませんか？",
+    "action": "先生、判断材料を教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 13,
+    "focus": "planning",
+    "insight": "計画を立てたいと思っていませんか？",
+    "action": "先生、今後の計画を教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 14,
+    "focus": "ownership",
+    "insight": "自分で責任を持って決めたいと思っていませんか？",
+    "action": "先生、どの選択肢がありますか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "male",
+    "variation_id": 15,
+    "focus": "confidence",
+    "insight": "納得して進みたいと思っていませんか？",
+    "action": "先生、どう考えるのがよいでしょうか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 1,
+    "focus": "decision",
+    "insight": "自分で納得して決めたいと思っていませんか？",
+    "action": "先生、選択肢を教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 2,
+    "focus": "comparison",
+    "insight": "治療の違いを整理したいと思っていませんか？",
+    "action": "先生、それぞれの治療の違いは何ですか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 3,
+    "focus": "risk",
+    "insight": "リスクも知っておきたいと思っていませんか？",
+    "action": "先生、この治療のリスクは何ですか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 4,
+    "focus": "benefit",
+    "insight": "メリットも理解したいと思っていませんか？",
+    "action": "先生、この治療のメリットは何ですか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 5,
+    "focus": "option",
+    "insight": "他の方法も気になっていませんか？",
+    "action": "先生、他の方法はありますか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 6,
+    "focus": "balance",
+    "insight": "効果とリスクを比較したいと思っていませんか？",
+    "action": "先生、効果とリスクを教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 7,
+    "focus": "choice",
+    "insight": "自分に合う方法を選びたいと思っていませんか？",
+    "action": "先生、私にはどれが合いますか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 8,
+    "focus": "priority",
+    "insight": "優先順位を整理したいと思っていませんか？",
+    "action": "先生、何を優先すべきでしょうか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 9,
+    "focus": "future",
+    "insight": "将来の影響が気になっていませんか？",
+    "action": "先生、将来への影響はありますか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 10,
+    "focus": "strategy",
+    "insight": "長期的な考え方を知りたいと思っていませんか？",
+    "action": "先生、長期的にはどう考えるべきでしょうか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 11,
+    "focus": "clarity",
+    "insight": "状況を整理したいと思っていませんか？",
+    "action": "先生、今の状態を整理して教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 12,
+    "focus": "decision_support",
+    "insight": "判断材料を集めたいと思っていませんか？",
+    "action": "先生、判断材料を教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 13,
+    "focus": "planning",
+    "insight": "これからの計画を立てたいと思っていませんか？",
+    "action": "先生、今後の計画を教えてください。"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 14,
+    "focus": "ownership",
+    "insight": "自分で責任を持って決めたいと思っていませんか？",
+    "action": "先生、どんな選択肢がありますか？"
+  },
+  {
+    "type_code": "C4",
+    "gender": "female",
+    "variation_id": 15,
+    "focus": "confidence",
+    "insight": "納得して進みたいと思っていませんか？",
+    "action": "先生、どう考えるのがよいでしょうか？"
+  }
+]
