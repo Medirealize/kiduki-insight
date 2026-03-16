@@ -260,7 +260,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="mx-auto max-w-lg px-5 py-8 sm:py-12">
+      <div className="mx-auto max-w-md px-4 py-8 sm:py-12">
         <header className="mb-8 text-center">
           <h1 className="text-lg font-semibold tracking-tight text-stone-800 sm:text-xl">
             KiDuKi - Insight
@@ -279,13 +279,13 @@ export default function Home() {
         >
           {/* ① 属性入力 */}
           {step === 1 && (
-            <section className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-              <p className="mb-4 text-sm text-stone-600">
+            <section className="rounded-2xl bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+              <p className="mb-4 text-[15px] leading-relaxed text-stone-600">
                 生年月日と性別を教えてください。性格統計学に基づいて、あなたに合った問いかけをします。
               </p>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="birth" className="mb-1 block text-sm font-medium text-stone-700">
+                  <label htmlFor="birth" className="mb-1 block text-xs font-semibold tracking-wide text-stone-700 uppercase">
                     生年月日
                   </label>
                   <input
@@ -297,7 +297,9 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <span className="mb-2 block text-sm font-medium text-stone-700">性別</span>
+                  <span className="mb-2 block text-xs font-semibold tracking-wide text-stone-700 uppercase">
+                    性別
+                  </span>
                   <div className="flex gap-6">
                     <label className="flex cursor-pointer items-center gap-2">
                       <input
@@ -336,8 +338,8 @@ export default function Home() {
 
           {/* ② 悩み入力 */}
           {step === 2 && (
-            <section className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-              <p className="mb-4 text-sm text-stone-600">
+            <section className="rounded-2xl bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+              <p className="mb-4 text-[15px] leading-relaxed text-stone-600">
                 今、先生に聞きたいことや、不安に思っていることを自由に書いてください。
               </p>
               <textarea
@@ -345,7 +347,7 @@ export default function Home() {
                 onChange={(e) => setWorryText(e.target.value)}
                 placeholder="例：症状がいつまで続くか、仕事を休むべきか、家族にどう伝えればいいか…"
                 rows={5}
-                className="w-full resize-none rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3 text-stone-800 placeholder-stone-400 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
+                className="w-full resize-none rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3 text-[15px] leading-relaxed text-stone-800 placeholder-stone-400 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
               />
               {showNextButton && (
                 <button
@@ -361,11 +363,11 @@ export default function Home() {
 
           {/* ③④⑤ 深掘り質問（1画面1問） */}
           {step >= 3 && step <= 5 && questions[currentQIndex] && (
-            <section className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-              <p className="mb-1 text-xs font-medium uppercase tracking-wider text-teal-600">
+            <section className="rounded-2xl bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
                 {group}に基づく質問
               </p>
-              <p className="mb-6 text-base leading-relaxed text-stone-800">
+              <p className="mb-6 text-[15px] leading-relaxed text-stone-800">
                 {questions[currentQIndex].text}
               </p>
               <div className="space-y-3">
@@ -398,17 +400,17 @@ export default function Home() {
 
           {/* ⑥ 思考の解析演出（3秒） */}
           {step === 6 && (
-            <section className="rounded-2xl bg-white p-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] text-center">
+            <section className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] text-center">
               {worryText.trim() && (
-                <p className="mb-4 text-left text-sm text-stone-600">
+                <p className="mb-4 text-left text-[15px] leading-relaxed text-stone-600">
                   あなたが入力したこと：<span className="font-medium text-stone-800">「{worryText.trim().slice(0, 60)}{worryText.trim().length > 60 ? "…" : ""}」</span>
                 </p>
               )}
               <div className="inline-block h-10 w-10 animate-spin rounded-full border-2 border-teal-200 border-t-teal-600" />
-              <p className="mt-4 text-sm font-medium text-stone-700">
+              <p className="mt-4 text-sm font-medium leading-relaxed text-stone-700">
                 思考を解析しています…
               </p>
-              <p className="mt-1 text-xs text-stone-500">
+              <p className="mt-1 text-xs leading-relaxed text-stone-500">
                 性格統計学の視点で、あなたの入力を深く分析しています
               </p>
             </section>
@@ -416,33 +418,33 @@ export default function Home() {
 
           {/* ⑦ 最終結果 */}
           {step === 7 && result && (
-            <section className="space-y-5">
-              <div className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-teal-600">
+            <section className="space-y-6">
+              <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
                   あなたが入力したこと
                 </p>
-                <p className="text-sm leading-relaxed text-stone-800">
+                <p className="text-[15px] leading-[1.7] text-stone-800">
                   「{worryText.trim() || "（未入力）"}」
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                <p className="mt-3 text-[14px] leading-relaxed text-stone-600">
                   上記について、性格統計学の視点で深く分析しました。
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="mb-1 text-xs font-medium uppercase tracking-wider text-teal-600">
+              <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
                   Insight
                 </p>
-                <p className="mt-2 leading-relaxed text-stone-800">
+                <p className="mt-2 text-[15px] leading-[1.7] text-stone-800">
                   {aiInsight ?? result.insight}
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="mb-1 text-xs font-medium uppercase tracking-wider text-teal-600">
+              <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
                   診察室での最初の一言
                 </p>
-                <p className="mt-2 leading-relaxed text-stone-800">
+                <p className="mt-2 text-[15px] leading-relaxed text-stone-800">
                   {aiAction ?? result.action}
                 </p>
               </div>
