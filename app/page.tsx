@@ -120,7 +120,8 @@ const TOTAL_STEPS = 7; // ①属性 ②悩み ③Q1 ④Q2 ⑤Q3 ⑥解析演出 
 export default function Home() {
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState<"in" | "out">("in");
-  const [birthDate, setBirthDate] = useState("");
+  // デフォルトの年を 1985 年に固定
+  const [birthDate, setBirthDate] = useState("1985-01-01");
   const [gender, setGender] = useState<"male" | "female">("male");
   const [worryText, setWorryText] = useState("");
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
