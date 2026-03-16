@@ -1,0 +1,357 @@
+1 アプリ全体構造
+
+KiDuKiは次の 4レイヤー構造です
+
+Frontend
+↓
+API Layer
+↓
+Logic Engine
+↓
+Database
+
+推奨構成（Cursor初心者でも可）
+
+Frontend
+Next.js
+
+Backend
+Node.js (API Routes)
+
+Database
+Supabase (PostgreSQL)
+
+Hosting
+Vercel
+
+理由
+
+Cursorと相性良い
+
+無料枠で開始可能
+
+JSON扱いやすい
+
+2 データベース設計
+table: personality_types
+
+12タイプ
+
+id
+type_code
+group
+name
+description
+
+例
+
+id	type_code	group	name
+1	A1	Logical	Logical Perfectionist
+2	A2	Logical	Strategic Analyst
+3	A3	Logical	Rational Planner
+4	A4	Logical	Independent Thinker
+5	B1	Empathic	Empathic Harmonizer
+6	B2	Empathic	Relational Support Seeker
+7	B3	Empathic	Sensitive Observer
+8	B4	Empathic	Social Caregiver
+9	C1	Action	Action Driver
+10	C2	Action	Challenge Seeker
+11	C3	Action	Curious Explorer
+12	C4	Action	Independent Navigator
+table: insights
+
+360データ
+
+id
+type_code
+gender
+variation_id
+focus
+insight
+action
+
+例
+
+1
+A1
+male
+1
+social_role
+仕事や役割に穴を開けることへの焦りが…
+先生、最短で復帰するために…
+
+Index
+
+(type_code, gender)
+table: sessions
+
+ユーザーセッション
+
+session_id
+birth_date
+gender
+type_code
+q1
+q2
+q3
+created_at
+3 性格判定アルゴリズム
+
+KiDuKiでは
+
+生年月日 → 基本タイプ
+質問3つ → 状態補正
+Step1 生年月日 → コアタイプ
+
+シンプル設計
+
+数字合計法
+
+例
+
+1982-07-15
+
+1+9+8+2+0+7+1+5 = 33
+3+3 = 6
+result = 1〜9
+
+マッピング
+
+1 A1
+2 A2
+3 A3
+4 A4
+5 B1
+6 B2
+7 B3
+8 B4
+9 C1
+0 C2
+
+次
+
+生まれ月 mod 4
+
+でC3/C4など微調整
+
+Step2 診察前質問
+
+アプリ画面
+
+30秒アンケート
+
+Q1
+今一番近い感覚は？
+
+選択
+
+A 理解したい
+B 誰かに相談したい
+C 早く解決したい
+Q2
+医師に何を求めますか？
+A 説明
+B 安心
+C 対処法
+Q3
+今の気持ちは？
+A 冷静
+B 不安
+C 急ぎたい
+Step3 タイプ補正
+Logical +2
+Empathic +2
+Action +2
+
+例
+
+birth type = A2
+
+answers
+
+A
+A
+C
+
+Logical +2
+Action +1
+
+最終
+
+A2
+
+または
+
+C1
+
+に補正
+
+4 Insight抽出ロジック
+
+取得条件
+
+type_code
+gender
+
+SQL
+
+SELECT *
+FROM insights
+WHERE type_code = 'A1'
+AND gender = 'male'
+ORDER BY random()
+LIMIT 1
+
+これで
+
+15 Variationから1つ抽出
+
+5 API設計
+POST /api/session
+
+入力
+
+birth_date
+gender
+q1
+q2
+q3
+
+処理
+
+1 生年月日 → base_type
+2 質問 → adjust
+3 final_type
+4 insight取得
+
+出力
+
+{
+ type: "A1",
+ insight: "...",
+ action: "..."
+}
+6 ロジックコード例（Node）
+function calculateType(birthDate){
+  const numbers = birthDate.replace(/-/g,'').split('')
+  const sum = numbers.reduce((a,b)=>a+parseInt(b),0)
+  const result = sum % 9
+  return mapType(result)
+}
+Insight取得
+async function getInsight(type,gender){
+
+const {data} = await supabase
+.from("insights")
+.select("*")
+.eq("type_code",type)
+.eq("gender",gender)
+
+const random = data[Math.floor(Math.random()*data.length)]
+
+return random
+}
+7 フロント画面
+
+画面は 3画面のみ
+
+Screen1
+
+タイトル
+
+KiDuKi
+診察前の1分
+
+入力
+
+生年月日
+性別
+
+ボタン
+
+次へ
+Screen2
+
+3質問
+
+ラジオボタン
+Screen3
+
+結果
+
+表示
+
+Insight
+あなたは今こんな気持ちではありませんか？
+
+Action
+診察室での最初の一言
+
+ボタン
+
+コピー
+8 医療安全設計
+
+重要
+
+KiDuKiは
+
+診断しない
+
+画面に表示
+
+このアプリは診断を行うものではありません
+医師への相談を助けるツールです
+9 将来拡張
+AI連携
+
+GPT API
+
+Insight + 症状入力
+↓
+会話生成
+医療機関導入
+
+医師側画面
+
+患者タイプ表示
+
+例
+
+この患者は
+Empathicタイプです
+10 開発スケジュール
+
+Cursorで
+
+Day1
+DB作成
+
+Day2
+API
+
+Day3
+Frontend
+
+Day4
+Insight投入
+
+Day5
+テスト
+重要（ビジネス的に）
+
+あなたのKiDuKiは
+
+実は
+
+医療DXの新カテゴリ
+
+です
+
+既存
+
+問診アプリ
+
+KiDuKi
+
+診察コミュニケーションAI
