@@ -128,6 +128,7 @@ export default function Home() {
   const [aiInsight, setAiInsight] = useState<string | null>(null);
   const [aiAction, setAiAction] = useState<string | null>(null);
   const [aiError, setAiError] = useState<string | null>(null);
+  const [nextQuestions, setNextQuestions] = useState<string[]>([]);
 
   const personality = useMemo(() => analyzePersonality(birthDate), [birthDate]);
   const typeCode = personality?.typeCode ?? "A1";
@@ -168,6 +169,7 @@ export default function Home() {
         setAiError(null);
         setAiInsight(null);
         setAiAction(null);
+        setNextQuestions([]);
         const startedAt = Date.now();
 
         const res = await fetch("/api/chat", {
@@ -184,15 +186,20 @@ export default function Home() {
 
         let insight: string | null = null;
         let action: string | null = null;
+        let followups: string[] = [];
 
         if (res.ok) {
           const data = (await res.json()) as {
             insight?: string;
-            action?: string;
+            doctor_advice?: string;
+            next_questions?: string[];
             error?: string;
           };
           insight = data.insight ?? null;
-          action = data.action ?? null;
+          action = data.doctor_advice ?? null;
+          followups = Array.isArray(data.next_questions)
+            ? data.next_questions.filter((q) => typeof q === "string" && q.trim().length > 0)
+            : [];
           if (!insight || !action) {
             setAiError(
               "AIから十分な情報を取得できませんでした。時間をおいてもう一度お試しください。"
@@ -212,6 +219,7 @@ export default function Home() {
             if (!cancelled) {
               if (insight) setAiInsight(insight);
               if (action) setAiAction(action);
+              if (followups.length > 0) setNextQuestions(followups);
               setStep(7);
               setIsLoading(false);
               setDirection("in");
@@ -446,6 +454,34 @@ export default function Home() {
                 </p>
               </div>
 
+              {nextQuestions.length > 0 && (
+                <div className="rounded-2xl bg-white px-7 py-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+                  <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
+                    次に考えてみる問い
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    {nextQuestions.map((q, idx) => (
+                      <button
+                        key={`${q}-${idx}`}
+                        type="button"
+                        onClick={() => {
+                          setWorryText(q);
+                          setQAnswers([]);
+                          setAiInsight(null);
+                          setAiAction(null);
+                          setAiError(null);
+                          setNextQuestions([]);
+                          setStep(2);
+                        }}
+                        className="w-full rounded-xl border border-stone-200 bg-stone-50/60 px-4 py-2.5 text-left text-[14px] leading-relaxed text-stone-800 transition hover:border-teal-300 hover:bg-teal-50/60 active:scale-[0.99]"
+                      >
+                        {q}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {aiError && (
                 <p className="text-center text-xs text-red-500">
                   {aiError}
@@ -466,6 +502,7 @@ export default function Home() {
                     setAiInsight(null);
                     setAiAction(null);
                     setAiError(null);
+                    setNextQuestions([]);
                   }}
                   className="rounded-xl border border-stone-300 py-3 px-4 font-medium text-stone-600 transition hover:bg-stone-100"
                 >
