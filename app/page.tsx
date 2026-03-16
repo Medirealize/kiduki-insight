@@ -317,7 +317,7 @@ export default function Home() {
             診察の予習。
           </h1>
           <p className="mt-1 text-xs text-stone-500">
-            内省と気づきのための対話
+            〜「伝えたいこと」の奥にある、本当の想い〜
           </p>
         </header>
 
