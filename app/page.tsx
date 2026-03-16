@@ -125,6 +125,8 @@ export default function Home() {
   const [worryText, setWorryText] = useState("");
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [aiMessage, setAiMessage] = useState<string | null>(null);
+  const [aiError, setAiError] = useState<string | null>(null);
 
   const personality = useMemo(() => analyzePersonality(birthDate), [birthDate]);
   const typeCode = personality?.typeCode ?? "A1";
@@ -139,9 +141,8 @@ export default function Home() {
   }, [qAnswers, questions]);
 
   const result = useMemo(() => {
-    if (step !== TOTAL_STEPS) return null;
     return pickClosestInsight(typeCode, gender, worryText, selectedFocuses);
-  }, [step, typeCode, gender, worryText, selectedFocuses]);
+  }, [typeCode, gender, worryText, selectedFocuses]);
 
   const goNext = useCallback(() => {
     setDirection("out");
@@ -157,17 +158,79 @@ export default function Home() {
   }, [step]);
 
   useEffect(() => {
-    if (step !== 6 || !isLoading) return;
-    const t = setTimeout(() => {
-      setDirection("out");
-      setTimeout(() => {
-        setStep(7);
-        setIsLoading(false);
-        setDirection("in");
-      }, 200);
-    }, 3000);
-    return () => clearTimeout(t);
-  }, [step, isLoading]);
+    if (step !== 6 || !isLoading || !result) return;
+
+    let cancelled = false;
+
+    const run = async () => {
+      try {
+        setAiError(null);
+        const startedAt = Date.now();
+
+        const res = await fetch("/api/ai", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            typeCode,
+            group,
+            worryText,
+            insight: result.insight,
+            action: result.action,
+            focuses: selectedFocuses,
+          }),
+        });
+
+        let message: string | null = null;
+
+        if (res.ok) {
+          const data = (await res.json()) as { message?: string; error?: string };
+          message =
+            data.message ??
+            "AIからのメッセージを取得できませんでした。時間をおいてもう一度お試しください。";
+        } else {
+          message = null;
+          setAiError("AIからのメッセージ取得に失敗しました。時間をおいて再度お試しください。");
+        }
+
+        const elapsed = Date.now() - startedAt;
+        const remaining = Math.max(0, 3000 - elapsed);
+
+        setTimeout(() => {
+          if (cancelled) return;
+          setDirection("out");
+          setTimeout(() => {
+            if (!cancelled) {
+              if (message) {
+                setAiMessage(message);
+              }
+              setStep(7);
+              setIsLoading(false);
+              setDirection("in");
+            }
+          }, 200);
+        }, remaining);
+      } catch (e) {
+        console.error(e);
+        if (!cancelled) {
+          setAiError("AIとの通信中にエラーが発生しました。時間をおいて再度お試しください。");
+          setDirection("out");
+          setTimeout(() => {
+            if (!cancelled) {
+              setStep(7);
+              setIsLoading(false);
+              setDirection("in");
+            }
+          }, 200);
+        }
+      }
+    };
+
+    void run();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [step, isLoading, result, typeCode, group, worryText, selectedFocuses]);
 
   const showNextButton =
     (step === 1 && birthDate.trim()) ||
@@ -371,6 +434,23 @@ export default function Home() {
                 <p className="mt-2 leading-relaxed text-stone-800">{result.action}</p>
               </div>
 
+              {aiMessage && (
+                <div className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+                  <p className="mb-1 text-xs font-medium uppercase tracking-wider text-teal-600">
+                    AIからのメッセージ
+                  </p>
+                  <p className="mt-2 whitespace-pre-line leading-relaxed text-stone-800">
+                    {aiMessage}
+                  </p>
+                </div>
+              )}
+
+              {aiError && (
+                <p className="text-center text-xs text-red-500">
+                  {aiError}
+                </p>
+              )}
+
               <p className="text-center text-sm leading-relaxed text-stone-500">
                 この結果に違和感があるなら、それは「自分はそうではない」と自覚できた証拠。その感覚を大切に。
               </p>
@@ -382,6 +462,8 @@ export default function Home() {
                     setStep(1);
                     setWorryText("");
                     setQAnswers([]);
+                    setAiMessage(null);
+                    setAiError(null);
                   }}
                   className="rounded-xl border border-stone-300 py-3 px-4 font-medium text-stone-600 transition hover:bg-stone-100"
                 >
