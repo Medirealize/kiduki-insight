@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+html {
+  font-size: 18px;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --line-height-relaxed: 1.85;
 }
 
 @theme inline {
@@ -23,4 +28,5 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  line-height: var(--line-height-relaxed);
 }

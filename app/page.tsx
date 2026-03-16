@@ -288,12 +288,12 @@ export default function Home() {
           {/* ① 属性入力 */}
           {step === 1 && (
             <section className="rounded-2xl bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-              <p className="mb-4 text-[15px] leading-relaxed text-stone-600">
+              <p className="mb-4 text-base leading-relaxed text-stone-600">
                 生年月日と性別を教えてください。性格統計学に基づいて、あなたに合った問いかけをします。
               </p>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="birth" className="mb-1 block text-xs font-semibold tracking-wide text-stone-700 uppercase">
+                  <label htmlFor="birth" className="mb-1 block text-[0.8125rem] font-semibold tracking-wide text-stone-700 uppercase">
                     生年月日
                   </label>
                   <input
@@ -305,7 +305,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <span className="mb-2 block text-xs font-semibold tracking-wide text-stone-700 uppercase">
+                  <span className="mb-2 block text-[0.8125rem] font-semibold tracking-wide text-stone-700 uppercase">
                     性別
                   </span>
                   <div className="flex gap-6">
@@ -347,7 +347,7 @@ export default function Home() {
           {/* ② 悩み入力 */}
           {step === 2 && (
             <section className="rounded-2xl bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-              <p className="mb-4 text-[15px] leading-relaxed text-stone-600">
+              <p className="mb-4 text-base leading-relaxed text-stone-600">
                 今、先生に聞きたいことや、不安に思っていることを自由に書いてください。
               </p>
               <textarea
@@ -355,7 +355,7 @@ export default function Home() {
                 onChange={(e) => setWorryText(e.target.value)}
                 placeholder="例：症状がいつまで続くか、仕事を休むべきか、家族にどう伝えればいいか…"
                 rows={5}
-                className="w-full resize-none rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3 text-[15px] leading-relaxed text-stone-800 placeholder-stone-400 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
+                className="w-full resize-none rounded-xl border border-stone-200 bg-stone-50/50 px-4 py-3 text-base leading-relaxed text-stone-800 placeholder-stone-400 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
               />
               {showNextButton && (
                 <button
@@ -372,10 +372,10 @@ export default function Home() {
           {/* ③④⑤ 深掘り質問（1画面1問） */}
           {step >= 3 && step <= 5 && questions[currentQIndex] && (
             <section className="rounded-2xl bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
+              <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-teal-600">
                 {group}に基づく質問
               </p>
-              <p className="mb-6 text-[15px] leading-relaxed text-stone-800">
+              <p className="mb-6 text-base leading-relaxed text-stone-800">
                 {questions[currentQIndex].text}
               </p>
               <div className="space-y-3">
@@ -410,7 +410,7 @@ export default function Home() {
           {step === 6 && (
             <section className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] text-center">
               {worryText.trim() && (
-                <p className="mb-4 text-left text-[15px] leading-relaxed text-stone-600">
+                <p className="mb-4 text-left text-base leading-relaxed text-stone-600">
                   あなたが入力したこと：<span className="font-medium text-stone-800">「{worryText.trim().slice(0, 60)}{worryText.trim().length > 60 ? "…" : ""}」</span>
                 </p>
               )}
@@ -428,35 +428,35 @@ export default function Home() {
           {step === 7 && result && (
             <section className="space-y-6">
               <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
+                <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-teal-600">
                   あなたが入力したこと
                 </p>
-                <p className="text-[15px] leading-[1.7] text-stone-800">
+                <p className="text-lg leading-[1.85] text-stone-800">
                   「{worryText.trim() || "（未入力）"}」
                 </p>
-                <p className="mt-3 text-[14px] leading-relaxed text-stone-600">
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">
                   上記について、性格統計学の視点で深く分析しました。
                 </p>
               </div>
 
               <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="text-[15px] leading-[1.7] text-stone-800">
+                <p className="text-lg leading-[1.85] text-stone-800">
                   {aiInsight ?? result.insight}
                 </p>
               </div>
 
               <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
+                <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-teal-600">
                   医師への一言
                 </p>
-                <p className="mt-2 text-[15px] leading-relaxed text-stone-800">
+                <p className="mt-2 text-lg leading-relaxed text-stone-800">
                   {aiAction ?? result.action}
                 </p>
               </div>
 
               {nextQuestions.length > 0 && (
                 <div className="rounded-2xl bg-white px-7 py-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-                  <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
+                  <p className="mb-3 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-teal-600">
                     次に考えてみる問い
                   </p>
                   <div className="flex flex-col gap-2">
