@@ -482,7 +482,7 @@ export default function Home() {
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-teal-600">
                   あなたが入力したこと
                 </p>
-                <p className="text-base leading-[1.85] text-stone-800">
+                <p className="text-[18px] leading-[1.8] text-stone-800">
                   「{worryText.trim() || "（未入力）"}」
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-stone-600">
@@ -491,7 +491,7 @@ export default function Home() {
               </div>
 
               <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="text-base leading-[1.8] text-stone-800">
+                <p className="text-[18px] leading-[1.8] text-stone-800">
                   {aiInsight ?? result.insight}
                 </p>
               </div>
@@ -500,7 +500,7 @@ export default function Home() {
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-teal-600">
                   医師への一言
                 </p>
-                <p className="mt-2 text-lg leading-relaxed text-stone-800">
+                <p className="mt-2 text-[18px] leading-[1.8] text-stone-800">
                   {aiAction ?? result.action}
                 </p>
               </div>
@@ -542,6 +542,10 @@ export default function Home() {
 
               <p className="text-center text-sm leading-relaxed text-stone-500">
                 この結果に違和感があるなら、それは「自分はそうではない」と自覚できた証拠。その感覚を大切に。
+              </p>
+
+              <p className="text-center text-[12px] leading-relaxed text-stone-400 max-w-md mx-auto">
+                本アプリは性格統計学に基づくコミュニケーション支援ツールであり、医学的な診断や治療の助言を行うものではありません。体調に不安がある場合は、必ず専門の医療機関を受診してください。
               </p>
 
               <div className="flex gap-3 pt-2">
