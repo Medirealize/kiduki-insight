@@ -62,7 +62,7 @@ type InsightRecord = {
 
 const insights = insightsData as InsightRecord[];
 
-/** 軸別・深掘り質問（各3問、二択）。選択肢は focus に紐づく */
+/** 軸別・深掘り質問（各3問、二択）。UIには表示せず、選択肢A/Bに紐づくfocusのみで利用する */
 const AXIS_QUESTIONS: Record<0 | 1 | 2, { text: string; A: string; B: string; focusA: string; focusB: string }[]> = {
   0: [
     { text: "物事を決めるとき、まず自分で納得したい方ですか？", A: "はい、納得してから決めたい", B: "いいえ、周りの意見も大切", focusA: "precision", focusB: "decision_support" },
@@ -143,6 +143,7 @@ export default function Home() {
     );
   }, [qAnswers, questions]);
 
+  // 画面には表示しないが、APIプロンプト用のベースInsight/Actionとしてのみ使用
   const result = useMemo(() => {
     return pickClosestInsight(typeCode, gender, worryText, selectedFocuses);
   }, [typeCode, gender, worryText, selectedFocuses]);
@@ -201,6 +202,11 @@ export default function Home() {
           followups = Array.isArray(data.next_questions)
             ? data.next_questions.filter((q) => typeof q === "string" && q.trim().length > 0)
             : [];
+          if (!insight || !action) {
+            setAiError(
+              "AIからのメッセージを完全には取得できませんでした。時間をおいてもう一度お試しください。"
+            );
+          }
         } else {
           setAiError("AIからのメッセージ取得に失敗しました。時間をおいて再度お試しください。");
         }
@@ -248,9 +254,10 @@ export default function Home() {
   const showNextButton =
     (step === 1 && birthDate.trim()) ||
     (step === 2 && worryText.trim()) ||
-    (step === 3 && qAnswers.length >= 1) ||
-    (step === 4 && qAnswers.length >= 2) ||
-    (step === 5 && qAnswers.length >= 3);
+    // ステップ3〜5は、AI質問が取得できてから回答可能にする
+    (step === 3 && deepQuestions.length >= 1 && qAnswers.length >= 1) ||
+    (step === 4 && deepQuestions.length >= 2 && qAnswers.length >= 2) ||
+    (step === 5 && deepQuestions.length >= 3 && qAnswers.length >= 3);
 
   const currentQIndex = step - 3;
 
@@ -405,36 +412,44 @@ export default function Home() {
           )}
 
           {/* ③④⑤ 深掘り質問（1画面1問） */}
-          {step >= 3 && step <= 5 && questions[currentQIndex] && (
+          {step >= 3 && step <= 5 && (
             <section className="rounded-2xl bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
               <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-teal-600">
                 {group}に基づく質問
               </p>
-              <p className="mb-6 text-base leading-relaxed text-stone-800">
-                {deepQuestions[currentQIndex] ?? questions[currentQIndex].text}
-              </p>
-              <div className="space-y-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setQAnswers((a) => [...a.slice(0, currentQIndex), "A"]);
-                    setTimeout(goNext, 120);
-                  }}
-                  className="w-full rounded-xl border border-stone-200 bg-stone-50/50 py-3.5 text-left px-4 font-medium text-stone-700 transition hover:border-teal-300 hover:bg-teal-50/50 active:scale-[0.99]"
-                >
-                  {questions[currentQIndex].A}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setQAnswers((a) => [...a.slice(0, currentQIndex), "B"]);
-                    setTimeout(goNext, 120);
-                  }}
-                  className="w-full rounded-xl border border-stone-200 bg-stone-50/50 py-3.5 text-left px-4 font-medium text-stone-700 transition hover:border-teal-300 hover:bg-teal-50/50 active:scale-[0.99]"
-                >
-                  {questions[currentQIndex].B}
-                </button>
-              </div>
+              {deepQuestions.length >= step - 2 ? (
+                <>
+                  <p className="mb-6 text-base leading-relaxed text-stone-800">
+                    {deepQuestions[currentQIndex]}
+                  </p>
+                  <div className="space-y-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQAnswers((a) => [...a.slice(0, currentQIndex), "A"]);
+                        setTimeout(goNext, 120);
+                      }}
+                      className="w-full rounded-xl border border-stone-200 bg-stone-50/50 py-3.5 text-left px-4 font-medium text-stone-700 transition hover:border-teal-300 hover:bg-teal-50/50 active:scale-[0.99]"
+                    >
+                      そう感じることが多い
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQAnswers((a) => [...a.slice(0, currentQIndex), "B"]);
+                        setTimeout(goNext, 120);
+                      }}
+                      className="w-full rounded-xl border border-stone-200 bg-stone-50/50 py-3.5 text-left px-4 font-medium text-stone-700 transition hover:border-teal-300 hover:bg-teal-50/50 active:scale-[0.99]"
+                    >
+                      あまり当てはまらない
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p className="mt-4 text-center text-xs text-stone-400">
+                  質問を準備しています…
+                </p>
+              )}
               <p className="mt-4 text-center text-xs text-stone-400">
                 {step} / {TOTAL_STEPS}
               </p>
