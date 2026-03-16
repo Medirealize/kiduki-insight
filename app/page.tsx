@@ -270,7 +270,7 @@ export default function Home() {
 
       <div className="mx-auto max-w-md px-4 py-8 sm:py-12">
         <header className="mb-8 text-center">
-          <h1 className="text-lg font-semibold tracking-tight text-stone-800 sm:text-xl">
+          <h1 className="text-[1.333rem] font-semibold tracking-tight text-stone-800">
             KiDuKi - Insight
           </h1>
           <p className="mt-1 text-xs text-stone-500">
