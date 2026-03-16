@@ -432,17 +432,14 @@ export default function Home() {
               </div>
 
               <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
-                  Insight
-                </p>
-                <p className="mt-2 text-[15px] leading-[1.7] text-stone-800">
+                <p className="text-[15px] leading-[1.7] text-stone-800">
                   {aiInsight ?? result.insight}
                 </p>
               </div>
 
               <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
                 <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-600">
-                  診察室での最初の一言
+                  医師への一言
                 </p>
                 <p className="mt-2 text-[15px] leading-relaxed text-stone-800">
                   {aiAction ?? result.action}
