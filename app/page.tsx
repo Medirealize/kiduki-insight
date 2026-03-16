@@ -201,11 +201,6 @@ export default function Home() {
           followups = Array.isArray(data.next_questions)
             ? data.next_questions.filter((q) => typeof q === "string" && q.trim().length > 0)
             : [];
-          if (!insight || !action) {
-            setAiError(
-              "AIから十分な情報を取得できませんでした。時間をおいてもう一度お試しください。"
-            );
-          }
         } else {
           setAiError("AIからのメッセージ取得に失敗しました。時間をおいて再度お試しください。");
         }
@@ -471,7 +466,7 @@ export default function Home() {
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-teal-600">
                   あなたが入力したこと
                 </p>
-                <p className="text-lg leading-[1.85] text-stone-800">
+                <p className="text-base leading-[1.85] text-stone-800">
                   「{worryText.trim() || "（未入力）"}」
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-stone-600">
@@ -480,7 +475,7 @@ export default function Home() {
               </div>
 
               <div className="rounded-2xl bg-white px-7 py-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                <p className="text-lg leading-[1.85] text-stone-800">
+                <p className="text-base leading-[1.8] text-stone-800">
                   {aiInsight ?? result.insight}
                 </p>
               </div>
@@ -511,6 +506,7 @@ export default function Home() {
                           setAiAction(null);
                           setAiError(null);
                           setNextQuestions([]);
+                          setDeepQuestions([]);
                           setStep(2);
                         }}
                         className="w-full rounded-xl border border-stone-200 bg-stone-50/60 px-4 py-2.5 text-left text-[14px] leading-relaxed text-stone-800 transition hover:border-teal-300 hover:bg-teal-50/60 active:scale-[0.99]"
@@ -543,6 +539,7 @@ export default function Home() {
                     setAiAction(null);
                     setAiError(null);
                     setNextQuestions([]);
+                    setDeepQuestions([]);
                   }}
                   className="rounded-xl border border-stone-300 py-3 px-4 font-medium text-stone-600 transition hover:bg-stone-100"
                 >
