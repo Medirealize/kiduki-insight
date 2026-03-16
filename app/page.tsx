@@ -129,6 +129,7 @@ export default function Home() {
   const [aiAction, setAiAction] = useState<string | null>(null);
   const [aiError, setAiError] = useState<string | null>(null);
   const [nextQuestions, setNextQuestions] = useState<string[]>([]);
+  const [deepQuestions, setDeepQuestions] = useState<string[]>([]);
 
   const personality = useMemo(() => analyzePersonality(birthDate), [birthDate]);
   const typeCode = personality?.typeCode ?? "A1";
@@ -258,6 +259,45 @@ export default function Home() {
 
   const currentQIndex = step - 3;
 
+  // ステップ3開始時に、AIから深掘り質問文を取得（失敗時は既存の文言を使用）
+  useEffect(() => {
+    if (step !== 3) return;
+    if (!birthDate || !worryText.trim()) return;
+
+    let cancelled = false;
+
+    const run = async () => {
+      try {
+        const res = await fetch("/api/deep-questions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            typeCode,
+            group,
+            worryText,
+          }),
+        });
+        if (!res.ok) return;
+        const data = (await res.json()) as { questions?: string[] };
+        if (!data.questions || !Array.isArray(data.questions)) return;
+        const qs = data.questions
+          .map((q) => (typeof q === "string" ? q.trim() : ""))
+          .filter((q) => q.length > 0);
+        if (!cancelled && qs.length >= 1) {
+          setDeepQuestions(qs.slice(0, 3));
+        }
+      } catch (e) {
+        console.error("deep-questions fetch error", e);
+      }
+    };
+
+    void run();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [step, typeCode, group, worryText]);
+
   return (
     <div className="min-h-screen bg-[#fafaf9] font-sans text-stone-800 antialiased">
       {/* プログレスバー */}
@@ -376,7 +416,7 @@ export default function Home() {
                 {group}に基づく質問
               </p>
               <p className="mb-6 text-base leading-relaxed text-stone-800">
-                {questions[currentQIndex].text}
+                {deepQuestions[currentQIndex] ?? questions[currentQIndex].text}
               </p>
               <div className="space-y-3">
                 <button
