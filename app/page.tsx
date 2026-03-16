@@ -125,7 +125,8 @@ export default function Home() {
   const [worryText, setWorryText] = useState("");
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [aiMessage, setAiMessage] = useState<string | null>(null);
+  const [aiInsight, setAiInsight] = useState<string | null>(null);
+  const [aiAction, setAiAction] = useState<string | null>(null);
   const [aiError, setAiError] = useState<string | null>(null);
 
   const personality = useMemo(() => analyzePersonality(birthDate), [birthDate]);
@@ -165,30 +166,39 @@ export default function Home() {
     const run = async () => {
       try {
         setAiError(null);
+        setAiInsight(null);
+        setAiAction(null);
         const startedAt = Date.now();
 
-        const res = await fetch("/api/ai", {
+        const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             typeCode,
             group,
             worryText,
-            insight: result.insight,
-            action: result.action,
-            focuses: selectedFocuses,
+            baseInsight: result.insight,
+            baseAction: result.action,
           }),
         });
 
-        let message: string | null = null;
+        let insight: string | null = null;
+        let action: string | null = null;
 
         if (res.ok) {
-          const data = (await res.json()) as { message?: string; error?: string };
-          message =
-            data.message ??
-            "AIからのメッセージを取得できませんでした。時間をおいてもう一度お試しください。";
+          const data = (await res.json()) as {
+            insight?: string;
+            action?: string;
+            error?: string;
+          };
+          insight = data.insight ?? null;
+          action = data.action ?? null;
+          if (!insight || !action) {
+            setAiError(
+              "AIから十分な情報を取得できませんでした。時間をおいてもう一度お試しください。"
+            );
+          }
         } else {
-          message = null;
           setAiError("AIからのメッセージ取得に失敗しました。時間をおいて再度お試しください。");
         }
 
@@ -200,9 +210,8 @@ export default function Home() {
           setDirection("out");
           setTimeout(() => {
             if (!cancelled) {
-              if (message) {
-                setAiMessage(message);
-              }
+              if (insight) setAiInsight(insight);
+              if (action) setAiAction(action);
               setStep(7);
               setIsLoading(false);
               setDirection("in");
@@ -424,26 +433,19 @@ export default function Home() {
                 <p className="mb-1 text-xs font-medium uppercase tracking-wider text-teal-600">
                   Insight
                 </p>
-                <p className="mt-2 leading-relaxed text-stone-800">{result.insight}</p>
+                <p className="mt-2 leading-relaxed text-stone-800">
+                  {aiInsight ?? result.insight}
+                </p>
               </div>
 
               <div className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
                 <p className="mb-1 text-xs font-medium uppercase tracking-wider text-teal-600">
                   診察室での最初の一言
                 </p>
-                <p className="mt-2 leading-relaxed text-stone-800">{result.action}</p>
+                <p className="mt-2 leading-relaxed text-stone-800">
+                  {aiAction ?? result.action}
+                </p>
               </div>
-
-              {aiMessage && (
-                <div className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-                  <p className="mb-1 text-xs font-medium uppercase tracking-wider text-teal-600">
-                    AIからのメッセージ
-                  </p>
-                  <p className="mt-2 whitespace-pre-line leading-relaxed text-stone-800">
-                    {aiMessage}
-                  </p>
-                </div>
-              )}
 
               {aiError && (
                 <p className="text-center text-xs text-red-500">
@@ -462,7 +464,8 @@ export default function Home() {
                     setStep(1);
                     setWorryText("");
                     setQAnswers([]);
-                    setAiMessage(null);
+                    setAiInsight(null);
+                    setAiAction(null);
                     setAiError(null);
                   }}
                   className="rounded-xl border border-stone-300 py-3 px-4 font-medium text-stone-600 transition hover:bg-stone-100"
@@ -472,7 +475,9 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => {
-                    const text = `あなたが入力したこと：\n「${worryText.trim()}」\n\n上記について、性格統計学の視点で深く分析しました。\n\n【Insight】\n${result.insight}\n\n【診察室での最初の一言】\n${result.action}`;
+                    const insightText = aiInsight ?? result.insight;
+                    const actionText = aiAction ?? result.action;
+                    const text = `あなたが入力したこと：\n「${worryText.trim()}」\n\n上記について、性格統計学とAIの視点で深く分析しました。\n\n【Insight】\n${insightText}\n\n【診察室での最初の一言】\n${actionText}`;
                     void navigator.clipboard.writeText(text);
                   }}
                   className="flex-1 rounded-xl bg-teal-600 py-3 font-medium text-white shadow-sm transition hover:bg-teal-500"
