@@ -314,7 +314,7 @@ export default function Home() {
       <div className="mx-auto max-w-md px-4 py-8 sm:py-12">
         <header className="mb-8 text-center">
           <h1 className="text-[1.333rem] font-semibold tracking-tight text-[#1c1e21]">
-            診察の予習。
+            先生、本当はね。
           </h1>
           <p className="mt-1 text-xs text-[#65676b]">
             〜「伝えたいこと」の奥にある、本当の想い〜
