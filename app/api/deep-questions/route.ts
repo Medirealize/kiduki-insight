@@ -59,7 +59,9 @@ export async function POST(req: NextRequest) {
 
 【出力のルール（とても重要）】
 - 質問は必ず3つ作ってください。
-- 各質問は20文字以内の自然な日本語で書いてください。
+- 各質問は、スマホ表示で最大2行に収まる自然な日本語にしてください（目安: 36文字以内）。
+- 3つの質問は必ず観点を変えてください（例: ①感情・不安 ②優先順位・価値観 ③周囲との関係や配慮）。
+- 似た意味の言い換えを3つ並べるのは禁止です。各質問で焦点を明確に変えてください。
 - 「Q1:」「1.」などのラベルや番号は付けず、テキストだけを書いてください。
 
 【最終的な出力フォーマット（必ずJSON形式で！）】
@@ -139,6 +141,14 @@ export async function POST(req: NextRequest) {
               ? q
               : ["今いちばん気になっているのは？", "本当はどうしたいと思っていますか？", "一番大事にしたいことは？"][idx]
           );
+
+    // 一時デバッグ: 生成された質問のばらつきを確認するためにサーバーログへ出力
+    console.log("[deep-questions]", {
+      typeCode,
+      group,
+      worryPreview: (worryText || "").slice(0, 40),
+      questions: normalized,
+    });
 
     return NextResponse.json({ questions: normalized });
   } catch (error) {
