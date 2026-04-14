@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
+type OpenAIChatCompletion = {
+  choices: Array<{ message: { content: string } }>;
+};
+
 type DeepQuestionsRequestBody = {
   typeCode: string;
   group: string;
@@ -96,7 +100,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const data = (await response.json()) as any;
+    const data = (await response.json()) as OpenAIChatCompletion;
     const content = data?.choices?.[0]?.message?.content?.trim();
 
     if (!content) {
@@ -130,17 +134,18 @@ export async function POST(req: NextRequest) {
     }
 
     // 念のため3つに調整
+    const fallbackQuestions = [
+      "今いちばん気になっているのは？",
+      "本当はどうしたいと思っていますか？",
+      "一番大事にしたいことは？",
+    ];
     const unique = Array.from(new Set(parsed.questions.map((q) => q.trim()))).filter(
       (q) => q.length > 0
     );
     const normalized =
       unique.length >= 3
         ? unique.slice(0, 3)
-        : [...unique, ..."".repeat(3 - unique.length).split("")].slice(0, 3).map((q, idx) =>
-            q && q.length > 0
-              ? q
-              : ["今いちばん気になっているのは？", "本当はどうしたいと思っていますか？", "一番大事にしたいことは？"][idx]
-          );
+        : [...unique, ...fallbackQuestions.slice(unique.length)];
 
     // 一時デバッグ: 生成された質問のばらつきを確認するためにサーバーログへ出力
     console.log("[deep-questions]", {

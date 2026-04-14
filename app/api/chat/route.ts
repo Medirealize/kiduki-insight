@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
+type OpenAIChatCompletion = {
+  choices: Array<{ message: { content: string } }>;
+};
+
 type ChatRequestBody = {
   typeCode: string;
   group: string;
@@ -119,7 +123,7 @@ ${baseAction}
       );
     }
 
-    const data = (await response.json()) as any;
+    const data = (await response.json()) as OpenAIChatCompletion;
     const content = data?.choices?.[0]?.message?.content?.trim();
 
     if (!content) {
