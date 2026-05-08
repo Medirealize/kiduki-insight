@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const OPENAI_TIMEOUT_MS = 45_000;
+
 type OpenAIChatCompletion = {
   choices: Array<{ message: { content: string } }>;
 };
@@ -28,6 +30,7 @@ export async function POST(req: NextRequest) {
 
     const body = (await req.json()) as DeepQuestionsRequestBody;
     const { typeCode, group, worryText } = body;
+    const t0 = Date.now();
 
     const systemPrompt = `
 あなたは日本語で回答する、『患者の心の声を言語化するカウンセラー』です。診断や医療判断は行いません。
@@ -75,21 +78,40 @@ export async function POST(req: NextRequest) {
 }
 `.trim();
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        temperature: 0.9,
-      }),
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), OPENAI_TIMEOUT_MS);
+
+    let response: Response;
+    try {
+      response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          temperature: 0.9,
+        }),
+        signal: controller.signal,
+      });
+    } catch (err) {
+      clearTimeout(timeoutId);
+      if (err instanceof Error && err.name === "AbortError") {
+        console.error(
+          "[deep-questions] OpenAI request timed out after",
+          OPENAI_TIMEOUT_MS,
+          "ms"
+        );
+        return NextResponse.json({ error: "AI request timed out." }, { status: 504 });
+      }
+      throw err;
+    }
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -153,6 +175,7 @@ export async function POST(req: NextRequest) {
       group,
       worryPreview: (worryText || "").slice(0, 40),
       questions: normalized,
+      elapsedMs: Date.now() - t0,
     });
 
     return NextResponse.json({ questions: normalized });

@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { mergeFollowUpQuestions } from "@/lib/follow-up-questions";
+
+const OPENAI_TIMEOUT_MS = 45_000;
 
 type OpenAIChatCompletion = {
   choices: Array<{ message: { content: string } }>;
@@ -32,6 +35,7 @@ export async function POST(req: NextRequest) {
 
     const body = (await req.json()) as ChatRequestBody;
     const { typeCode, group, worryText, baseInsight, baseAction } = body;
+    const t0 = Date.now();
 
     const systemPrompt = `
 あなたは日本語で回答する、『患者の心の声を言語化するカウンセラー』です。診断や医療判断を行う医師の役割は一切担いません。
@@ -85,9 +89,10 @@ ${baseAction}
    - 主語は必ず「私」にし、内容は「主観的な感情・不安の伝達」に限定してください。例：「私は〜という不安がある」「私は〜という性格なので、先生に相談したい」。
    - 病名・検査・治療の勧めを含めず、医師から患者への質問文（「〜についてどう思いますか？」など）も禁止です。
 
-3. next_questions（内省を促す3つの短い問い）
-   - ユーザーの悩みと性格傾向を踏まえ、「自分の本音や優先順位に気づきやすくなる」内省的な問いを3つ作ってください。
-   - 各質問は20文字以内の短い日本語の文にし、患者さん自身が自分に投げかける問いとして自然なものにしてください。
+3. next_questions（内省を深める6件の土台 ― サーバーでバリエーションと合成します）
+   - まず「ユーザーの悩みと性格傾向に沿った」短い問いを **3つ** 生成してください（それぞれ22文字以内で簡潔に）。
+   - うち1つは、日常を一歩離れて考える「本当に次に向き合いたい一歩」に繋がる問いにしてください（ただし診断・病名・治療は触れない）。
+   - これら3つは、あとから別の定型問いと混ぜて表示するので、互いに意味が被らないようにし、番号や「質問1」などのラベルは付けないでください。
 
 【最終的な出力フォーマット（必ずJSON形式で！）】
 次のJSONのみを返してください。前後に説明文や余分なテキストは一切書かないでください。
@@ -98,21 +103,36 @@ ${baseAction}
 }
 `.trim();
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        temperature: 0.8,
-      }),
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), OPENAI_TIMEOUT_MS);
+
+    let response: Response;
+    try {
+      response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          temperature: 0.8,
+        }),
+        signal: controller.signal,
+      });
+    } catch (err) {
+      clearTimeout(timeoutId);
+      if (err instanceof Error && err.name === "AbortError") {
+        console.error("[chat] OpenAI request timed out after", OPENAI_TIMEOUT_MS, "ms");
+        return NextResponse.json({ error: "AI request timed out." }, { status: 504 });
+      }
+      throw err;
+    }
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -157,6 +177,21 @@ ${baseAction}
             ? fallbackQuestions
             : ["今いちばん怖いことは何か", "本当はどうしたいと思っているか", "誰のために頑張り続けているのか"],
       };
+    }
+
+    if (!parsed || typeof parsed !== "object") {
+      return NextResponse.json({ error: "Invalid AI response shape." }, { status: 500 });
+    }
+
+    const mergedNext = mergeFollowUpQuestions(parsed.next_questions ?? [], {
+      group,
+      typeCode,
+    });
+    parsed = { ...parsed, next_questions: mergedNext };
+
+    const elapsedMs = Date.now() - t0;
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[chat] ok", { typeCode, group, elapsedMs, followUps: mergedNext.length });
     }
 
     return NextResponse.json(parsed);

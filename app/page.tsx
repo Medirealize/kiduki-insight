@@ -1,9 +1,30 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
+import dynamic from "next/dynamic";
 import { analyzePersonality } from "@/lib/personality";
 import { pickClosestInsight } from "@/lib/insights";
 import { GROUP_TO_AXIS_INDEX, AXIS_QUESTIONS, TOTAL_STEPS } from "@/lib/constants";
+import { mergeFollowUpQuestions } from "@/lib/follow-up-questions";
+import { track } from "@/lib/analytics";
+
+const PROFILE_STORAGE_KEY = "kiduki-insight-profile-v1";
+const PREFS_STORAGE_KEY = "kiduki-insight-prefs-v1";
+
+const STEP_LABELS: Record<number, string> = {
+  1: "ステップ1、属性の入力",
+  2: "ステップ2、悩みや聞きたいことの入力",
+  3: "ステップ3、深掘りの質問 1問目",
+  4: "ステップ4、深掘りの質問 2問目",
+  5: "ステップ5、深掘りの質問 3問目",
+  6: "結果の準備中",
+  7: "結果の表示",
+};
+
+const FollowUpListLazy = dynamic(
+  () => import("@/app/components/FollowUpList"),
+  { loading: () => <p className="text-center text-xs text-[#8d949e]">読み込み中…</p> }
+);
 
 export default function Home() {
   const [step, setStep] = useState(1);
@@ -11,6 +32,7 @@ export default function Home() {
   // デフォルトの年を 1985 年に固定
   const [birthDate, setBirthDate] = useState("1985-01-01");
   const [gender, setGender] = useState<"male" | "female">("male");
+  const [useAiEnhancement, setUseAiEnhancement] = useState(true);
   const [worryText, setWorryText] = useState("");
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +41,16 @@ export default function Home() {
   const [aiError, setAiError] = useState<string | null>(null);
   const [nextQuestions, setNextQuestions] = useState<string[]>([]);
   const [deepQuestions, setDeepQuestions] = useState<string[]>([]);
+
+  const profileHydratedRef = useRef(false);
+  const prefsHydratedRef = useRef(false);
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const stepRef = useRef(step);
+  const useAiEnhancementRef = useRef(useAiEnhancement);
+  /** 戻る等でナビが差し替わった後に、遅延 goNext が古いステップを進めないようにする */
+  const navEpochRef = useRef(0);
+  stepRef.current = step;
+  useAiEnhancementRef.current = useAiEnhancement;
 
   const personality = useMemo(() => analyzePersonality(birthDate), [birthDate]);
   const typeCode = personality?.typeCode ?? "A1";
@@ -32,23 +64,199 @@ export default function Home() {
     );
   }, [qAnswers, questions]);
 
+  /** AI未返答時は軸の固定質問文をそのまま表示（待ち＋ブロックを避ける） */
+  const effectiveQuestionTexts = useMemo(() => {
+    const staticTexts = questions.map((q) => q.text);
+    if (deepQuestions.length === 0) return staticTexts;
+    return [0, 1, 2].map(
+      (i) => deepQuestions[i] ?? staticTexts[i] ?? ""
+    );
+  }, [deepQuestions, questions]);
+
   // 画面には表示しないが、APIプロンプト用のベースInsight/Actionとしてのみ使用
   const result = useMemo(() => {
     return pickClosestInsight(typeCode, gender, worryText, selectedFocuses);
   }, [typeCode, gender, worryText, selectedFocuses]);
 
-  const goNext = useCallback(() => {
+  const resultAnalysisDescription = useMemo(() => {
+    if (!useAiEnhancement) {
+      return "上記について、性格統計学に基づき表示しています（通信なし）。";
+    }
+    if (aiInsight || aiAction) {
+      return "上記について、性格統計学とAIの視点で深く分析しました。";
+    }
+    if (aiError) {
+      return "AIの生成に失敗したため、性格統計学ベースの文例を表示しています。";
+    }
+    return "上記について、性格統計学に基づき表示しています。";
+  }, [useAiEnhancement, aiInsight, aiAction, aiError]);
+
+  const displayFollowUps = useMemo(() => {
+    if (useAiEnhancement && nextQuestions.length > 0) {
+      return nextQuestions;
+    }
+    return mergeFollowUpQuestions(useAiEnhancement ? nextQuestions : [], {
+      group,
+      typeCode,
+    });
+  }, [useAiEnhancement, nextQuestions, group, typeCode]);
+
+  useEffect(() => {
+    track("step_view", { step });
+  }, [step]);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      stepHeadingRef.current?.focus();
+    });
+  }, [step]);
+
+  const onPickFollowUp = useCallback((q: string) => {
+    navEpochRef.current += 1;
+    setWorryText(q);
+    setQAnswers([]);
+    setAiInsight(null);
+    setAiAction(null);
+    setAiError(null);
+    setNextQuestions([]);
+    setDeepQuestions([]);
+    setStep(2);
+  }, []);
+
+  const goBack = useCallback(() => {
+    if (step <= 1) return;
+    navEpochRef.current += 1;
     setDirection("out");
     setTimeout(() => {
-      if (step === 5) {
-        setStep(6);
-        setIsLoading(true);
-      } else if (step < 5) {
-        setStep((s) => Math.min(s + 1, TOTAL_STEPS));
+      if (step === 6) {
+        setIsLoading(false);
+        setStep(5);
+      } else if (step === 7) {
+        setAiInsight(null);
+        setAiAction(null);
+        setAiError(null);
+        setNextQuestions([]);
+        setStep(5);
+      } else if (step === 2) {
+        setStep(1);
+      } else if (step >= 3 && step <= 5) {
+        setQAnswers((a) => a.slice(0, Math.max(0, step - 3)));
+        if (step === 3) {
+          setDeepQuestions([]);
+        }
+        setStep((s) => s - 1);
       }
       setDirection("in");
     }, 200);
   }, [step]);
+
+  const retryAiGeneration = useCallback(() => {
+    if (!useAiEnhancement || !result) return;
+    navEpochRef.current += 1;
+    setAiError(null);
+    setAiInsight(null);
+    setAiAction(null);
+    setNextQuestions([]);
+    setStep(6);
+    setIsLoading(true);
+  }, [useAiEnhancement, result]);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      try {
+        const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+        if (!raw) return;
+        const p = JSON.parse(raw) as { birthDate?: string; gender?: string };
+        if (p.birthDate && /^\d{4}-\d{2}-\d{2}$/.test(p.birthDate)) {
+          setBirthDate(p.birthDate);
+        }
+        if (p.gender === "male" || p.gender === "female") {
+          setGender(p.gender);
+        }
+      } catch {
+        /* ignore */
+      } finally {
+        profileHydratedRef.current = true;
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!profileHydratedRef.current) return;
+    try {
+      localStorage.setItem(
+        PROFILE_STORAGE_KEY,
+        JSON.stringify({ birthDate, gender })
+      );
+    } catch {
+      /* ignore */
+    }
+  }, [birthDate, gender]);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      try {
+        const raw = localStorage.getItem(PREFS_STORAGE_KEY);
+        if (raw) {
+          const p = JSON.parse(raw) as { useAiEnhancement?: boolean };
+          if (typeof p.useAiEnhancement === "boolean") {
+            setUseAiEnhancement(p.useAiEnhancement);
+          }
+        }
+      } catch {
+        /* ignore */
+      } finally {
+        prefsHydratedRef.current = true;
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!prefsHydratedRef.current) return;
+    try {
+      localStorage.setItem(
+        PREFS_STORAGE_KEY,
+        JSON.stringify({ useAiEnhancement })
+      );
+    } catch {
+      /* ignore */
+    }
+  }, [useAiEnhancement]);
+
+  const goNext = useCallback((epochSnapshot?: number) => {
+    const useStaleGuard = typeof epochSnapshot === "number";
+    const staleGuard = useStaleGuard ? epochSnapshot : null;
+    setDirection("out");
+    setTimeout(() => {
+      if (
+        staleGuard !== null &&
+        navEpochRef.current !== staleGuard
+      ) {
+        setDirection("in");
+        return;
+      }
+      const s = stepRef.current;
+      const useAi = useAiEnhancementRef.current;
+      if (s === 5) {
+        if (useAi) {
+          setStep(6);
+          setIsLoading(true);
+        } else {
+          setAiError(null);
+          setAiInsight(null);
+          setAiAction(null);
+          setNextQuestions([]);
+          setStep(7);
+        }
+      } else if (s < 5) {
+        if (s === 2) {
+          setDeepQuestions([]);
+        }
+        setStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
+      }
+      setDirection("in");
+    }, 200);
+  }, []);
 
   useEffect(() => {
     if (step !== 6 || !isLoading || !result) return;
@@ -101,7 +309,8 @@ export default function Home() {
         }
 
         const elapsed = Date.now() - startedAt;
-        const remaining = Math.max(0, 3000 - elapsed);
+        /* 最小演出時間のみ（長い待ちを避ける） */
+        const remaining = Math.max(0, 500 - elapsed);
 
         setTimeout(() => {
           if (cancelled) return;
@@ -138,20 +347,21 @@ export default function Home() {
     return () => {
       cancelled = true;
     };
-  }, [step, isLoading, result, typeCode, group, worryText, selectedFocuses]);
+  }, [step, isLoading, result, typeCode, group, worryText, selectedFocuses, useAiEnhancement]);
 
   const showNextButton =
     (step === 1 && birthDate.trim()) ||
     (step === 2 && worryText.trim()) ||
-    // ステップ3〜5は、AI質問が取得できてから回答可能にする
-    (step === 3 && deepQuestions.length >= 1 && qAnswers.length >= 1) ||
-    (step === 4 && deepQuestions.length >= 2 && qAnswers.length >= 2) ||
-    (step === 5 && deepQuestions.length >= 3 && qAnswers.length >= 3);
+    (step === 3 && qAnswers.length >= 1) ||
+    (step === 4 && qAnswers.length >= 2) ||
+    (step === 5 && qAnswers.length >= 3);
 
   const currentQIndex = step - 3;
+  const currentQuestionText = effectiveQuestionTexts[currentQIndex];
 
-  // ステップ3開始時に、AIから深掘り質問文を取得（失敗時は既存の文言を使用）
+  // ステップ3: AIから深掘り文を取得できれば差し替え（未取得時は effectiveQuestionTexts で静的文言を使用）
   useEffect(() => {
+    if (!useAiEnhancement) return;
     if (step !== 3) return;
     if (!birthDate || !worryText.trim()) return;
 
@@ -187,7 +397,7 @@ export default function Home() {
     return () => {
       cancelled = true;
     };
-  }, [step, typeCode, group, worryText]);
+  }, [step, typeCode, group, worryText, birthDate, questions, useAiEnhancement]);
 
   return (
     <div className="min-h-screen bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
@@ -208,6 +418,29 @@ export default function Home() {
             〜「伝えたいこと」の奥にある、本当の想い〜
           </p>
         </header>
+
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {STEP_LABELS[step] ?? ""}
+        </p>
+        <h2
+          ref={stepHeadingRef}
+          tabIndex={-1}
+          className="sr-only outline-none"
+        >
+          {STEP_LABELS[step] ?? ""}
+        </h2>
+
+        {step > 1 && (
+          <div className="mb-4">
+            <button
+              type="button"
+              onClick={goBack}
+              className="min-h-[48px] rounded-xl border border-[#ccd0d5] bg-white px-4 py-2.5 text-sm font-medium text-[#606770] transition hover:bg-[#f0f2f5]"
+            >
+              ← 戻る
+            </button>
+          </div>
+        )}
 
         <div
           className={`transition-all duration-300 ease-out ${
@@ -239,34 +472,60 @@ export default function Home() {
                   <span className="mb-2 block text-[0.8125rem] font-semibold tracking-wide text-[#65676b] uppercase">
                     性別
                   </span>
-                  <div className="flex gap-6">
-                    <label className="flex cursor-pointer items-center gap-2">
+                  <div className="flex flex-wrap gap-3">
+                    <label className="flex min-h-[48px] min-w-[6rem] cursor-pointer items-center gap-3 rounded-xl border border-transparent px-2 py-1 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[#1877f2]/30">
                       <input
                         type="radio"
                         name="gender"
                         checked={gender === "male"}
                         onChange={() => setGender("male")}
-                        className="h-4 w-4 accent-teal-600"
+                        className="h-5 w-5 accent-teal-600"
                       />
                       <span className="text-[#1c1e21]">男性</span>
                     </label>
-                    <label className="flex cursor-pointer items-center gap-2">
+                    <label className="flex min-h-[48px] min-w-[6rem] cursor-pointer items-center gap-3 rounded-xl border border-transparent px-2 py-1 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[#1877f2]/30">
                       <input
                         type="radio"
                         name="gender"
                         checked={gender === "female"}
                         onChange={() => setGender("female")}
-                        className="h-4 w-4 accent-teal-600"
+                        className="h-5 w-5 accent-teal-600"
                       />
                       <span className="text-[#1c1e21]">女性</span>
                     </label>
                   </div>
                 </div>
+                <label className="flex min-h-[52px] cursor-pointer items-start gap-3 rounded-xl border border-[#e4e6eb] bg-[#f8f9fb] px-4 py-3 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[#1877f2]/30">
+                  <input
+                    id="use-ai-toggle"
+                    type="checkbox"
+                    checked={useAiEnhancement}
+                    onChange={(e) => {
+                      const v = e.target.checked;
+                      setUseAiEnhancement(v);
+                      try {
+                        localStorage.setItem(
+                          PREFS_STORAGE_KEY,
+                          JSON.stringify({ useAiEnhancement: v })
+                        );
+                        prefsHydratedRef.current = true;
+                      } catch {
+                        /* ignore */
+                      }
+                    }}
+                    className="mt-1 h-5 w-5 shrink-0 accent-[#1877f2]"
+                    aria-label="AIで表現を整える（最後のステップで通信する）"
+                  />
+                  <span className="text-[0.8125rem] leading-relaxed text-[#606770]">
+                    <span className="font-medium text-[#1c1e21]">AIで表現を整える</span>
+                    （オンで最後に通信します。オフなら端末内の結果だけでその場で表示します）
+                  </span>
+                </label>
               </div>
               {showNextButton && (
                 <button
                   type="button"
-                  onClick={goNext}
+                  onClick={() => goNext()}
                   className="mt-6 w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] active:scale-[0.99]"
                 >
                   次へ
@@ -281,6 +540,11 @@ export default function Home() {
               <p className="mb-4 text-base leading-relaxed text-[#606770]">
                 今、先生に聞きたいことや、不安に思っていることを自由に書いてください。
               </p>
+              {!useAiEnhancement && (
+                <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs leading-relaxed text-amber-950">
+                  いまの設定は<strong>通信なし</strong>です。入力内容はサーバーに送られず、この端末だけで結果まで進みます。
+                </p>
+              )}
               <textarea
                 value={worryText}
                 onChange={(e) => setWorryText(e.target.value)}
@@ -291,7 +555,7 @@ export default function Home() {
               {showNextButton && (
                 <button
                   type="button"
-                  onClick={goNext}
+                  onClick={() => goNext()}
                   className="mt-6 w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] active:scale-[0.99]"
                 >
                   次へ
@@ -306,19 +570,20 @@ export default function Home() {
               <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
                 {group}に基づく質問
               </p>
-              {deepQuestions.length >= step - 2 ? (
+              {currentQuestionText ? (
                 <>
                   <p className="mb-6 text-base leading-relaxed text-[#1c1e21]">
-                    {deepQuestions[currentQIndex]}
+                    {currentQuestionText}
                   </p>
                   <div className="space-y-3">
                     <button
                       type="button"
                       onClick={() => {
                         setQAnswers((a) => [...a.slice(0, currentQIndex), "A"]);
-                        setTimeout(goNext, 120);
+                        const epoch = navEpochRef.current;
+                        setTimeout(() => goNext(epoch), 120);
                       }}
-                      className="w-full rounded-xl border border-[#ccd0d5] bg-white py-3.5 text-left px-4 font-medium text-[#1c1e21] transition hover:border-[#1877f2] hover:bg-[#f0f2f5] active:scale-[0.99]"
+                      className="min-h-[52px] w-full rounded-xl border border-[#ccd0d5] bg-white py-3.5 text-left px-4 font-medium text-[#1c1e21] transition hover:border-[#1877f2] hover:bg-[#f0f2f5] active:scale-[0.99]"
                     >
                       そう感じることが多い
                     </button>
@@ -326,9 +591,10 @@ export default function Home() {
                       type="button"
                       onClick={() => {
                         setQAnswers((a) => [...a.slice(0, currentQIndex), "B"]);
-                        setTimeout(goNext, 120);
+                        const epoch = navEpochRef.current;
+                        setTimeout(() => goNext(epoch), 120);
                       }}
-                      className="w-full rounded-xl border border-[#ccd0d5] bg-white py-3.5 text-left px-4 font-medium text-[#1c1e21] transition hover:border-[#1877f2] hover:bg-[#f0f2f5] active:scale-[0.99]"
+                      className="min-h-[52px] w-full rounded-xl border border-[#ccd0d5] bg-white py-3.5 text-left px-4 font-medium text-[#1c1e21] transition hover:border-[#1877f2] hover:bg-[#f0f2f5] active:scale-[0.99]"
                     >
                       あまり当てはまらない
                     </button>
@@ -358,7 +624,7 @@ export default function Home() {
                 思考を解析しています…
               </p>
               <p className="mt-1 text-xs leading-relaxed text-[#65676b]">
-                性格統計学の視点で、あなたの入力を深く分析しています
+                AIを含む処理のため、環境によっては1分ほどかかることがあります。
               </p>
             </section>
           )}
@@ -366,6 +632,14 @@ export default function Home() {
           {/* ⑦ 最終結果 */}
           {step === 7 && result && (
             <section className="space-y-6">
+              <div className="rounded-2xl border border-amber-100 bg-amber-50/90 px-5 py-4 text-[13px] leading-relaxed text-amber-950 shadow-[0_1px_6px_rgba(0,0,0,0.04)]">
+                <p className="font-semibold text-amber-900">ご利用前に（重要）</p>
+                <p className="mt-1.5">
+                  表示されるのは<strong>気づきの仮説</strong>であり、<strong>医学的診断や治療の提案ではありません</strong>。
+                  症状や体調の判断は、必ず医療機関で受けてください。
+                </p>
+              </div>
+
               <div className="rounded-2xl border border-[#dfe3e8] bg-white px-7 py-8 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
                   あなたが入力したこと
@@ -374,11 +648,15 @@ export default function Home() {
                   「{worryText.trim() || "（未入力）"}」
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-[#606770]">
-                  上記について、性格統計学の視点で深く分析しました。
+                  {resultAnalysisDescription}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#dfe3e8] bg-white px-7 py-8 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                <p className="mb-3 text-xs leading-relaxed text-[#8d949e]">
+                  ※
+                  次の文章は「そうかもしれない」という<strong>仮説</strong>です。当てはまらなければ、その感覚を優先してください。
+                </p>
                 <p className="text-[18px] leading-[1.8] text-[#1c1e21]">
                   {aiInsight ?? result.insight}
                 </p>
@@ -393,34 +671,10 @@ export default function Home() {
                 </p>
               </div>
 
-              {nextQuestions.length > 0 && (
-                <div className="rounded-2xl border border-[#dfe3e8] bg-white px-7 py-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-                  <p className="mb-3 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
-                    次に考えてみる問い
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    {nextQuestions.map((q, idx) => (
-                      <button
-                        key={`${q}-${idx}`}
-                        type="button"
-                        onClick={() => {
-                          setWorryText(q);
-                          setQAnswers([]);
-                          setAiInsight(null);
-                          setAiAction(null);
-                          setAiError(null);
-                          setNextQuestions([]);
-                          setDeepQuestions([]);
-                          setStep(2);
-                        }}
-                        className="w-full rounded-xl border border-[#ccd0d5] bg-white px-4 py-2.5 text-left text-[14px] leading-relaxed text-[#1c1e21] transition hover:border-[#1877f2] hover:bg-[#f0f2f5] active:scale-[0.99]"
-                      >
-                        {q}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <FollowUpListLazy
+                questions={displayFollowUps}
+                onPick={onPickFollowUp}
+              />
 
               {aiError && (
                 <p className="text-center text-xs text-[#fa3e3e]">
@@ -428,15 +682,25 @@ export default function Home() {
                 </p>
               )}
 
+              {useAiEnhancement && (aiError || (!aiInsight && !aiAction)) && (
+                <button
+                  type="button"
+                  onClick={retryAiGeneration}
+                  className="min-h-[48px] w-full rounded-xl border-2 border-[#1877f2] bg-white py-3.5 text-sm font-medium text-[#1877f2] transition hover:bg-[#e7f3ff]"
+                >
+                  AIでもう一度整える
+                </button>
+              )}
+
               <p className="text-center text-sm leading-relaxed text-[#65676b]">
-                この結果に違和感があるなら、それは「自分はそうではない」と自覚できた証拠。その感覚を大切に。
+                結果に違和感があるなら、それは「自分はそうではない」と自覚できた証拠です。その感覚も立派な気づきです。
               </p>
 
               <p className="mx-auto max-w-md text-center text-[12px] leading-relaxed text-[#8d949e]">
                 本アプリは性格統計学に基づくコミュニケーション支援ツールであり、医学的な診断や治療の助言を行うものではありません。体調に不安がある場合は、必ず専門の医療機関を受診してください。
               </p>
 
-              <div className="flex gap-3 pt-2">
+              <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
                 <button
                   type="button"
                   onClick={() => {
@@ -449,21 +713,31 @@ export default function Home() {
                     setNextQuestions([]);
                     setDeepQuestions([]);
                   }}
-                  className="rounded-xl border border-[#ccd0d5] py-3 px-4 font-medium text-[#606770] transition hover:bg-[#f0f2f5]"
+                  className="min-h-[48px] rounded-xl border border-[#ccd0d5] py-3 px-4 font-medium text-[#606770] transition hover:bg-[#f0f2f5] sm:min-w-[7rem]"
                 >
                   最初から
                 </button>
                 <button
                   type="button"
                   onClick={() => {
+                    const actionText = aiAction ?? result.action;
+                    void navigator.clipboard.writeText(actionText);
+                  }}
+                  className="min-h-[48px] flex-1 rounded-xl border border-[#ccd0d5] bg-white py-3 px-4 text-sm font-medium text-[#1c1e21] transition hover:bg-[#f0f2f5] sm:min-w-[10rem]"
+                >
+                  医師への一言だけコピー
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
                     const insightText = aiInsight ?? result.insight;
                     const actionText = aiAction ?? result.action;
-                    const text = `あなたが入力したこと：\n「${worryText.trim()}」\n\n上記について、性格統計学とAIの視点で深く分析しました。\n\n【Insight】\n${insightText}\n\n【診察室での最初の一言】\n${actionText}`;
+                    const text = `あなたが入力したこと：\n「${worryText.trim()}」\n\n${resultAnalysisDescription}\n\n【Insight】\n${insightText}\n\n【診察室での最初の一言】\n${actionText}`;
                     void navigator.clipboard.writeText(text);
                   }}
-                  className="flex-1 rounded-xl bg-[#1877f2] py-3 font-medium text-white shadow-sm transition hover:bg-[#166fe5]"
+                  className="min-h-[48px] flex-1 rounded-xl bg-[#1877f2] py-3 px-4 text-sm font-medium text-white shadow-sm transition hover:bg-[#166fe5] sm:min-w-[10rem]"
                 >
-                  コピー
+                  すべてコピー
                 </button>
               </div>
             </section>
