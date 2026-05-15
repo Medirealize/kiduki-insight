@@ -411,7 +411,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="mx-auto max-w-md px-4 pt-10 pb-8 sm:pt-14 sm:pb-12">
+      <div className="mx-auto max-w-md px-5 pt-10 pb-8 sm:pt-14 sm:pb-12">
         <header className="mb-10 text-center">
           <h1 className="text-[1.333rem] font-semibold tracking-tight text-[#1c1e21]">
             先生、本当はね。

@@ -2,7 +2,6 @@
 
 html {
   font-size: 18px;
-  overflow-x: hidden;
 }
 
 :root {
@@ -25,6 +24,7 @@ body {
   line-height: var(--line-height-relaxed);
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+  overflow-x: hidden;
 }
 
 /* スクリーンリーダー専用（Tailwind の sr-only が無い環境向け） */
