@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 import dynamic from "next/dynamic";
 import { analyzePersonality } from "@/lib/personality";
 import { pickClosestInsight } from "@/lib/insights";
@@ -271,7 +273,7 @@ export default function Home() {
         setNextQuestions([]);
         const startedAt = Date.now();
 
-        const res = await fetch("/api/chat", {
+        const res = await fetch(`${API_BASE}/api/chat`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -369,7 +371,7 @@ export default function Home() {
 
     const run = async () => {
       try {
-        const res = await fetch("/api/deep-questions", {
+        const res = await fetch(`${API_BASE}/api/deep-questions`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -409,8 +411,8 @@ export default function Home() {
         />
       </div>
 
-      <div className="mx-auto max-w-md px-4 py-8 sm:py-12">
-        <header className="mb-8 text-center">
+      <div className="mx-auto max-w-md px-4 pt-10 pb-8 sm:pt-14 sm:pb-12">
+        <header className="mb-10 text-center">
           <h1 className="text-[1.333rem] font-semibold tracking-tight text-[#1c1e21]">
             先生、本当はね。
           </h1>
