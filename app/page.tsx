@@ -402,7 +402,7 @@ export default function Home() {
   }, [step, typeCode, group, worryText, birthDate, questions, useAiEnhancement]);
 
   return (
-    <div className="min-h-screen bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
       {/* プログレスバー */}
       <div className="sticky top-0 z-10 h-1.5 w-full bg-[#dfe3e8]">
         <div
