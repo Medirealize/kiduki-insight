@@ -458,7 +458,7 @@ export default function Home() {
                 生年月日と性別を教えてください。性格統計学に基づいて、あなたに合った問いかけをします。
               </p>
               <div className="space-y-4">
-                <div>
+                <div className="min-w-0 overflow-hidden">
                   <label htmlFor="birth" className="mb-1 block text-[0.8125rem] font-semibold tracking-wide text-[#65676b] uppercase">
                     生年月日
                   </label>
@@ -467,7 +467,7 @@ export default function Home() {
                     type="date"
                     value={birthDate}
                     onChange={(e) => setBirthDate(e.target.value)}
-                    className="w-full rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-[#1c1e21] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
+                    className="w-full max-w-full min-w-0 rounded-xl border border-[#ccd0d5] bg-white px-3 py-3 text-base text-[#1c1e21] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
                   />
                 </div>
                 <div>
