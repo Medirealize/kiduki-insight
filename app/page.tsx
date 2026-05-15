@@ -411,7 +411,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="mx-auto max-w-md px-5 pt-10 pb-8 sm:pt-14 sm:pb-12">
+      <div className="mx-auto max-w-md px-6 pt-10 pb-8 sm:pt-14 sm:pb-12">
         <header className="mb-10 text-center">
           <h1 className="text-[1.333rem] font-semibold tracking-tight text-[#1c1e21]">
             先生、本当はね。
@@ -453,7 +453,7 @@ export default function Home() {
         >
           {/* ① 属性入力 */}
           {step === 1 && (
-            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-6 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <p className="mb-4 text-base leading-relaxed text-[#606770]">
                 生年月日と性別を教えてください。性格統計学に基づいて、あなたに合った問いかけをします。
               </p>
@@ -538,7 +538,7 @@ export default function Home() {
 
           {/* ② 悩み入力 */}
           {step === 2 && (
-            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-6 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <p className="mb-4 text-base leading-relaxed text-[#606770]">
                 今、先生に聞きたいことや、不安に思っていることを自由に書いてください。
               </p>
@@ -568,7 +568,7 @@ export default function Home() {
 
           {/* ③④⑤ 深掘り質問（1画面1問） */}
           {step >= 3 && step <= 5 && (
-            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-6 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
                 {group}に基づく質問
               </p>
@@ -615,7 +615,7 @@ export default function Home() {
 
           {/* ⑥ 思考の解析演出（3秒） */}
           {step === 6 && (
-            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-7 py-8 shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-center">
+            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-center">
               {worryText.trim() && (
                 <p className="mb-4 text-left text-base leading-relaxed text-[#606770]">
                   あなたが入力したこと：<span className="font-medium text-[#1c1e21]">「{worryText.trim().slice(0, 60)}{worryText.trim().length > 60 ? "…" : ""}」</span>
@@ -642,7 +642,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-7 py-8 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
                   あなたが入力したこと
                 </p>
@@ -654,7 +654,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-7 py-8 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                 <p className="mb-3 text-xs leading-relaxed text-[#8d949e]">
                   ※
                   次の文章は「そうかもしれない」という<strong>仮説</strong>です。当てはまらなければ、その感覚を優先してください。
@@ -664,7 +664,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-7 py-8 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
                   医師への一言
                 </p>
