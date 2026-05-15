@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { mergeFollowUpQuestions } from "@/lib/follow-up-questions";
+import { corsHeaders } from "@/lib/cors";
+
+export async function OPTIONS(req: NextRequest) {
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(req.headers.get("origin")),
+  });
+}
 
 const OPENAI_TIMEOUT_MS = 45_000;
 
@@ -22,6 +30,7 @@ type ChatResponseBody = {
 };
 
 export async function POST(req: NextRequest) {
+  const cors = corsHeaders(req.headers.get("origin"));
   try {
     const apiKey = process.env.OPENAI_API_KEY;
     const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -29,7 +38,7 @@ export async function POST(req: NextRequest) {
     if (!apiKey) {
       return NextResponse.json(
         { error: "OPENAI_API_KEY is not configured on the server." },
-        { status: 500 }
+        { status: 500, headers: cors }
       );
     }
 
@@ -139,7 +148,7 @@ ${baseAction}
       console.error("OpenAI API error:", errorText);
       return NextResponse.json(
         { error: "AI API request failed." },
-        { status: 500 }
+        { status: 500, headers: cors }
       );
     }
 
@@ -149,7 +158,7 @@ ${baseAction}
     if (!content) {
       return NextResponse.json(
         { error: "Empty AI response." },
-        { status: 500 }
+        { status: 500, headers: cors }
       );
     }
 
@@ -180,7 +189,7 @@ ${baseAction}
     }
 
     if (!parsed || typeof parsed !== "object") {
-      return NextResponse.json({ error: "Invalid AI response shape." }, { status: 500 });
+      return NextResponse.json({ error: "Invalid AI response shape." }, { status: 500, headers: cors });
     }
 
     const mergedNext = mergeFollowUpQuestions(parsed.next_questions ?? [], {
@@ -194,12 +203,12 @@ ${baseAction}
       console.log("[chat] ok", { typeCode, group, elapsedMs, followUps: mergedNext.length });
     }
 
-    return NextResponse.json(parsed);
+    return NextResponse.json(parsed, { headers: cors });
   } catch (error) {
     console.error("Chat route error:", error);
     return NextResponse.json(
       { error: "Unexpected server error while generating AI advice." },
-      { status: 500 }
+      { status: 500, headers: cors }
     );
   }
 }

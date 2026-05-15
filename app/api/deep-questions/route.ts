@@ -1,4 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { corsHeaders } from "@/lib/cors";
+
+export async function OPTIONS(req: NextRequest) {
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(req.headers.get("origin")),
+  });
+}
 
 const OPENAI_TIMEOUT_MS = 45_000;
 
@@ -17,6 +25,7 @@ type DeepQuestionsResponseBody = {
 };
 
 export async function POST(req: NextRequest) {
+  const cors = corsHeaders(req.headers.get("origin"));
   try {
     const apiKey = process.env.OPENAI_API_KEY;
     const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -24,7 +33,7 @@ export async function POST(req: NextRequest) {
     if (!apiKey) {
       return NextResponse.json(
         { error: "OPENAI_API_KEY is not configured on the server." },
-        { status: 500 }
+        { status: 500, headers: cors }
       );
     }
 
@@ -118,7 +127,7 @@ export async function POST(req: NextRequest) {
       console.error("OpenAI deep-questions API error:", errorText);
       return NextResponse.json(
         { error: "AI API request failed." },
-        { status: 500 }
+        { status: 500, headers: cors }
       );
     }
 
@@ -128,7 +137,7 @@ export async function POST(req: NextRequest) {
     if (!content) {
       return NextResponse.json(
         { error: "Empty AI response." },
-        { status: 500 }
+        { status: 500, headers: cors }
       );
     }
 
@@ -169,21 +178,12 @@ export async function POST(req: NextRequest) {
         ? unique.slice(0, 3)
         : [...unique, ...fallbackQuestions.slice(unique.length)];
 
-    // 一時デバッグ: 生成された質問のばらつきを確認するためにサーバーログへ出力
-    console.log("[deep-questions]", {
-      typeCode,
-      group,
-      worryPreview: (worryText || "").slice(0, 40),
-      questions: normalized,
-      elapsedMs: Date.now() - t0,
-    });
-
-    return NextResponse.json({ questions: normalized });
+    return NextResponse.json({ questions: normalized }, { headers: cors });
   } catch (error) {
     console.error("Deep-questions route error:", error);
     return NextResponse.json(
       { error: "Unexpected server error while generating deep questions." },
-      { status: 500 }
+      { status: 500, headers: cors }
     );
   }
 }
