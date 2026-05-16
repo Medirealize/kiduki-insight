@@ -412,13 +412,17 @@ export default function Home() {
       </div>
 
       <div className="mx-auto max-w-md px-6 pt-10 pb-8 sm:pt-14 sm:pb-12">
-        <header className="mb-10 text-center">
-          <h1 className="text-[1.333rem] font-semibold tracking-tight text-[#1c1e21]">
-            ほんね。
-          </h1>
-          <p className="mt-1 text-xs text-[#65676b]">
-            気づいて！私のきもち
-          </p>
+        <header className="mb-10">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1877f2] to-[#0a4db5] px-6 py-10 text-center shadow-[0_8px_32px_rgba(24,119,242,0.30)]">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-8 -left-8 h-36 w-36 rounded-full bg-white/5 blur-2xl" />
+            <h1 className="relative text-[2.2rem] font-bold tracking-[0.08em] text-white drop-shadow-sm">
+              ほんね。
+            </h1>
+            <p className="relative mt-2 text-[0.8rem] font-medium tracking-[0.22em] text-white/70">
+              気づいて！私のきもち
+            </p>
+          </div>
         </header>
 
         <p className="sr-only" aria-live="polite" aria-atomic="true">

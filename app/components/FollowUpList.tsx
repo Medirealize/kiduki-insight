@@ -9,12 +9,12 @@ export default function FollowUpList({ questions, onPick }: Props) {
   if (questions.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-[#dfe3e8] bg-white px-7 py-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+    <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
       <p className="mb-1 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
-        次に考えてみる問い
+        先生に伝えたいことを、もっと深く
       </p>
       <p className="mb-4 text-xs leading-relaxed text-[#8d949e]">
-        短い問いと、少し時間をかけたい問いが混ざっています。気になったものだけをタップしてください。
+        あなたの不安や気がかりの奥にある本音を探る問いかけです。気になったものをタップすると、その問いから考え直せます。
       </p>
       <div className="flex flex-col gap-2">
         {questions.map((q, idx) => (
