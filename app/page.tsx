@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
+import Link from "next/link";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 import dynamic from "next/dynamic";
@@ -9,6 +10,9 @@ import { GROUP_TO_AXIS_INDEX, AXIS_QUESTIONS, TOTAL_STEPS } from "@/lib/constant
 import { mergeFollowUpQuestions } from "@/lib/follow-up-questions";
 import { track } from "@/lib/analytics";
 import type { PersonalityGroup } from "@/lib/personality";
+import { useLogStore } from "@/lib/store/useLogStore";
+import { useUserStatus } from "@/lib/store/useUserStatus";
+import { FREE_LOG_VISIBLE, FREE_DAILY_LIMIT } from "@/lib/types/log";
 
 const PROFILE_STORAGE_KEY = "kiduki-insight-profile-v2";
 const PREFS_STORAGE_KEY = "kiduki-insight-prefs-v1";
@@ -55,6 +59,10 @@ export default function Home() {
   const [direction, setDirection] = useState<"in" | "out">("in");
   const [selectedGroup, setSelectedGroup] = useState<PersonalityGroup | null>(null);
   const [useAiEnhancement, setUseAiEnhancement] = useState(true);
+  const [savedThisSession, setSavedThisSession] = useState(false);
+
+  const { logs, addLog } = useLogStore();
+  const { isPremium, canDiagnose, remainingToday, recordUsage, upgradeToPremium } = useUserStatus();
   const [worryText, setWorryText] = useState("");
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -278,6 +286,15 @@ export default function Home() {
   useEffect(() => {
     if (step !== 6 || !isLoading || !result) return;
 
+    // 1日の診断回数チェック
+    if (!canDiagnose) {
+      setAiError(`本日の診断回数（${FREE_DAILY_LIMIT}回）に達しました。プレミアムプランで無制限にご利用いただけます。`);
+      setIsLoading(false);
+      setStep(7);
+      return;
+    }
+    recordUsage();
+
     let cancelled = false;
 
     const run = async () => {
@@ -462,6 +479,20 @@ export default function Home() {
             <p className="relative mt-2 text-[0.8rem] font-medium tracking-[0.22em] text-white/70">
               気づいて！私のきもち
             </p>
+            <Link
+              href="/history"
+              className="relative mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/25"
+            >
+              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+                <path d="M3 2a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3zm1 2h8v8H4V4zm1 1v2h6V5H5zm0 3v1h6V8H5zm0 2v1h4v-1H5z"/>
+              </svg>
+              診断カルテ
+              {logs.length > 0 && (
+                <span className="rounded-full bg-white/30 px-1.5 text-[0.65rem] font-bold">
+                  {logs.length}
+                </span>
+              )}
+            </Link>
           </div>
         </header>
 
@@ -762,6 +793,46 @@ export default function Home() {
                 本アプリは性格統計学に基づくコミュニケーション支援ツールであり、医学的な診断や治療の助言を行うものではありません。体調に不安がある場合は、必ず専門の医療機関を受診してください。
               </p>
 
+              {/* カルテ保存セクション */}
+              {!savedThisSession ? (
+                <div className="rounded-2xl border border-[#dfe3e8] bg-[#f8f9fb] px-5 py-4">
+                  <p className="mb-1 text-[0.75rem] font-semibold text-[#1c1e21]">
+                    📋 この診断をカルテに保存する
+                  </p>
+                  <p className="mb-3 text-xs leading-relaxed text-[#8d949e]">
+                    {isPremium
+                      ? "プレミアムプランで無制限に保存・振り返りができます。"
+                      : `無料プランは${FREE_LOG_VISIBLE}件まで閲覧可能。${logs.length >= FREE_LOG_VISIBLE ? "4件目以降はロックされます。" : `あと${FREE_LOG_VISIBLE - logs.length}件保存できます。`}`}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      addLog({
+                        group,
+                        userInput: worryText.trim(),
+                        insight: aiInsight ?? result.insight,
+                        doctorAdvice: aiAction ?? result.action,
+                        selectedQuestions: [],
+                      });
+                      setSavedThisSession(true);
+                    }}
+                    className="w-full rounded-xl bg-[#1877f2] py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#166fe5]"
+                  >
+                    カルテに保存する
+                  </button>
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-center">
+                  <p className="text-sm font-semibold text-emerald-700">✓ カルテに保存しました</p>
+                  <Link
+                    href="/history"
+                    className="mt-1.5 block text-xs text-emerald-600 underline"
+                  >
+                    診断カルテを見る →
+                  </Link>
+                </div>
+              )}
+
               <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
                 <button
                   type="button"
@@ -774,6 +845,7 @@ export default function Home() {
                     setAiError(null);
                     setNextQuestions([]);
                     setDeepQuestions([]);
+                    setSavedThisSession(false);
                   }}
                   className="min-h-[48px] rounded-xl border border-[#ccd0d5] py-3 px-4 font-medium text-[#606770] transition hover:bg-[#f0f2f5] sm:min-w-[7rem]"
                 >
