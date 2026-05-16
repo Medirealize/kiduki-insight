@@ -198,6 +198,7 @@ ${baseAction}
     const mergedNext = mergeFollowUpQuestions(parsed.next_questions ?? [], {
       group,
       typeCode,
+      worryText,
     });
     parsed = { ...parsed, next_questions: mergedNext };
 

@@ -100,8 +100,9 @@ export default function Home() {
     return mergeFollowUpQuestions(useAiEnhancement ? nextQuestions : [], {
       group,
       typeCode,
+      worryText,
     });
-  }, [useAiEnhancement, nextQuestions, group, typeCode]);
+  }, [useAiEnhancement, nextQuestions, group, typeCode, worryText]);
 
   useEffect(() => {
     track("step_view", { step });

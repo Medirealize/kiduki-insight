@@ -46,11 +46,29 @@ function shuffle<T>(items: T[]): T[] {
  * AIの問い・バリエーション・深い問いを重複なく混ぜる。
  * 並び: AI → 深い → 短い を交互に近い形で取り込む。
  */
+function bigramOverlap(a: string, b: string): number {
+  const clean = (s: string) => s.replace(/[。、？！\s　]/g, "");
+  const ca = clean(a);
+  const cb = clean(b);
+  if (ca.length < 3 || cb.length < 3) return 0;
+  const getBigrams = (s: string) => {
+    const set = new Set<string>();
+    for (let i = 0; i < s.length - 1; i++) set.add(s.slice(i, i + 2));
+    return set;
+  };
+  const aBg = getBigrams(ca);
+  const bBg = getBigrams(cb);
+  let common = 0;
+  for (const bg of aBg) { if (bBg.has(bg)) common++; }
+  return aBg.size > 0 ? common / aBg.size : 0;
+}
+
 export function mergeFollowUpQuestions(
   fromAi: string[],
-  _ctx: { group: string; typeCode?: string }
+  ctx: { group: string; typeCode?: string; worryText?: string }
 ): string[] {
-  void _ctx;
+  const { worryText = "" } = ctx;
+
   const INTROSPECTIVE_PATTERNS = [
     /誰に伝え/, /抵抗はあり/, /口に出す/, /なぜ言え/, /気持ちはどう/,
     /誰に相談/, /自分の不調を誰/, /誰をがっかり/, /ごめんね/, /1人きり/,
@@ -60,7 +78,8 @@ export function mergeFollowUpQuestions(
   const ai = fromAi
     .map((s) => s.trim())
     .filter((q) => q.length > 0 && q.length <= 120)
-    .filter((q) => !INTROSPECTIVE_PATTERNS.some((p) => p.test(q)));
+    .filter((q) => !INTROSPECTIVE_PATTERNS.some((p) => p.test(q)))
+    .filter((q) => bigramOverlap(q, worryText) < 0.5);
 
   const vars = shuffle([...FOLLOW_UP_VARIATIONS]);
   const deep = shuffle([...FOLLOW_UP_DEEP]);
