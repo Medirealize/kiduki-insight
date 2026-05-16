@@ -402,7 +402,7 @@ export default function Home() {
   }, [step, typeCode, group, worryText, birthDate, questions, useAiEnhancement]);
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
+    <div className="page-bg min-h-screen w-full overflow-x-hidden font-sans text-[#1c1e21] antialiased">
       {/* プログレスバー */}
       <div className="sticky top-0 z-10 h-1.5 w-full bg-[#dfe3e8]">
         <div
@@ -414,8 +414,33 @@ export default function Home() {
       <div className="mx-auto max-w-md px-6 pt-10 pb-8 sm:pt-14 sm:pb-12">
         <header className="mb-10">
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#1877F2] to-[#166FE5] px-6 py-10 text-center shadow-[0_6px_24px_rgba(24,119,242,0.28)]">
+            {/* 背景ぼかし */}
             <div className="pointer-events-none absolute -right-8 -top-8 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-white/5 blur-2xl" />
+            {/* 装飾ドット列 */}
+            <div className="pointer-events-none absolute left-5 top-5 flex gap-1.5 opacity-30">
+              {[2, 2.5, 2, 1.5].map((s, i) => (
+                <div key={i} style={{ width: `${s * 4}px`, height: `${s * 4}px` }} className="rounded-full bg-white" />
+              ))}
+            </div>
+            {/* 吹き出しイラスト（患者↔先生のコミュニケーション） */}
+            <svg
+              viewBox="0 0 110 90"
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-3 right-3 w-[90px] opacity-[0.22]"
+              fill="white"
+            >
+              <rect x="0" y="28" width="65" height="44" rx="12" />
+              <path d="M14 72 L5 86 L26 72 Z" />
+              <rect x="32" y="0" width="78" height="44" rx="12" />
+              <path d="M98 44 L108 57 L87 44 Z" />
+              <rect x="8" y="40" width="34" height="3" rx="1.5" fill="rgba(24,119,242,0.45)" />
+              <rect x="8" y="48" width="24" height="3" rx="1.5" fill="rgba(24,119,242,0.45)" />
+              <rect x="8" y="56" width="30" height="3" rx="1.5" fill="rgba(24,119,242,0.45)" />
+              <rect x="42" y="12" width="48" height="3" rx="1.5" fill="rgba(24,119,242,0.45)" />
+              <rect x="42" y="20" width="36" height="3" rx="1.5" fill="rgba(24,119,242,0.45)" />
+              <rect x="42" y="28" width="44" height="3" rx="1.5" fill="rgba(24,119,242,0.45)" />
+            </svg>
             <h1 className="relative text-[2.2rem] font-bold tracking-[0.08em] text-white drop-shadow-sm">
               ほんね。
             </h1>
@@ -463,7 +488,12 @@ export default function Home() {
               </p>
               <div className="space-y-4">
                 <div className="min-w-0 overflow-hidden">
-                  <label htmlFor="birth" className="mb-1 block text-[0.8125rem] font-semibold tracking-wide text-[#65676b] uppercase">
+                  <label htmlFor="birth" className="mb-1 flex items-center gap-1.5 text-[0.8125rem] font-semibold tracking-wide text-[#65676b] uppercase">
+                    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                      <rect x="1" y="2.5" width="14" height="12" rx="2" />
+                      <path d="M1 6.5h14" strokeLinecap="round" />
+                      <path d="M5 1v3M11 1v3" strokeLinecap="round" />
+                    </svg>
                     生年月日
                   </label>
                   <input
@@ -475,7 +505,11 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <span className="mb-2 block text-[0.8125rem] font-semibold tracking-wide text-[#65676b] uppercase">
+                  <span className="mb-2 flex items-center gap-1.5 text-[0.8125rem] font-semibold tracking-wide text-[#65676b] uppercase">
+                    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                      <circle cx="8" cy="5.5" r="3" />
+                      <path d="M2 15c0-3 2.686-5 6-5s6 2 6 5" strokeLinecap="round" />
+                    </svg>
                     性別
                   </span>
                   <div className="flex flex-wrap gap-3">
@@ -543,7 +577,10 @@ export default function Home() {
           {/* ② 悩み入力 */}
           {step === 2 && (
             <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-              <p className="mb-4 text-base leading-relaxed text-[#606770]">
+              <p className="mb-4 flex items-start gap-2 text-base leading-relaxed text-[#606770]">
+                <svg viewBox="0 0 20 20" className="mt-0.5 h-5 w-5 shrink-0 text-[#1877f2]" fill="currentColor" aria-hidden="true">
+                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                </svg>
                 先生に聞きたいこと、気になっていること、不安に思っていることを書いてください。うまく言葉にできなくても大丈夫です。
               </p>
               {!useAiEnhancement && (
@@ -573,9 +610,13 @@ export default function Home() {
           {/* ③④⑤ 深掘り質問（1画面1問） */}
           {step >= 3 && step <= 5 && (
             <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-              <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
-                {group}に基づく質問
-              </p>
+              <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[#e7f0fd] px-3 py-1 text-[0.75rem] font-semibold text-[#1877f2]">
+                <svg viewBox="0 0 12 12" className="h-3 w-3" fill="currentColor" aria-hidden="true">
+                  <circle cx="6" cy="6" r="5" />
+                  <path d="M6 4v3M6 8.5v.5" stroke="white" strokeWidth="1.3" strokeLinecap="round" />
+                </svg>
+                {group}タイプの質問
+              </span>
               {currentQuestionText ? (
                 <>
                   <p className="mb-6 text-base leading-relaxed text-[#1c1e21]">
@@ -611,9 +652,20 @@ export default function Home() {
                   質問を準備しています…
                 </p>
               )}
-              <p className="mt-4 text-center text-xs text-[#8d949e]">
-                {step} / {TOTAL_STEPS}
-              </p>
+              <div className="mt-5 flex justify-center gap-2">
+                {[0, 1, 2].map((i) => (
+                  <span
+                    key={i}
+                    className={`block rounded-full transition-all duration-300 ${
+                      i < currentQIndex
+                        ? "h-2 w-2 bg-[#1877f2]"
+                        : i === currentQIndex
+                        ? "h-2 w-6 bg-[#1877f2]"
+                        : "h-2 w-2 bg-[#dfe3e8]"
+                    }`}
+                  />
+                ))}
+              </div>
             </section>
           )}
 

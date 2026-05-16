@@ -4,6 +4,12 @@ html {
   font-size: 18px;
 }
 
+.page-bg {
+  background-color: #eef1f6;
+  background-image: radial-gradient(#c4d2e8 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
