@@ -1,3 +1,8 @@
+const API_BASE =
+  typeof process !== "undefined"
+    ? (process.env.NEXT_PUBLIC_API_BASE_URL ?? "")
+    : "";
+
 type AnalyticsPayload = {
   event: string;
   step?: number;
@@ -11,14 +16,14 @@ export function track(event: string, payload?: Omit<AnalyticsPayload, "event">):
 
   try {
     const blob = new Blob([JSON.stringify(body)], { type: "application/json" });
-    if (navigator.sendBeacon("/api/analytics", blob)) {
+    if (navigator.sendBeacon(`${API_BASE}/api/analytics`, blob)) {
       return;
     }
   } catch {
     /* fall through */
   }
 
-  void fetch("/api/analytics", {
+  void fetch(`${API_BASE}/api/analytics`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
