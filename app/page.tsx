@@ -544,7 +544,7 @@ export default function Home() {
           {step === 2 && (
             <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <p className="mb-4 text-base leading-relaxed text-[#606770]">
-                先生の前では言いにくいことも、ここなら書けます。今感じていることを、そのまま教えてください。
+                先生に聞きたいこと、気になっていること、不安に思っていることを書いてください。うまく言葉にできなくても大丈夫です。
               </p>
               {!useAiEnhancement && (
                 <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs leading-relaxed text-amber-950">
@@ -554,7 +554,7 @@ export default function Home() {
               <textarea
                 value={worryText}
                 onChange={(e) => setWorryText(e.target.value)}
-                placeholder="例：なんとなく怖くて先生に聞けなかった、本当はもっと詳しく聞きたかった、家族に心配をかけたくない…"
+                placeholder="例：血液検査が必要な理由を聞きたい、病気のことを家族にどう説明すればいいかわからない、薬をいつまで飲み続けるのか不安…"
                 rows={5}
                 className="w-full resize-none rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-base leading-relaxed text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
               />
