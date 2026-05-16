@@ -711,6 +711,9 @@ export default function Home() {
               </div>
 
               <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
+                  あなたのほんね
+                </p>
                 <p className="mb-3 text-xs leading-relaxed text-[#8d949e]">
                   ※
                   次の文章は「そうかもしれない」という<strong>仮説</strong>です。当てはまらなければ、その感覚を優先してください。
@@ -722,7 +725,7 @@ export default function Home() {
 
               <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
-                  医師への一言
+                  医師への一言（案）
                 </p>
                 <p className="mt-2 text-[18px] leading-[1.8] text-[#1c1e21]">
                   {aiAction ?? result.action}
