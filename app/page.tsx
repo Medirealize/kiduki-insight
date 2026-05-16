@@ -591,7 +591,7 @@ export default function Home() {
                       }}
                       className="min-h-[52px] w-full rounded-xl border border-[#ccd0d5] bg-white py-3.5 text-left px-4 font-medium text-[#1c1e21] transition hover:border-[#1877f2] hover:bg-[#f0f2f5] active:scale-[0.99]"
                     >
-                      そう感じることが多い
+                      {questions[currentQIndex]?.A ?? "はい、そう感じることが多い"}
                     </button>
                     <button
                       type="button"
@@ -602,7 +602,7 @@ export default function Home() {
                       }}
                       className="min-h-[52px] w-full rounded-xl border border-[#ccd0d5] bg-white py-3.5 text-left px-4 font-medium text-[#1c1e21] transition hover:border-[#1877f2] hover:bg-[#f0f2f5] active:scale-[0.99]"
                     >
-                      あまり当てはまらない
+                      {questions[currentQIndex]?.B ?? "いいえ、あまり当てはまらない"}
                     </button>
                   </div>
                 </>
