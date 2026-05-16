@@ -710,7 +710,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <div className="rounded-2xl border-2 border-[#1877f2]/40 bg-white px-5 py-7 shadow-[0_4px_16px_rgba(24,119,242,0.12)]">
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
                   あなたのほんね
                 </p>
