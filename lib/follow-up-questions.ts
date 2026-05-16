@@ -51,9 +51,16 @@ export function mergeFollowUpQuestions(
   _ctx: { group: string; typeCode?: string }
 ): string[] {
   void _ctx;
+  const INTROSPECTIVE_PATTERNS = [
+    /誰に伝え/, /抵抗はあり/, /口に出す/, /なぜ言え/, /気持ちはどう/,
+    /誰に相談/, /自分の不調を誰/, /誰をがっかり/, /ごめんね/, /1人きり/,
+    /申し訳/, /弱い自分/, /本音を/, /価値観/, /人生の優先/,
+  ];
+
   const ai = fromAi
     .map((s) => s.trim())
-    .filter((q) => q.length > 0 && q.length <= 120);
+    .filter((q) => q.length > 0 && q.length <= 120)
+    .filter((q) => !INTROSPECTIVE_PATTERNS.some((p) => p.test(q)));
 
   const vars = shuffle([...FOLLOW_UP_VARIATIONS]);
   const deep = shuffle([...FOLLOW_UP_DEEP]);
