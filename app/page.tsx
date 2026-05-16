@@ -4,17 +4,39 @@ import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 import dynamic from "next/dynamic";
-import { analyzePersonality } from "@/lib/personality";
 import { pickClosestInsight } from "@/lib/insights";
 import { GROUP_TO_AXIS_INDEX, AXIS_QUESTIONS, TOTAL_STEPS } from "@/lib/constants";
 import { mergeFollowUpQuestions } from "@/lib/follow-up-questions";
 import { track } from "@/lib/analytics";
+import type { PersonalityGroup } from "@/lib/personality";
 
-const PROFILE_STORAGE_KEY = "kiduki-insight-profile-v1";
+const PROFILE_STORAGE_KEY = "kiduki-insight-profile-v2";
 const PREFS_STORAGE_KEY = "kiduki-insight-prefs-v1";
 
+type GroupOption = { group: PersonalityGroup; typeCode: string; title: string; description: string };
+const GROUP_OPTIONS: GroupOption[] = [
+  {
+    group: "自分軸",
+    typeCode: "A2",
+    title: "自分のペースで考えたい",
+    description: "理由や根拠がわかると安心。納得してから動きたいタイプ。",
+  },
+  {
+    group: "相手軸",
+    typeCode: "B2",
+    title: "まず気持ちをわかってほしい",
+    description: "家族や周りへの気遣いが強く、共感してもらえると楽になるタイプ。",
+  },
+  {
+    group: "社会軸",
+    typeCode: "C2",
+    title: "仕事や生活への影響が気になる",
+    description: "見通しや計画が立つと動きやすく、役割を果たしたいタイプ。",
+  },
+];
+
 const STEP_LABELS: Record<number, string> = {
-  1: "ステップ1、属性の入力",
+  1: "ステップ1、タイプの選択",
   2: "ステップ2、悩みや聞きたいことの入力",
   3: "ステップ3、深掘りの質問 1問目",
   4: "ステップ4、深掘りの質問 2問目",
@@ -31,9 +53,7 @@ const FollowUpListLazy = dynamic(
 export default function Home() {
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState<"in" | "out">("in");
-  // デフォルトの年を 1985 年に固定
-  const [birthDate, setBirthDate] = useState("1985-01-01");
-  const [gender, setGender] = useState<"male" | "female">("male");
+  const [selectedGroup, setSelectedGroup] = useState<PersonalityGroup | null>(null);
   const [useAiEnhancement, setUseAiEnhancement] = useState(true);
   const [worryText, setWorryText] = useState("");
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
@@ -54,9 +74,8 @@ export default function Home() {
   stepRef.current = step;
   useAiEnhancementRef.current = useAiEnhancement;
 
-  const personality = useMemo(() => analyzePersonality(birthDate), [birthDate]);
-  const typeCode = personality?.typeCode ?? "A1";
-  const group = personality?.group ?? "自分軸";
+  const group: PersonalityGroup = selectedGroup ?? "自分軸";
+  const typeCode = GROUP_OPTIONS.find((o) => o.group === group)?.typeCode ?? "A2";
   const primaryAxis = GROUP_TO_AXIS_INDEX[group];
   const questions = AXIS_QUESTIONS[primaryAxis];
 
@@ -77,8 +96,8 @@ export default function Home() {
 
   // 画面には表示しないが、APIプロンプト用のベースInsight/Actionとしてのみ使用
   const result = useMemo(() => {
-    return pickClosestInsight(typeCode, gender, worryText, selectedFocuses);
-  }, [typeCode, gender, worryText, selectedFocuses]);
+    return pickClosestInsight(typeCode, worryText, selectedFocuses);
+  }, [typeCode, worryText, selectedFocuses]);
 
   const resultAnalysisDescription = useMemo(() => {
     if (!useAiEnhancement) {
@@ -169,12 +188,9 @@ export default function Home() {
       try {
         const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
         if (!raw) return;
-        const p = JSON.parse(raw) as { birthDate?: string; gender?: string };
-        if (p.birthDate && /^\d{4}-\d{2}-\d{2}$/.test(p.birthDate)) {
-          setBirthDate(p.birthDate);
-        }
-        if (p.gender === "male" || p.gender === "female") {
-          setGender(p.gender);
+        const p = JSON.parse(raw) as { group?: string };
+        if (p.group === "自分軸" || p.group === "相手軸" || p.group === "社会軸") {
+          setSelectedGroup(p.group as PersonalityGroup);
         }
       } catch {
         /* ignore */
@@ -186,15 +202,13 @@ export default function Home() {
 
   useEffect(() => {
     if (!profileHydratedRef.current) return;
+    if (!selectedGroup) return;
     try {
-      localStorage.setItem(
-        PROFILE_STORAGE_KEY,
-        JSON.stringify({ birthDate, gender })
-      );
+      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify({ group: selectedGroup }));
     } catch {
       /* ignore */
     }
-  }, [birthDate, gender]);
+  }, [selectedGroup]);
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -353,7 +367,7 @@ export default function Home() {
   }, [step, isLoading, result, typeCode, group, worryText, selectedFocuses, useAiEnhancement]);
 
   const showNextButton =
-    (step === 1 && birthDate.trim()) ||
+    (step === 1 && selectedGroup !== null) ||
     (step === 2 && worryText.trim()) ||
     (step === 3 && qAnswers.length >= 1) ||
     (step === 4 && qAnswers.length >= 2) ||
@@ -366,7 +380,7 @@ export default function Home() {
   useEffect(() => {
     if (!useAiEnhancement) return;
     if (step !== 3) return;
-    if (!birthDate || !worryText.trim()) return;
+    if (!selectedGroup || !worryText.trim()) return;
 
     let cancelled = false;
 
@@ -400,7 +414,7 @@ export default function Home() {
     return () => {
       cancelled = true;
     };
-  }, [step, typeCode, group, worryText, birthDate, questions, useAiEnhancement]);
+  }, [step, typeCode, group, worryText, selectedGroup, questions, useAiEnhancement]);
 
   return (
     <div className="page-bg min-h-screen w-full overflow-x-hidden font-sans text-[#1c1e21] antialiased">
@@ -481,61 +495,47 @@ export default function Home() {
               : "opacity-100 translate-y-0 scale-100"
           }`}
         >
-          {/* ① 属性入力 */}
+          {/* ① タイプ選択 */}
           {step === 1 && (
             <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-              <p className="mb-4 text-base leading-relaxed text-[#606770]">
-                生年月日と性別を教えてください。性格統計学に基づいて、あなたに合った問いかけをします。
+              <p className="mb-5 text-base leading-relaxed text-[#606770]">
+                今のあなたに一番近いものを選んでください。質問の内容がそれに合わせて変わります。
               </p>
-              <div className="space-y-4">
-                <div className="min-w-0 overflow-hidden">
-                  <label htmlFor="birth" className="mb-1 flex items-center gap-1.5 text-[0.8125rem] font-semibold tracking-wide text-[#65676b] uppercase">
-                    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                      <rect x="1" y="2.5" width="14" height="12" rx="2" />
-                      <path d="M1 6.5h14" strokeLinecap="round" />
-                      <path d="M5 1v3M11 1v3" strokeLinecap="round" />
-                    </svg>
-                    生年月日
-                  </label>
-                  <input
-                    id="birth"
-                    type="date"
-                    value={birthDate}
-                    onChange={(e) => setBirthDate(e.target.value)}
-                    className="w-full max-w-full min-w-0 rounded-xl border border-[#ccd0d5] bg-white px-3 py-3 text-base text-[#1c1e21] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
-                  />
-                </div>
-                <div>
-                  <span className="mb-2 flex items-center gap-1.5 text-[0.8125rem] font-semibold tracking-wide text-[#65676b] uppercase">
-                    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                      <circle cx="8" cy="5.5" r="3" />
-                      <path d="M2 15c0-3 2.686-5 6-5s6 2 6 5" strokeLinecap="round" />
-                    </svg>
-                    性別
-                  </span>
-                  <div className="flex flex-wrap gap-3">
-                    <label className="flex min-h-[48px] min-w-[6rem] cursor-pointer items-center gap-3 rounded-xl border border-transparent px-2 py-1 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[#1877f2]/30">
-                      <input
-                        type="radio"
-                        name="gender"
-                        checked={gender === "male"}
-                        onChange={() => setGender("male")}
-                        className="h-5 w-5 accent-teal-600"
-                      />
-                      <span className="text-[#1c1e21]">男性</span>
-                    </label>
-                    <label className="flex min-h-[48px] min-w-[6rem] cursor-pointer items-center gap-3 rounded-xl border border-transparent px-2 py-1 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[#1877f2]/30">
-                      <input
-                        type="radio"
-                        name="gender"
-                        checked={gender === "female"}
-                        onChange={() => setGender("female")}
-                        className="h-5 w-5 accent-teal-600"
-                      />
-                      <span className="text-[#1c1e21]">女性</span>
-                    </label>
-                  </div>
-                </div>
+              <div className="space-y-3">
+                {GROUP_OPTIONS.map((opt, idx) => {
+                  const icons = [
+                    /* 自分軸: 電球 */
+                    <svg key="a" viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M9 21h6M12 3a6 6 0 014.5 10.1c-.7.9-1.5 1.7-1.5 2.9H9c0-1.2-.8-2-1.5-2.9A6 6 0 0112 3z" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+                    /* 相手軸: ハート */
+                    <svg key="b" viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="currentColor" aria-hidden="true"><path d="M12 21.593c-.58-.418-10-7.25-10-12.593a6 6 0 0110-4.472A6 6 0 0122 9c0 5.343-9.42 12.175-10 12.593z"/></svg>,
+                    /* 社会軸: ブリーフケース */
+                    <svg key="c" viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M12 12v4M10 14h4" strokeLinecap="round"/></svg>,
+                  ];
+                  const selected = selectedGroup === opt.group;
+                  return (
+                    <button
+                      key={opt.group}
+                      type="button"
+                      onClick={() => setSelectedGroup(opt.group)}
+                      className={`flex w-full items-start gap-4 rounded-xl border-2 px-4 py-4 text-left transition active:scale-[0.99] ${
+                        selected
+                          ? "border-[#1877f2] bg-[#e7f0fd]"
+                          : "border-[#dfe3e8] bg-white hover:border-[#1877f2]/40 hover:bg-[#f5f8ff]"
+                      }`}
+                      aria-pressed={selected}
+                    >
+                      <span className={selected ? "text-[#1877f2]" : "text-[#8d949e]"}>
+                        {icons[idx]}
+                      </span>
+                      <span>
+                        <span className="block font-semibold text-[#1c1e21]">{opt.title}</span>
+                        <span className="mt-0.5 block text-sm leading-relaxed text-[#606770]">{opt.description}</span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="mt-5">
                 <label className="flex min-h-[52px] cursor-pointer items-start gap-3 rounded-xl border border-[#e4e6eb] bg-[#f8f9fb] px-4 py-3 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[#1877f2]/30">
                   <input
                     id="use-ai-toggle"

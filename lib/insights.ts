@@ -26,11 +26,14 @@ function getFocusHintsFromText(text: string): string[] {
 
 export function pickClosestInsight(
   typeCode: string,
-  gender: string,
   worryText: string,
   selectedFocuses: string[]
 ): InsightRecord | null {
-  const pool = insights.filter((r) => r.type_code === typeCode && r.gender === gender);
+  let pool = insights.filter((r) => r.type_code === typeCode);
+  if (pool.length === 0) {
+    const prefix = typeCode[0];
+    pool = insights.filter((r) => r.type_code.startsWith(prefix ?? "A"));
+  }
   if (pool.length === 0) return null;
   const hints = [...getFocusHintsFromText(worryText), ...selectedFocuses];
   if (hints.length === 0) return pool[Math.floor(Math.random() * pool.length)];
