@@ -9,9 +9,9 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "先生、本当はね。 — 診察前の気づきガイド",
+  title: "ほんね。 — 気づいて！私のきもち",
   description:
-    "診察前に自分の想いを言葉にしやすくするコミュニケーション支援ツールです。医学的診断は行いません。",
+    "自分の気持ちに気づき、言葉にするためのコミュニケーション支援ツールです。医学的診断は行いません。",
 };
 
 export const viewport: Viewport = {

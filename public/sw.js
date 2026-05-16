@@ -1,5 +1,5 @@
-/* KiDuKi PWA — 静的シェルとアイコンのプリキャッシュ + ネットワーク優先 */
-const CACHE_NAME = "kiduki-shell-v1";
+/* ほんね。PWA — 静的シェルとアイコンのプリキャッシュ + ネットワーク優先 */
+const CACHE_NAME = "honne-shell-v1";
 const PRECACHE_URLS = ["/", "/manifest.webmanifest", "/pwa-icon.svg", "/favicon.ico"];
 
 self.addEventListener("install", (event) => {

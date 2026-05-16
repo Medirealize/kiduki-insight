@@ -414,10 +414,10 @@ export default function Home() {
       <div className="mx-auto max-w-md px-6 pt-10 pb-8 sm:pt-14 sm:pb-12">
         <header className="mb-10 text-center">
           <h1 className="text-[1.333rem] font-semibold tracking-tight text-[#1c1e21]">
-            先生、本当はね。
+            ほんね。
           </h1>
           <p className="mt-1 text-xs text-[#65676b]">
-            〜「伝えたいこと」の奥にある、本当の想い〜
+            気づいて！私のきもち
           </p>
         </header>
 

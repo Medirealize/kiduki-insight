@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "先生、本当はね。 — 診察前の気づきガイド",
-    short_name: "本当はね",
+    name: "ほんね。 — 気づいて！私のきもち",
+    short_name: "ほんね。",
     description:
-      "診察前に自分の想いを言葉にしやすくするコミュニケーション支援ツールです。医学的診断は行いません。",
+      "自分の気持ちに気づき、言葉にするためのコミュニケーション支援ツールです。医学的診断は行いません。",
     start_url: "/",
     display: "standalone",
     background_color: "#f0f2f5",
