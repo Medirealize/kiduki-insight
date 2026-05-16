@@ -413,9 +413,9 @@ export default function Home() {
 
       <div className="mx-auto max-w-md px-6 pt-10 pb-8 sm:pt-14 sm:pb-12">
         <header className="mb-10">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1877f2] to-[#0a4db5] px-6 py-10 text-center shadow-[0_8px_32px_rgba(24,119,242,0.30)]">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-8 -left-8 h-36 w-36 rounded-full bg-white/5 blur-2xl" />
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#1877F2] to-[#166FE5] px-6 py-10 text-center shadow-[0_6px_24px_rgba(24,119,242,0.28)]">
+            <div className="pointer-events-none absolute -right-8 -top-8 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-white/5 blur-2xl" />
             <h1 className="relative text-[2.2rem] font-bold tracking-[0.08em] text-white drop-shadow-sm">
               ほんね。
             </h1>
@@ -544,7 +544,7 @@ export default function Home() {
           {step === 2 && (
             <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <p className="mb-4 text-base leading-relaxed text-[#606770]">
-                今、先生に聞きたいことや、不安に思っていることを自由に書いてください。
+                先生の前では言いにくいことも、ここなら書けます。今感じていることを、そのまま教えてください。
               </p>
               {!useAiEnhancement && (
                 <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs leading-relaxed text-amber-950">
@@ -554,7 +554,7 @@ export default function Home() {
               <textarea
                 value={worryText}
                 onChange={(e) => setWorryText(e.target.value)}
-                placeholder="例：症状がいつまで続くか、仕事を休むべきか、家族にどう伝えればいいか…"
+                placeholder="例：なんとなく怖くて先生に聞けなかった、本当はもっと詳しく聞きたかった、家族に心配をかけたくない…"
                 rows={5}
                 className="w-full resize-none rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-base leading-relaxed text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
               />
