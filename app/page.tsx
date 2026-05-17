@@ -766,11 +766,6 @@ export default function Home() {
                 </p>
               </div>
 
-              <FollowUpListLazy
-                questions={displayFollowUps}
-                onPick={onPickFollowUp}
-              />
-
               {aiError && (
                 <p className="text-center text-xs text-[#fa3e3e]">
                   {aiError}
@@ -853,14 +848,10 @@ export default function Home() {
                 最初から
               </button>
 
-              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-                <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
-                  医師への一言（案）
-                </p>
-                <p className="mt-2 text-[18px] leading-[1.8] text-[#1c1e21]">
-                  {aiAction ?? result.action}
-                </p>
-              </div>
+              <FollowUpListLazy
+                questions={displayFollowUps}
+                onPick={onPickFollowUp}
+              />
             </section>
           )}
 
