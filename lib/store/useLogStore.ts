@@ -51,7 +51,7 @@ export function useLogStore() {
     (log: Omit<DiagnosisLog, "id" | "createdAt">): DiagnosisLog => {
       const entry: DiagnosisLog = {
         ...log,
-        id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        id: crypto.randomUUID(),
         createdAt: new Date().toISOString(),
       };
       setLogs((prev) => {
