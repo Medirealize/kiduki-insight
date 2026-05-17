@@ -114,6 +114,9 @@ export default function Home() {
     if (aiInsight || aiAction) {
       return "上記について、性格統計学とAIの視点で深く分析しました。";
     }
+    if (aiError?.includes("利用回数")) {
+      return "本日の利用回数に達したため、性格統計学ベースの文例を表示しています。";
+    }
     if (aiError) {
       return "AIの生成に失敗したため、性格統計学ベースの文例を表示しています。";
     }
