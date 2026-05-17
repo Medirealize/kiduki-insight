@@ -1,28 +1,46 @@
+import { cookies, headers } from "next/headers";
 import Link from "next/link";
 import AdminLogoutButton from "./AdminLogoutButton";
 
-// ── Mock chart data (replace with Supabase query) ──────────────────
-function buildChartData(): { date: string; count: number }[] {
-  const today = new Date();
-  return Array.from({ length: 14 }, (_, i) => {
-    const d = new Date(today);
-    d.setDate(d.getDate() - (13 - i));
-    const count = ((d.getDate() * 7 + 11) % 18) + 4;
-    return { date: `${d.getMonth() + 1}/${d.getDate()}`, count };
-  });
+type StatsResponse = {
+  totalUsers: number;
+  totalLogs: number;
+  avgLogsPerUser: number;
+  conversionClickRate: number;
+  chart: { date: string; count: number }[];
+  isMock: boolean;
+};
+
+async function fetchStats(): Promise<StatsResponse | null> {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("admin_token")?.value ?? "";
+    const host = (await headers()).get("host") ?? "localhost:3000";
+    const protocol = host.startsWith("localhost") ? "http" : "https";
+
+    const res = await fetch(`${protocol}://${host}/api/admin/stats`, {
+      headers: { Cookie: `admin_token=${token}` },
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    return res.json() as Promise<StatsResponse>;
+  } catch {
+    return null;
+  }
 }
 
 // ── Page ────────────────────────────────────────────────────────────
 // Auth is handled by middleware.ts — this page renders only for authed admins.
-export default function AdminPage() {
-  // KPI data (mock — replace with real DB aggregation)
-  const totalUsers = 127;
-  const totalLogs = 384;
-  const avgLogsPerUser = Math.round((totalLogs / totalUsers) * 10) / 10;
-  const conversionClickRate = 4.7;
+export default async function AdminPage() {
+  const stats = await fetchStats();
 
-  const chart = buildChartData();
-  const chartMax = Math.max(...chart.map((d) => d.count), 1);
+  const totalUsers          = stats?.totalUsers          ?? 0;
+  const totalLogs           = stats?.totalLogs           ?? 0;
+  const avgLogsPerUser      = stats?.avgLogsPerUser      ?? 0;
+  const conversionClickRate = stats?.conversionClickRate ?? 0;
+  const chart               = stats?.chart               ?? [];
+  const isMock              = stats?.isMock              ?? true;
+  const chartMax            = Math.max(...chart.map((d) => d.count), 1);
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
@@ -46,10 +64,16 @@ export default function AdminPage() {
 
       <div className="mx-auto max-w-2xl space-y-8 px-5 py-8">
 
-        {/* デモデータ注記 */}
-        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
-          ⚠️ 現在のKPIはデモデータです。Supabaseの実テーブルに接続することで実データが表示されます。
-        </div>
+        {/* データソース表示 */}
+        {isMock ? (
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
+            ⚠️ Supabase に未接続のため統計は表示できません。環境変数を確認してください。
+          </div>
+        ) : (
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800">
+            ✓ Supabase（symptomsum-app / honne_logs）よりリアルタイムデータを表示しています。
+          </div>
+        )}
 
         {/* KPI グリッド */}
         <section>
@@ -58,10 +82,10 @@ export default function AdminPage() {
           </p>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
-              { label: "総登録ユーザー数",     value: totalUsers.toLocaleString(), unit: "人",   color: "text-[#1877f2]",  icon: "👥" },
-              { label: "総蓄積ログ件数",       value: totalLogs.toLocaleString(),  unit: "件",   color: "text-emerald-600", icon: "📝" },
-              { label: "平均ログ記録数",       value: avgLogsPerUser.toFixed(1),   unit: "件/人", color: "text-violet-600",  icon: "📊" },
-              { label: "課金導線クリック率",   value: conversionClickRate.toFixed(1), unit: "%", color: "text-[#b8860b]",  icon: "💳" },
+              { label: "総登録ユーザー数",   value: totalUsers.toLocaleString(),          unit: "人",    color: "text-[#1877f2]",   icon: "👥" },
+              { label: "総蓄積ログ件数",     value: totalLogs.toLocaleString(),            unit: "件",    color: "text-emerald-600", icon: "📝" },
+              { label: "平均ログ記録数",     value: avgLogsPerUser.toFixed(1),             unit: "件/人", color: "text-violet-600",  icon: "📊" },
+              { label: "課金導線クリック率", value: conversionClickRate.toFixed(1),        unit: "%",     color: "text-[#b8860b]",   icon: "💳" },
             ].map((kpi) => (
               <div key={kpi.label} className="rounded-2xl border border-[#dfe3e8] bg-white px-4 py-4 shadow-sm">
                 <p className="text-lg">{kpi.icon}</p>
@@ -81,9 +105,11 @@ export default function AdminPage() {
             <p className="text-[0.7rem] font-bold uppercase tracking-widest text-[#8d949e]">
               直近2週間の新規ログ記録数（全ユーザー合計）
             </p>
-            <span className="rounded-full bg-[#f0f2f5] px-2 py-0.5 text-[0.6rem] text-[#8d949e]">
-              デモデータ
-            </span>
+            {isMock && (
+              <span className="rounded-full bg-[#f0f2f5] px-2 py-0.5 text-[0.6rem] text-[#8d949e]">
+                未接続
+              </span>
+            )}
           </div>
 
           <div className="flex items-end gap-1.5" style={{ height: "140px" }}>
@@ -100,7 +126,7 @@ export default function AdminPage() {
                   </div>
                   <div
                     className="w-full rounded-t-md bg-[#1877f2] transition-all duration-500 group-hover:bg-[#166fe5]"
-                    style={{ height: `${heightPct}%`, minHeight: "4px" }}
+                    style={{ height: `${Math.max(heightPct, d.count > 0 ? 4 : 0)}%`, minHeight: d.count > 0 ? "4px" : "2px", opacity: d.count > 0 ? 1 : 0.15 }}
                   />
                 </div>
               );
