@@ -854,7 +854,10 @@ export default function Home() {
         </div>
 
         <footer className="mt-12 border-t border-[#dfe3e8] pt-6 text-center text-xs text-[#8d949e]">
-          本アプリは診断を行うものではありません。医師への相談を助けるツールです。
+          <p>本アプリは診断を行うものではありません。医師への相談を助けるツールです。</p>
+          <Link href="/privacy" className="mt-2 inline-block hover:underline">
+            プライバシーポリシー
+          </Link>
         </footer>
       </div>
 
