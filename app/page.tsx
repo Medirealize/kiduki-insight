@@ -494,15 +494,6 @@ export default function Home() {
                   </span>
                 )}
               </Link>
-              <Link
-                href="/dashboard"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/25"
-              >
-                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
-                  <path d="M2 2h5v5H2zM9 2h5v5H9zM2 9h5v5H2zM9 9h5v5H9z" opacity=".8"/>
-                </svg>
-                ダッシュボード
-              </Link>
             </div>
           </div>
         </header>
