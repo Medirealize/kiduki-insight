@@ -479,20 +479,31 @@ export default function Home() {
             <p className="relative mt-2 text-[0.8rem] font-medium tracking-[0.22em] text-white/70">
               気づいて！私のきもち
             </p>
-            <Link
-              href="/history"
-              className="relative mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/25"
-            >
-              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
-                <path d="M3 2a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3zm1 2h8v8H4V4zm1 1v2h6V5H5zm0 3v1h6V8H5zm0 2v1h4v-1H5z"/>
-              </svg>
-              ほんねの記録
-              {logs.length > 0 && (
-                <span className="rounded-full bg-white/30 px-1.5 text-[0.65rem] font-bold">
-                  {logs.length}
-                </span>
-              )}
-            </Link>
+            <div className="relative mt-4 flex justify-center gap-2">
+              <Link
+                href="/history"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/25"
+              >
+                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+                  <path d="M3 2a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1H3zm1 2h8v8H4V4zm1 1v2h6V5H5zm0 3v1h6V8H5zm0 2v1h4v-1H5z"/>
+                </svg>
+                ほんねの記録
+                {logs.length > 0 && (
+                  <span className="rounded-full bg-white/30 px-1.5 text-[0.65rem] font-bold">
+                    {logs.length}
+                  </span>
+                )}
+              </Link>
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/25"
+              >
+                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+                  <path d="M2 2h5v5H2zM9 2h5v5H9zM2 9h5v5H2zM9 9h5v5H9z" opacity=".8"/>
+                </svg>
+                ダッシュボード
+              </Link>
+            </div>
           </div>
         </header>
 
