@@ -1,14 +1,5 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import AdminLogoutButton from "./AdminLogoutButton";
-
-// ── Auth check ─────────────────────────────────────────────────────
-function isAuthed(token: string | undefined): boolean {
-  const adminPassword = process.env.ADMIN_PASSWORD;
-  if (!adminPassword) return false;
-  return token === adminPassword;
-}
 
 // ── Mock chart data (replace with Supabase query) ──────────────────
 function buildChartData(): { date: string; count: number }[] {
@@ -48,14 +39,8 @@ const CATEGORY_LABEL: Record<CategoryKey, string> = {
 };
 
 // ── Page ────────────────────────────────────────────────────────────
-export default async function AdminPage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("admin_token")?.value;
-
-  if (!isAuthed(token)) {
-    redirect("/admin/login");
-  }
-
+// Auth is handled by middleware.ts — this page renders only for authed admins.
+export default function AdminPage() {
   // KPI data (mock — replace with real DB aggregation)
   const totalUsers = 127;
   const totalLogs = 384;
