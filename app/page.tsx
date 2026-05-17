@@ -835,47 +835,23 @@ export default function Home() {
                 </div>
               )}
 
-              <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStep(1);
-                    setWorryText("");
-                    setQAnswers([]);
-                    setAiInsight(null);
-                    setAiAction(null);
-                    setAiError(null);
-                    setNextQuestions([]);
-                    setDeepQuestions([]);
-                    setSavedThisSession(false);
-                  }}
-                  className="min-h-[48px] rounded-xl border border-[#ccd0d5] py-3 px-4 font-medium text-[#606770] transition hover:bg-[#f0f2f5] sm:min-w-[7rem]"
-                >
-                  最初から
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const actionText = aiAction ?? result.action;
-                    void navigator.clipboard.writeText(actionText);
-                  }}
-                  className="min-h-[48px] flex-1 rounded-xl border border-[#ccd0d5] bg-white py-3 px-4 text-sm font-medium text-[#1c1e21] transition hover:bg-[#f0f2f5] sm:min-w-[10rem]"
-                >
-                  医師への一言だけコピー
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const insightText = aiInsight ?? result.insight;
-                    const actionText = aiAction ?? result.action;
-                    const text = `あなたが入力したこと：\n「${worryText.trim()}」\n\n${resultAnalysisDescription}\n\n【Insight】\n${insightText}\n\n【診察室での最初の一言】\n${actionText}`;
-                    void navigator.clipboard.writeText(text);
-                  }}
-                  className="min-h-[48px] flex-1 rounded-xl bg-[#1877f2] py-3 px-4 text-sm font-medium text-white shadow-sm transition hover:bg-[#166fe5] sm:min-w-[10rem]"
-                >
-                  すべてコピー
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setStep(1);
+                  setWorryText("");
+                  setQAnswers([]);
+                  setAiInsight(null);
+                  setAiAction(null);
+                  setAiError(null);
+                  setNextQuestions([]);
+                  setDeepQuestions([]);
+                  setSavedThisSession(false);
+                }}
+                className="w-full min-h-[48px] rounded-xl border border-[#ccd0d5] py-3 px-4 font-medium text-[#606770] transition hover:bg-[#f0f2f5]"
+              >
+                最初から
+              </button>
 
               <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                 <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
