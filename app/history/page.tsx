@@ -61,7 +61,7 @@ export default function HistoryPage() {
             </svg>
             ほんね。に戻る
           </Link>
-          <span className="text-sm font-semibold text-[#1c1e21]">診断カルテ</span>
+          <span className="text-sm font-semibold text-[#1c1e21]">ほんねの記録</span>
           {/* プレミアムバッジ or FREEバッジ */}
           <span className={`rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold ${
             isPremium ? "bg-[#ffd700]/20 text-[#b8860b]" : "bg-[#f0f2f5] text-[#8d949e]"
@@ -78,10 +78,10 @@ export default function HistoryPage() {
           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1a1a2e] to-[#16213e] px-6 py-6 text-white shadow-lg">
             <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/5 blur-2xl" />
             <p className="text-[0.7rem] font-bold uppercase tracking-widest text-white/50">PREMIUM PLAN</p>
-            <p className="mt-1 text-lg font-bold">すべてのカルテを<br />いつでも振り返れる</p>
+            <p className="mt-1 text-lg font-bold">すべての記録を<br />いつでも振り返れる</p>
             <ul className="mt-3 space-y-1 text-sm text-white/70">
-              <li>✓ 過去ログ 無制限閲覧</li>
-              <li>✓ 診断回数 無制限</li>
+              <li>✓ 過去の記録を無制限閲覧</li>
+              <li>✓ 利用回数 無制限</li>
               <li>✓ AI による総合ほんねレポート</li>
             </ul>
             <button
@@ -99,7 +99,7 @@ export default function HistoryPage() {
           <div className="rounded-2xl border-2 border-[#ffd700]/40 bg-white px-5 py-5 shadow-[0_4px_16px_rgba(255,215,0,0.1)]">
             <p className="mb-1 text-[0.7rem] font-bold uppercase tracking-widest text-[#b8860b]">✦ ほんね。レポート</p>
             <p className="mb-4 text-sm text-[#606770]">
-              蓄積されたカルテ（{logs.length}件）をAIが総合分析します。
+              蓄積された記録（{logs.length}件）をAIが総合分析します。
             </p>
             {!report && (
               <button
@@ -137,26 +137,26 @@ export default function HistoryPage() {
           </div>
         )}
 
-        {/* カルテ一覧 */}
+        {/* 記録一覧 */}
         {!hydrated ? (
           <p className="text-center text-sm text-[#8d949e]">読み込み中…</p>
         ) : logs.length === 0 ? (
           <div className="rounded-2xl border border-[#dfe3e8] bg-white px-6 py-12 text-center shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-            <p className="text-3xl">📋</p>
-            <p className="mt-3 font-semibold text-[#1c1e21]">カルテがまだありません</p>
-            <p className="mt-1 text-sm text-[#8d949e]">診断結果を保存するとここに表示されます。</p>
+            <p className="text-3xl">💬</p>
+            <p className="mt-3 font-semibold text-[#1c1e21]">まだ記録がありません</p>
+            <p className="mt-1 text-sm text-[#8d949e]">ほんねを保存するとここに表示されます。</p>
             <Link
               href="/"
               className="mt-4 inline-block rounded-xl bg-[#1877f2] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#166fe5]"
             >
-              診断をはじめる
+              ほんねを探しにいく
             </Link>
           </div>
         ) : (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold text-[#1c1e21]">
-                カルテ <span className="text-[#1877f2]">{logs.length}</span> 件
+                記録 <span className="text-[#1877f2]">{logs.length}</span> 件
               </p>
               {!isPremium && logs.length > FREE_LOG_VISIBLE && (
                 <p className="text-xs text-[#8d949e]">
@@ -189,10 +189,10 @@ export default function HistoryPage() {
         {logs.length > 0 && (
           <button
             type="button"
-            onClick={() => { if (confirm("カルテをすべて削除しますか？")) clearLogs(); }}
+            onClick={() => { if (confirm("記録をすべて削除しますか？")) clearLogs(); }}
             className="w-full rounded-xl border border-red-100 py-2.5 text-xs text-red-400 transition hover:bg-red-50"
           >
-            カルテをすべて削除する
+            記録をすべて削除する
           </button>
         )}
       </div>
@@ -205,7 +205,7 @@ export default function HistoryPage() {
             <p className="mt-4 text-center text-xl font-bold text-[#1c1e21]">プレミアムプラン</p>
             <p className="mt-1 text-center text-[#65676b] text-sm">月額 ¥980（税込）</p>
             <ul className="mt-5 space-y-3 text-sm">
-              {["過去カルテを無制限に閲覧", "1日の診断回数が無制限", "AI による総合ほんねレポート"].map((f) => (
+              {["過去の記録を無制限に閲覧", "1日の利用回数が無制限", "AI による総合ほんねレポート"].map((f) => (
                 <li key={f} className="flex items-center gap-2 text-[#1c1e21]">
                   <svg viewBox="0 0 20 20" className="h-5 w-5 shrink-0 text-[#1877f2]" fill="currentColor">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
