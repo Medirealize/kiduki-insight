@@ -70,7 +70,6 @@ export default function Home() {
   const [aiAction, setAiAction] = useState<string | null>(null);
   const [aiError, setAiError] = useState<string | null>(null);
   const [nextQuestions, setNextQuestions] = useState<string[]>([]);
-  const [deepQuestions, setDeepQuestions] = useState<string[]>([]);
 
   const profileHydratedRef = useRef(false);
   const prefsHydratedRef = useRef(false);
@@ -92,15 +91,6 @@ export default function Home() {
       ans === "A" ? questions[i].focusA : questions[i].focusB
     );
   }, [qAnswers, questions]);
-
-  /** AI未返答時は軸の固定質問文をそのまま表示（待ち＋ブロックを避ける） */
-  const effectiveQuestionTexts = useMemo(() => {
-    const staticTexts = questions.map((q) => q.text);
-    if (deepQuestions.length === 0) return staticTexts;
-    return [0, 1, 2].map(
-      (i) => deepQuestions[i] ?? staticTexts[i] ?? ""
-    );
-  }, [deepQuestions, questions]);
 
   // 画面には表示しないが、APIプロンプト用のベースInsight/Actionとしてのみ使用
   const result = useMemo(() => {
@@ -152,7 +142,6 @@ export default function Home() {
     setAiAction(null);
     setAiError(null);
     setNextQuestions([]);
-    setDeepQuestions([]);
     setStep(2);
   }, []);
 
@@ -174,9 +163,6 @@ export default function Home() {
         setStep(1);
       } else if (step >= 3 && step <= 5) {
         setQAnswers((a) => a.slice(0, Math.max(0, step - 3)));
-        if (step === 3) {
-          setDeepQuestions([]);
-        }
         setStep((s) => s - 1);
       }
       setDirection("in");
@@ -277,9 +263,6 @@ export default function Home() {
           setStep(7);
         }
       } else if (s < 5) {
-        if (s === 2) {
-          setDeepQuestions([]);
-        }
         setStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
       }
       setDirection("in");
@@ -394,47 +377,7 @@ export default function Home() {
     (step === 5 && qAnswers.length >= 3);
 
   const currentQIndex = step - 3;
-  const currentQuestionText = effectiveQuestionTexts[currentQIndex];
-
-  // ステップ3: AIから深掘り文を取得できれば差し替え（未取得時は effectiveQuestionTexts で静的文言を使用）
-  useEffect(() => {
-    if (!useAiEnhancement) return;
-    if (step !== 3) return;
-    if (!selectedGroup || !worryText.trim()) return;
-
-    let cancelled = false;
-
-    const run = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/api/deep-questions`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            typeCode,
-            group,
-            worryText,
-          }),
-        });
-        if (!res.ok) return;
-        const data = (await res.json()) as { questions?: string[] };
-        if (!data.questions || !Array.isArray(data.questions)) return;
-        const qs = data.questions
-          .map((q) => (typeof q === "string" ? q.trim() : ""))
-          .filter((q) => q.length > 0);
-        if (!cancelled && qs.length >= 1) {
-          setDeepQuestions(qs.slice(0, 3));
-        }
-      } catch (e) {
-        console.error("deep-questions fetch error", e);
-      }
-    };
-
-    void run();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [step, typeCode, group, worryText, selectedGroup, questions, useAiEnhancement]);
+  const currentQuestionText = questions[currentQIndex]?.text ?? "";
 
   return (
     <div className="page-bg min-h-screen w-full overflow-x-hidden font-sans text-[#1c1e21] antialiased">
@@ -834,7 +777,6 @@ export default function Home() {
                   setAiAction(null);
                   setAiError(null);
                   setNextQuestions([]);
-                  setDeepQuestions([]);
                   setSavedThisSession(false);
                 }}
                 className="w-full min-h-[48px] rounded-xl border border-[#ccd0d5] py-3 px-4 font-medium text-[#606770] transition hover:bg-[#f0f2f5]"
