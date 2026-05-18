@@ -23,26 +23,25 @@ export function useAuth(): AuthState {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       setLoading(false);
-      if (session?.user) fetchPremium(session.user.id);
+      if (session?.user) fetchPremium();
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      if (session?.user) fetchPremium(session.user.id);
+      if (session?.user) fetchPremium();
       else setIsPremium(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
-  async function fetchPremium(userId: string) {
-    const supabase = createSupabaseBrowserClient();
-    const { data } = await supabase
-      .from("profiles")
-      .select("is_premium")
-      .eq("id", userId)
-      .maybeSingle();
-    setIsPremium(data?.is_premium ?? false);
+  async function fetchPremium() {
+    try {
+      const res = await fetch("/api/user/premium");
+      if (!res.ok) return;
+      const data = (await res.json()) as { isPremium: boolean };
+      setIsPremium(data.isPremium);
+    } catch { /* ignore */ }
   }
 
   const signInWithGoogle = async () => {
