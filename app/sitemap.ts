@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://kiduki-insight-v2.vercel.app";
+const BASE_URL = "https://insight.medirealize.jp";
 
 export const dynamic = "force-static";
 
