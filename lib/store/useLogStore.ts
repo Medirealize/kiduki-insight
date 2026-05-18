@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import type { DiagnosisLog } from "@/lib/types/log";
-import { supabase } from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 
 const STORAGE_KEY = "honne-logs-v1";
 const SESSION_KEY = "honne-session-id";
@@ -18,7 +18,8 @@ function getSessionId(): string {
 }
 
 async function pushToSupabase(log: DiagnosisLog) {
-  const { error } = await supabase.from("honne_logs").insert({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (getSupabaseClient() as any).from("honne_logs").insert({
     id:                 log.id,
     user_id:            getSessionId(),
     created_at:         log.createdAt,
