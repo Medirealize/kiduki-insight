@@ -5,6 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/lib/auth/useAuth";
 const AuthModal = dynamic(() => import("@/app/components/AuthModal"), { ssr: false });
+const UpgradeButton = dynamic(() => import("@/app/components/UpgradeButton"), { ssr: false });
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 import { pickClosestInsight } from "@/lib/insights";
@@ -60,14 +61,26 @@ const FollowUpListLazy = dynamic(
 export default function Home() {
   const auth = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [step, setStep] = useState(1);
+
+  // Stripe 決済完了後の ?payment=success を検知
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search.includes("payment=success")) {
+      setPaymentSuccess(true);
+      window.history.replaceState({}, "", "/");
+    }
+  }, []);
   const [direction, setDirection] = useState<"in" | "out">("in");
   const [selectedGroup, setSelectedGroup] = useState<PersonalityGroup | null>(null);
   const [useAiEnhancement, setUseAiEnhancement] = useState(true);
   const [savedThisSession, setSavedThisSession] = useState(false);
 
   const { logs, addLog } = useLogStore();
-  const { isPremium, canDiagnose, remainingToday, recordUsage, upgradeToPremium } = useUserStatus();
+  const { isPremium: localPremium, canDiagnose: localCanDiagnose, remainingToday, recordUsage } = useUserStatus();
+  // Supabase の isPremium を優先（Stripe 連携済み）
+  const isPremium = auth.isPremium || localPremium;
+  const canDiagnose = isPremium || localCanDiagnose;
   const [worryText, setWorryText] = useState("");
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -471,6 +484,13 @@ export default function Home() {
           </div>
         </header>
 
+        {paymentSuccess && (
+          <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-center">
+            <p className="font-semibold text-emerald-700">🎉 プレミアムプランへようこそ！</p>
+            <p className="mt-1 text-sm text-emerald-600">お支払いが完了しました。すべての機能が無制限でご利用いただけます。</p>
+          </div>
+        )}
+
         <p className="sr-only" aria-live="polite" aria-atomic="true">
           {STEP_LABELS[step] ?? ""}
         </p>
@@ -731,12 +751,24 @@ export default function Home() {
               </div>
 
               {aiError && (
-                <p className="text-center text-xs text-[#fa3e3e]">
-                  {aiError}
-                </p>
+                <div className="space-y-3">
+                  <p className="text-center text-xs text-[#fa3e3e]">{aiError}</p>
+                  {aiError.includes("利用回数") && (
+                    <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-center">
+                      <p className="mb-2 text-xs font-semibold text-amber-900">プレミアムプランで無制限に利用できます（月額500円）</p>
+                      {auth.user ? (
+                        <UpgradeButton label="プレミアムにアップグレード" className="rounded-xl bg-amber-500 px-6 py-2 text-sm font-semibold text-white transition hover:bg-amber-600" />
+                      ) : (
+                        <button type="button" onClick={() => setShowAuthModal(true)} className="rounded-xl bg-amber-500 px-6 py-2 text-sm font-semibold text-white transition hover:bg-amber-600">
+                          ログインしてアップグレード
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
 
-              {useAiEnhancement && (aiError || (!aiInsight && !aiAction)) && (
+              {useAiEnhancement && !aiError?.includes("利用回数") && (aiError || (!aiInsight && !aiAction)) && (
                 <button
                   type="button"
                   onClick={retryAiGeneration}
@@ -756,31 +788,51 @@ export default function Home() {
 
               {/* 記録保存セクション */}
               {!savedThisSession ? (
-                <div className="rounded-2xl border border-[#dfe3e8] bg-[#f8f9fb] px-5 py-4">
-                  <p className="mb-1 text-[0.75rem] font-semibold text-[#1c1e21]">
-                    💬 このほんねを記録する
-                  </p>
-                  <p className="mb-3 text-xs leading-relaxed text-[#8d949e]">
-                    {isPremium
-                      ? "プレミアムプランで無制限に保存・振り返りができます。"
-                      : `無料プランは${FREE_LOG_VISIBLE}件まで閲覧可能。${logs.length >= FREE_LOG_VISIBLE ? "4件目以降はロックされます。" : `あと${FREE_LOG_VISIBLE - logs.length}件保存できます。`}`}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      addLog({
-                        group,
-                        userInput: worryText.trim(),
-                        insight: aiInsight ?? result.insight,
-                        doctorAdvice: aiAction ?? result.action,
-                        selectedQuestions: [],
-                      });
-                      setSavedThisSession(true);
-                    }}
-                    className="w-full rounded-xl bg-[#1877f2] py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#166fe5]"
-                  >
-                    ほんねを記録する
-                  </button>
+                <div className="rounded-2xl border border-[#dfe3e8] bg-[#f8f9fb] px-5 py-4 space-y-3">
+                  <div>
+                    <p className="mb-1 text-[0.75rem] font-semibold text-[#1c1e21]">
+                      💬 このほんねを記録する
+                    </p>
+                    <p className="mb-3 text-xs leading-relaxed text-[#8d949e]">
+                      {isPremium
+                        ? "プレミアムプランで無制限に保存・振り返りができます。"
+                        : `無料プランは${FREE_LOG_VISIBLE}件まで閲覧可能。${logs.length >= FREE_LOG_VISIBLE ? "4件目以降はロックされます。" : `あと${FREE_LOG_VISIBLE - logs.length}件保存できます。`}`}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        addLog({
+                          group,
+                          userInput: worryText.trim(),
+                          insight: aiInsight ?? result.insight,
+                          doctorAdvice: aiAction ?? result.action,
+                          selectedQuestions: [],
+                        });
+                        setSavedThisSession(true);
+                      }}
+                      className="w-full rounded-xl bg-[#1877f2] py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#166fe5]"
+                    >
+                      ほんねを記録する
+                    </button>
+                  </div>
+                  {/* プレミアム誘導 */}
+                  {!isPremium && (
+                    <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+                      <p className="mb-0.5 text-[0.75rem] font-semibold text-amber-900">★ プレミアムプラン</p>
+                      <p className="mb-2 text-xs text-amber-800">記録無制限・AI利用回数無制限。月額500円（税込）</p>
+                      {auth.user ? (
+                        <UpgradeButton label="今すぐアップグレード（月額500円）" className="w-full rounded-xl bg-amber-500 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600" />
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setShowAuthModal(true)}
+                          className="w-full rounded-xl bg-amber-500 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600"
+                        >
+                          ログインしてアップグレード
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-center">
