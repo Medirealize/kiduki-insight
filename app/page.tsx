@@ -77,9 +77,9 @@ export default function Home() {
   const [savedThisSession, setSavedThisSession] = useState(false);
 
   const { logs, addLog } = useLogStore();
-  const { isPremium: localPremium, canDiagnose: localCanDiagnose, remainingToday, recordUsage } = useUserStatus();
-  // Supabase の isPremium を優先（Stripe 連携済み）
-  const isPremium = auth.isPremium || localPremium;
+  const { canDiagnose: localCanDiagnose, remainingToday, recordUsage } = useUserStatus();
+  // Stripe 連携済み：isPremium は Supabase profiles のみで判定
+  const isPremium = auth.isPremium;
   const canDiagnose = isPremium || localCanDiagnose;
   const [worryText, setWorryText] = useState("");
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
