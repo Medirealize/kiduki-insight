@@ -2,11 +2,11 @@
 import { useState, useEffect, useCallback } from "react";
 import type { DiagnosisLog } from "@/lib/types/log";
 import { getSupabaseClient } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/auth/browser";
 
 const STORAGE_KEY = "honne-logs-v1";
 const SESSION_KEY = "honne-session-id";
 
-// 端末ごとの匿名セッションID（認証導入まで user_id として使用）
 function getSessionId(): string {
   if (typeof window === "undefined") return "ssr";
   let id = localStorage.getItem(SESSION_KEY);
@@ -17,11 +17,21 @@ function getSessionId(): string {
   return id;
 }
 
+async function resolveUserId(): Promise<string> {
+  try {
+    const supabase = createSupabaseBrowserClient();
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user?.id) return session.user.id;
+  } catch { /* ignore */ }
+  return getSessionId();
+}
+
 async function pushToSupabase(log: DiagnosisLog) {
+  const userId = await resolveUserId();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { error } = await (getSupabaseClient() as any).from("honne_logs").insert({
     id:                 log.id,
-    user_id:            getSessionId(),
+    user_id:            userId,
     created_at:         log.createdAt,
     user_input:         log.userInput,
     insight:            log.insight,
@@ -60,7 +70,6 @@ export function useLogStore() {
         persist(next);
         return next;
       });
-      // Supabase に非同期で書き込み（失敗してもローカルには保存済み）
       void pushToSupabase(entry);
       return entry;
     },

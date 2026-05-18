@@ -2,9 +2,11 @@
 
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useAuth } from "@/lib/auth/useAuth";
+const AuthModal = dynamic(() => import("@/app/components/AuthModal"), { ssr: false });
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
-import dynamic from "next/dynamic";
 import { pickClosestInsight } from "@/lib/insights";
 import { GROUP_TO_AXIS_INDEX, AXIS_QUESTIONS, TOTAL_STEPS } from "@/lib/constants";
 import { mergeFollowUpQuestions } from "@/lib/follow-up-questions";
@@ -56,6 +58,8 @@ const FollowUpListLazy = dynamic(
 );
 
 export default function Home() {
+  const auth = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState<"in" | "out">("in");
   const [selectedGroup, setSelectedGroup] = useState<PersonalityGroup | null>(null);
@@ -426,7 +430,7 @@ export default function Home() {
             <p className="relative mt-2 text-[0.8rem] font-medium tracking-[0.22em] text-white/70">
               気づいて！私のきもち
             </p>
-            <div className="relative mt-4 flex justify-center gap-2">
+            <div className="relative mt-4 flex justify-center gap-2 flex-wrap">
               <Link
                 href="/history"
                 className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/25"
@@ -441,6 +445,28 @@ export default function Home() {
                   </span>
                 )}
               </Link>
+              {!auth.loading && (
+                auth.user ? (
+                  <button
+                    type="button"
+                    onClick={() => auth.signOut()}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/25"
+                  >
+                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-white/30 text-[0.6rem] font-bold">
+                      {(auth.user.email?.[0] ?? "U").toUpperCase()}
+                    </span>
+                    {auth.isPremium ? "★ プレミアム" : "ログイン中"}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowAuthModal(true)}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/25"
+                  >
+                    ログイン
+                  </button>
+                )
+              )}
             </div>
           </div>
         </header>
@@ -807,6 +833,9 @@ export default function Home() {
         </footer>
       </div>
 
+      {showAuthModal && (
+        <AuthModal auth={auth} onClose={() => setShowAuthModal(false)} />
+      )}
     </div>
   );
 }
