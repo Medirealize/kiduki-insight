@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { useAuth } from "@/lib/auth/useAuth";
 const AuthModal = dynamic(() => import("@/app/components/AuthModal"), { ssr: false });
 const UpgradeButton = dynamic(() => import("@/app/components/UpgradeButton"), { ssr: false });
+const OnboardingModal = dynamic(() => import("@/app/components/OnboardingModal"), { ssr: false });
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 import { pickClosestInsight } from "@/lib/insights";
@@ -879,9 +880,10 @@ export default function Home() {
 
         <footer className="mt-12 border-t border-[#dfe3e8] pt-6 text-center text-xs text-[#8d949e]">
           <p>本アプリは気持ちの言語化を助けるコミュニケーション支援ツールです。専門的なサポートが必要な場合は、医療機関や相談窓口をご利用ください。</p>
-          <div className="mt-2 flex justify-center gap-4">
+          <div className="mt-2 flex flex-wrap justify-center gap-4">
             <Link href="/privacy" className="hover:underline">プライバシーポリシー</Link>
             <Link href="/terms" className="hover:underline">利用規約</Link>
+            <Link href="/legal" className="hover:underline">特定商取引法に基づく表記</Link>
           </div>
         </footer>
       </div>
@@ -889,6 +891,7 @@ export default function Home() {
       {showAuthModal && (
         <AuthModal auth={auth} onClose={() => setShowAuthModal(false)} />
       )}
+      <OnboardingModal />
     </div>
   );
 }
