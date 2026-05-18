@@ -608,7 +608,7 @@ export default function Home() {
                 <svg viewBox="0 0 20 20" className="mt-0.5 h-5 w-5 shrink-0 text-[#1877f2]" fill="currentColor" aria-hidden="true">
                   <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                 </svg>
-                先生に聞きたいこと、気になっていること、不安に思っていることを書いてください。うまく言葉にできなくても大丈夫です。
+                誰かに言えずにいること、うまく言葉にできない気持ちを書いてください。うまく言えなくても大丈夫です。
               </p>
               {!useAiEnhancement && (
                 <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs leading-relaxed text-amber-950">
@@ -878,10 +878,11 @@ export default function Home() {
         </div>
 
         <footer className="mt-12 border-t border-[#dfe3e8] pt-6 text-center text-xs text-[#8d949e]">
-          <p>本アプリは診断を行うものではありません。医師への相談を助けるツールです。</p>
-          <Link href="/privacy" className="mt-2 inline-block hover:underline">
-            プライバシーポリシー
-          </Link>
+          <p>本アプリは気持ちの言語化を助けるコミュニケーション支援ツールです。専門的なサポートが必要な場合は、医療機関や相談窓口をご利用ください。</p>
+          <div className="mt-2 flex justify-center gap-4">
+            <Link href="/privacy" className="hover:underline">プライバシーポリシー</Link>
+            <Link href="/terms" className="hover:underline">利用規約</Link>
+          </div>
         </footer>
       </div>
 

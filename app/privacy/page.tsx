@@ -37,31 +37,51 @@ export default function PrivacyPage() {
 
           <Section title="第1条（収集する情報）">
             <p>本アプリは、以下の情報をご利用の端末内（ローカルストレージ）にのみ保存します。サーバーへの個人情報の送信・収集は行っておりません。</p>
+            <p className="mt-2 font-medium">【ログインしない場合】</p>
             <ul>
-              <li>入力された悩みや相談内容</li>
-              <li>AI によって生成されたほんね・洞察の記録</li>
-              <li>ご利用状況（利用回数・会員プラン種別）</li>
-              <li>選択されたタイプ・グループ情報</li>
+              <li>入力された悩みや相談内容（端末内のみ保存）</li>
+              <li>AI によって生成されたほんね・洞察の記録（端末内のみ）</li>
+              <li>ご利用状況（利用回数・会員プラン種別）（端末内のみ）</li>
             </ul>
-            <p className="mt-3">上記のデータはすべて利用者ご自身の端末内に保存されるものであり、当社が取得・閲覧することはできません。</p>
+            <p className="mt-3 font-medium">【ログインした場合】</p>
+            <ul>
+              <li>メールアドレス（認証目的）</li>
+              <li>入力された悩み・AIによる洞察・記録内容（クラウドに保存）</li>
+              <li>プレミアムプラン情報（is_premium フラグ）</li>
+            </ul>
+            <p className="mt-3">ログインしない場合のデータは端末内にのみ保存され、当社が閲覧することはできません。ログイン後のデータはSupabase社のサーバーに保存されます。</p>
           </Section>
 
-          <Section title="第2条（外部サービスへの送信）">
-            <p>本アプリは、AI によるほんねの生成および深掘り質問の作成のために、入力内容（悩みのテキスト・タイプ情報）を以下の外部サービスへ送信します。</p>
-            <ul>
+          <Section title="第2条（外部サービスへの送信・利用）">
+            <p>本アプリは以下の外部サービスを利用します。</p>
+            <ul className="space-y-3">
               <li>
                 <strong>OpenAI, L.L.C.（米国）</strong><br />
-                用途：自然言語処理による洞察・質問文の生成<br />
-                プライバシーポリシー：<a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">https://openai.com/policies/privacy-policy</a>
+                用途：自然言語処理による洞察・質問文の生成（AIオンモード時のみ）<br />
+                送信情報：入力テキスト・タイプ情報（氏名・連絡先は含まない）<br />
+                PP：<a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">openai.com/policies/privacy-policy</a>
+              </li>
+              <li>
+                <strong>Supabase, Inc.（米国）</strong><br />
+                用途：ログイン認証・記録データのクラウド保存<br />
+                送信情報：メールアドレス・記録内容（ログイン時のみ）<br />
+                PP：<a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">supabase.com/privacy</a>
+              </li>
+              <li>
+                <strong>Stripe, Inc.（米国）</strong><br />
+                用途：プレミアムプランの決済処理<br />
+                送信情報：メールアドレス・決済情報（プレミアム登録時のみ）<br />
+                PP：<a href="https://stripe.com/jp/privacy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">stripe.com/jp/privacy</a>
               </li>
             </ul>
-            <p className="mt-3">送信される情報には氏名・連絡先などの直接的な個人を特定する情報は含まれません。なお、AIオフモードをご利用の場合は外部への送信は行われません。</p>
           </Section>
 
           <Section title="第3条（情報の利用目的）">
             <p>当社が外部サービスを通じて処理する情報は、以下の目的のみに使用します。</p>
             <ul>
               <li>AI によるほんね・洞察・深掘り質問の生成</li>
+              <li>ログイン・認証・記録の同期</li>
+              <li>プレミアムプランの決済処理</li>
               <li>本アプリのサービス品質の向上</li>
             </ul>
           </Section>
