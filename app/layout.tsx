@@ -96,13 +96,13 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-const jsonLd = {
+// WebApplication スキーマ
+const jsonLdApp = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "ほんね。",
-  alternateName: "ほんね。— 気づいて！私のきもち",
-  description:
-    "言いたいのに言えない気持ちを言語化するコミュニケーション支援ツール。",
+  alternateName: "ほんね。— 言いたいのに、言えない。",
+  description: "言いたいのに言えない気持ちを言語化するコミュニケーション支援ツール。",
   url: BASE_URL,
   applicationCategory: "LifestyleApplication",
   operatingSystem: "iOS, Android, Web",
@@ -125,16 +125,106 @@ const jsonLd = {
   ],
 };
 
+// Organization スキーマ
+const jsonLdOrg = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Medirealize",
+  url: "https://medirealize.jp",
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "info@medirealize.jp",
+    contactType: "customer support",
+    availableLanguage: "Japanese",
+  },
+};
+
+// HowTo スキーマ
+const jsonLdHowTo = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "ほんね。の使い方",
+  description: "言葉にできない気持ちを3ステップで言語化する方法",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "今の自分に近いタイプを選ぶ",
+      text: "「自分のペースで考えたい」「まず気持ちをわかってほしい」「仕事や生活への影響が気になる」の3つから選びます。",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "言葉にできない気持ちを書く",
+      text: "上司・先生・パートナー・親など、誰かに言えずにいることをそのまま入力します。うまく書けなくても大丈夫です。",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "3つの問いに答える",
+      text: "あなたのタイプに合わせた深掘り質問に答えると、AIと性格統計学があなたの本音を言語化します。",
+    },
+  ],
+};
+
+// FAQPage スキーマ
+const jsonLdFaq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "「ほんね。」はどんなアプリですか？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "上司・先生・パートナー・家族など、誰かに言えない気持ちを言語化するコミュニケーション支援ツールです。性格統計学とAIを使って、あなたの本音を言葉にするお手伝いをします。",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "無料で使えますか？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "はい、基本機能は無料でご利用いただけます。1日3回まで利用でき、記録は3件まで閲覧可能です。プレミアムプラン（月額500円）では回数無制限・記録無制限でご利用いただけます。",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "入力した内容はどこに保存されますか？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "ログインしない場合はお使いの端末内（ローカルストレージ）にのみ保存されます。ログインするとSupabase社のクラウドに保存され、複数端末から確認できます。",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "医療的なアドバイスはもらえますか？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "いいえ。本アプリは気持ちの言語化を支援するツールであり、医療診断・治療の提案・専門的なカウンセリングは行いません。体調・精神面に深刻な不安がある場合は、医療機関や相談窓口をご利用ください。",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "どんな場面で使えますか？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "上司への不満・要望、パートナーへの気持ち、親への感謝、友人関係の違和感、病院での相談内容の整理など、誰かに「言えない・伝えにくい」と感じる場面であればどんな状況にもご活用いただけます。",
+      },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja" prefix="og: https://ogp.me/ns#">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdApp) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       </head>
       <body className={`${geistSans.variable} antialiased`}>
         <RegisterServiceWorker />
