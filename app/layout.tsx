@@ -44,7 +44,7 @@ export const metadata: Metadata = {
       "先生に伝えたいのに、うまく言葉にできない——そんな気持ちを、ここで整理してから診察室へ。",
     images: [
       {
-        url: "/og-image.png",
+        url: `${BASE_URL}/opengraph-image`,
         width: 1200,
         height: 630,
         alt: "ほんね。— 気づいて！私のきもち",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     title: "ほんね。— 気づいて！私のきもち",
     description:
       "先生に伝えたいのに、うまく言葉にできない——そんな気持ちを、ここで整理してから診察室へ。",
-    images: ["/og-image.png"],
+    images: [`${BASE_URL}/opengraph-image`],
     site: "@medirealize",
     creator: "@medirealize",
   },
