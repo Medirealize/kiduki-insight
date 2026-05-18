@@ -144,6 +144,67 @@ export default async function AdminPage() {
           </div>
         </section>
 
+        {/* ── 開発者セクション ── */}
+        <section className="space-y-6">
+          <p className="text-[0.7rem] font-bold uppercase tracking-widest text-[#8d949e]">開発者メモ</p>
+
+          {/* App Store レディネス */}
+          <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-5 shadow-sm">
+            <p className="mb-4 text-sm font-bold text-[#1c1e21]">📱 App Store 進出レディネス</p>
+            <div className="space-y-2 text-sm">
+              {[
+                { done: true,  label: "プライバシーポリシー公開（/privacy）" },
+                { done: true,  label: "Supabase Auth 実装（Google OAuth + Magic Link）" },
+                { done: true,  label: "Stripe 課金フロー実装" },
+                { done: true,  label: "honne_logs Supabase 接続" },
+                { done: false, label: "App Store Connect アカウント登録" },
+                { done: false, label: "Capacitor iOS ビルド・動作確認" },
+                { done: false, label: "スクリーンショット5枚作成（6.5インチ）" },
+                { done: false, label: "App 審査提出（4+ レーティング想定）" },
+                { done: false, label: "利用規約ページ追加" },
+              ].map((item) => (
+                <div key={item.label} className="flex items-start gap-2.5">
+                  <span className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded text-[0.65rem] font-bold ${
+                    item.done ? "bg-emerald-100 text-emerald-700" : "bg-[#f0f2f5] text-[#8d949e]"
+                  }`}>
+                    {item.done ? "✓" : "○"}
+                  </span>
+                  <span className={item.done ? "text-[#606770]" : "text-[#1c1e21]"}>{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 進出タイミング考察 */}
+          <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-5 shadow-sm">
+            <p className="mb-3 text-sm font-bold text-[#1c1e21]">⏱ 進出タイミング考察</p>
+            <div className="space-y-3 text-sm text-[#606770] leading-relaxed">
+              <p><span className="font-semibold text-[#1c1e21]">医療機器リスク：</span>本アプリは「コミュニケーション支援ツール」であり診断を行わないため、薬機法上の医療機器に該当しない設計。ただし表現・機能追加時は都度確認が必要。</p>
+              <p><span className="font-semibold text-[#1c1e21]">推奨タイミング：</span>月間アクティブユーザー50人・有料転換3件を確認してからApp Store申請。それ以前はWeb版でPMF（プロダクトマーケットフィット）を検証する。</p>
+              <p><span className="font-semibold text-[#1c1e21]">B2B展開：</span>クリニック1院あたり月額¥5,000〜¥30,000の導入プランを検討。患者教育コストを削減する訴求が有効。</p>
+            </div>
+          </div>
+
+          {/* 推奨ロードマップ */}
+          <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-5 shadow-sm">
+            <p className="mb-3 text-sm font-bold text-[#1c1e21]">🗺 推奨ロードマップ</p>
+            <ol className="space-y-2 text-sm text-[#606770]">
+              {[
+                "SNS（X / Instagram）で認知拡大 → Web版でユーザー獲得",
+                "有料転換10件達成 → 価格・機能の仮説検証",
+                "App Store申請 → iOS版リリース",
+                "クリニック数院への B2B 営業開始",
+                "利用規約 / 特商法ページ追加 → 法務整備完了",
+              ].map((step, i) => (
+                <li key={i} className="flex gap-2.5">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1877f2]/10 text-[0.65rem] font-bold text-[#1877f2]">{i + 1}</span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         <p className="pb-4 text-center text-[0.65rem] text-[#8d949e]">
           管理者専用ページ — 外部公開禁止
         </p>

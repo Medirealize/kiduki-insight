@@ -1,22 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useLogStore } from "@/lib/store/useLogStore";
 import { useUserStatus } from "@/lib/store/useUserStatus";
-import { FREE_LOG_VISIBLE } from "@/lib/types/log";
+import { useAuth } from "@/lib/auth/useAuth";
+import { FREE_LOG_VISIBLE, FREE_DAILY_LIMIT } from "@/lib/types/log";
 import HistoryCard from "@/app/components/HistoryCard";
+import dynamic from "next/dynamic";
 import type { PremiumReport } from "@/app/api/premium/report/route";
+
+const UpgradeButton = dynamic(() => import("@/app/components/UpgradeButton"), { ssr: false });
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 
 export default function HistoryPage() {
   const { logs, clearLogs, hydrated } = useLogStore();
-  const { isPremium, upgradeToPremium, downgradeToFree, status } = useUserStatus();
+  const { dailyUsage } = useUserStatus();
+  const auth = useAuth();
+  const isPremium = auth.isPremium;
+
   const [report, setReport] = useState<PremiumReport | null>(null);
   const [reportLoading, setReportLoading] = useState(false);
   const [reportError, setReportError] = useState<string | null>(null);
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+
+  const weeklyLogs = useMemo(() => {
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return logs.filter((l) => new Date(l.createdAt) >= weekAgo).length;
+  }, [logs]);
 
   const generateReport = async () => {
     if (!isPremium || logs.length === 0) return;
@@ -62,7 +74,6 @@ export default function HistoryPage() {
             ほんね。に戻る
           </Link>
           <span className="text-sm font-semibold text-[#1c1e21]">ほんねの記録</span>
-          {/* プレミアムバッジ or FREEバッジ */}
           <span className={`rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold ${
             isPremium ? "bg-[#ffd700]/20 text-[#b8860b]" : "bg-[#f0f2f5] text-[#8d949e]"
           }`}>
@@ -72,6 +83,24 @@ export default function HistoryPage() {
       </div>
 
       <div className="mx-auto max-w-md px-5 py-8 space-y-6">
+
+        {/* 個人 KPI カード */}
+        <section className="grid grid-cols-2 gap-3">
+          {[
+            { label: "総記録件数",           value: logs.length,       unit: "件",  color: "text-[#1877f2]" },
+            { label: "今週の記録",           value: weeklyLogs,        unit: "件",  color: "text-emerald-600" },
+            { label: "本日の利用回数",       value: `${dailyUsage}/${isPremium ? "∞" : FREE_DAILY_LIMIT}`, unit: "回", color: "text-violet-600" },
+            { label: "プラン",              value: isPremium ? "PREMIUM" : "FREE", unit: "",    color: isPremium ? "text-[#b8860b]" : "text-[#8d949e]" },
+          ].map((kpi) => (
+            <div key={kpi.label} className="rounded-2xl border border-[#dfe3e8] bg-white px-4 py-3.5 shadow-sm">
+              <p className="text-[0.65rem] text-[#8d949e]">{kpi.label}</p>
+              <p className={`mt-1 text-xl font-black ${kpi.color}`}>
+                {kpi.value}
+                {kpi.unit && <span className="ml-0.5 text-xs font-normal text-[#8d949e]">{kpi.unit}</span>}
+              </p>
+            </div>
+          ))}
+        </section>
 
         {/* プレミアムバナー（FREE時のみ） */}
         {!isPremium && (
@@ -84,13 +113,21 @@ export default function HistoryPage() {
               <li>✓ 利用回数 無制限</li>
               <li>✓ AI による総合ほんねレポート</li>
             </ul>
-            <button
-              type="button"
-              onClick={() => setShowUpgradeModal(true)}
-              className="mt-4 w-full rounded-xl bg-white py-2.5 text-sm font-bold text-[#1a1a2e] transition hover:bg-white/90"
-            >
-              プレミアムプランにアップグレード
-            </button>
+            <div className="mt-4">
+              {auth.user ? (
+                <UpgradeButton
+                  label="プレミアムプランにアップグレード（月額500円）"
+                  className="w-full rounded-xl bg-white py-2.5 text-sm font-bold text-[#1a1a2e] transition hover:bg-white/90"
+                />
+              ) : (
+                <Link
+                  href="/"
+                  className="block w-full rounded-xl bg-white py-2.5 text-center text-sm font-bold text-[#1a1a2e] transition hover:bg-white/90"
+                >
+                  ログインしてアップグレード
+                </Link>
+              )}
+            </div>
           </div>
         )}
 
@@ -119,7 +156,7 @@ export default function HistoryPage() {
                   { label: "心理的な変化", value: report.growth },
                   { label: "コミュニケーション傾向", value: report.communication },
                   { label: "次の診察へのアドバイス", value: report.advice },
-                ].filter(r => r.value).map((r) => (
+                ].filter((r) => r.value).map((r) => (
                   <div key={r.label}>
                     <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#b8860b]">{r.label}</p>
                     <p className="text-sm leading-relaxed text-[#1c1e21]">{r.value}</p>
@@ -159,9 +196,7 @@ export default function HistoryPage() {
                 記録 <span className="text-[#1877f2]">{logs.length}</span> 件
               </p>
               {!isPremium && logs.length > FREE_LOG_VISIBLE && (
-                <p className="text-xs text-[#8d949e]">
-                  {logs.length - FREE_LOG_VISIBLE}件がロック中
-                </p>
+                <p className="text-xs text-[#8d949e]">{logs.length - FREE_LOG_VISIBLE}件がロック中</p>
               )}
             </div>
             {logs.map((log, idx) => (
@@ -169,21 +204,10 @@ export default function HistoryPage() {
                 key={log.id}
                 log={log}
                 locked={!isPremium && idx >= FREE_LOG_VISIBLE}
-                onUpgrade={() => setShowUpgradeModal(true)}
+                onUpgrade={() => {}}
               />
             ))}
           </div>
-        )}
-
-        {/* プレミアム解除（デモ用） */}
-        {isPremium && (
-          <button
-            type="button"
-            onClick={downgradeToFree}
-            className="w-full rounded-xl border border-[#dfe3e8] py-2.5 text-xs text-[#8d949e] transition hover:bg-[#f0f2f5]"
-          >
-            ※ デモ：FREEプランに戻す
-          </button>
         )}
 
         {logs.length > 0 && (
@@ -196,41 +220,6 @@ export default function HistoryPage() {
           </button>
         )}
       </div>
-
-      {/* アップグレードモーダル */}
-      {showUpgradeModal && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 backdrop-blur-sm sm:items-center">
-          <div className="w-full max-w-sm rounded-t-3xl bg-white px-6 pb-8 pt-6 shadow-2xl sm:rounded-3xl">
-            <div className="mb-1 h-1 w-10 rounded-full bg-[#dfe3e8] mx-auto sm:hidden" />
-            <p className="mt-4 text-center text-xl font-bold text-[#1c1e21]">プレミアムプラン</p>
-            <p className="mt-1 text-center text-[#65676b] text-sm">月額 ¥980（税込）</p>
-            <ul className="mt-5 space-y-3 text-sm">
-              {["過去の記録を無制限に閲覧", "1日の利用回数が無制限", "AI による総合ほんねレポート"].map((f) => (
-                <li key={f} className="flex items-center gap-2 text-[#1c1e21]">
-                  <svg viewBox="0 0 20 20" className="h-5 w-5 shrink-0 text-[#1877f2]" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button
-              type="button"
-              onClick={() => { upgradeToPremium(); setShowUpgradeModal(false); }}
-              className="mt-6 w-full rounded-xl bg-[#1877f2] py-3.5 font-bold text-white shadow-sm transition hover:bg-[#166fe5]"
-            >
-              アップグレードする（デモ）
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowUpgradeModal(false)}
-              className="mt-3 w-full rounded-xl py-2.5 text-sm text-[#8d949e]"
-            >
-              キャンセル
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

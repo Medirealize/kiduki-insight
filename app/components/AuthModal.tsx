@@ -89,7 +89,10 @@ export default function AuthModal({ auth, onClose }: Props) {
           </form>
         )}
 
-        <p className="mt-5 text-center text-xs leading-relaxed text-[#8d949e]">
+        <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2.5 text-[0.72rem] leading-relaxed text-blue-800">
+          ※ 当アプリの認証システムはSupabase社（dbuenqvqvlvnryuunhuu.supabase.co）の仕組みを採用しています。Googleログイン時に該当ドメインが表示されますが、Medirealizeが管理する安全なシステムですのでそのままお進みください。
+        </div>
+        <p className="mt-3 text-center text-xs leading-relaxed text-[#8d949e]">
           ログインすることで
           <a href="/privacy" className="underline">プライバシーポリシー</a>
           に同意したことになります
