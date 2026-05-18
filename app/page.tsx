@@ -17,21 +17,6 @@ import { FREE_LOG_VISIBLE, FREE_DAILY_LIMIT } from "@/lib/types/log";
 const PROFILE_STORAGE_KEY = "kiduki-insight-profile-v2";
 const PREFS_STORAGE_KEY = "kiduki-insight-prefs-v1";
 
-const MEDICAL_KEYWORDS = [
-  "診断してほしい", "診断を教えて", "診断を",
-  "何の病気", "どんな病気", "病名を",
-  "治療法", "治療方法", "どんな治療",
-  "手術した方がいい", "手術すべき", "手術は必要",
-  "どんな薬を飲", "何の薬を飲", "薬を変えて", "薬を増やして", "薬を減らして",
-  "治りますか", "治るでしょうか", "完治できますか",
-  "余命", "予後",
-  "症状の原因", "病気の原因",
-  "ガンですか", "がんですか", "癌ですか",
-];
-
-function hasMedicalQuestion(text: string): boolean {
-  return MEDICAL_KEYWORDS.some((kw) => text.includes(kw));
-}
 
 type GroupOption = { group: PersonalityGroup; typeCode: string; title: string; description: string };
 const GROUP_OPTIONS: GroupOption[] = [
@@ -80,7 +65,6 @@ export default function Home() {
   const { logs, addLog } = useLogStore();
   const { isPremium, canDiagnose, remainingToday, recordUsage, upgradeToPremium } = useUserStatus();
   const [worryText, setWorryText] = useState("");
-  const [medicalError, setMedicalError] = useState<string | null>(null);
   const [qAnswers, setQAnswers] = useState<("A" | "B")[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [aiInsight, setAiInsight] = useState<string | null>(null);
@@ -587,35 +571,15 @@ export default function Home() {
               )}
               <textarea
                 value={worryText}
-                onChange={(e) => {
-                  setWorryText(e.target.value);
-                  if (medicalError) setMedicalError(null);
-                }}
-                placeholder="例：先生にうまく気持ちを伝えられるか不安、次の診察で何を話せばいいかわからない、家族への説明の仕方を整理したい…"
+                onChange={(e) => setWorryText(e.target.value)}
+                placeholder="例：血液検査が必要な理由を聞きたい、病気のことを家族にどう説明すればいいかわからない、薬をいつまで飲み続けるのか不安…"
                 rows={5}
-                className={`w-full resize-none rounded-xl border px-4 py-3 text-base leading-relaxed text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:ring-2 ${
-                  medicalError
-                    ? "border-red-400 bg-red-50 focus:border-red-400 focus:ring-red-200"
-                    : "border-[#ccd0d5] bg-white focus:border-[#1877f2] focus:ring-[#1877f2]/20"
-                }`}
+                className="w-full resize-none rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-base leading-relaxed text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
               />
-              {medicalError && (
-                <div className="mt-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-relaxed text-red-700">
-                  <p className="font-semibold">このアプリでは医学的な相談はお受けできません</p>
-                  <p className="mt-1">「診断・治療・薬」などについて直接お答えすることはできません。先生に伝えたい<strong>気持ちや不安・状況</strong>を入力してください。</p>
-                </div>
-              )}
               {showNextButton && (
                 <button
                   type="button"
-                  onClick={() => {
-                    if (hasMedicalQuestion(worryText)) {
-                      setMedicalError("medical");
-                      return;
-                    }
-                    setMedicalError(null);
-                    goNext();
-                  }}
+                  onClick={() => goNext()}
                   className="mt-6 w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] active:scale-[0.99]"
                 >
                   次へ
