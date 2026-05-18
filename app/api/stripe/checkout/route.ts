@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://kiduki-insight-v2.vercel.app";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://insight.medirealize.jp";
 function getStripe() {
   if (!process.env.STRIPE_SECRET_KEY) throw new Error("STRIPE_SECRET_KEY is not set");
   return new Stripe(process.env.STRIPE_SECRET_KEY);

@@ -8,7 +8,7 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://kiduki-insight-v2.vercel.app";
+const BASE_URL = "https://insight.medirealize.jp";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
