@@ -11,10 +11,10 @@ export default function FollowUpList({ questions, onPick }: Props) {
   return (
     <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
       <p className="mb-1 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">
-        先生に伝えたいことを、もっと深く
+        あなたの本音を、もっと深く
       </p>
       <p className="mb-4 text-xs leading-relaxed text-[#8d949e]">
-        あなたの不安や気がかりの奥にある本音を探る問いかけです。気になったものをタップすると、その問いから考え直せます。
+        気持ちの奥にある言葉を探る問いかけです。気になったものをタップすると、その問いからもう一度考え直せます。
       </p>
       <div className="flex flex-col gap-2">
         {questions.map((q, idx) => (

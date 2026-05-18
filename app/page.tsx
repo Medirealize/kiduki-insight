@@ -618,7 +618,7 @@ export default function Home() {
               <textarea
                 value={worryText}
                 onChange={(e) => setWorryText(e.target.value)}
-                placeholder="例：血液検査が必要な理由を聞きたい、病気のことを家族にどう説明すればいいかわからない、薬をいつまで飲み続けるのか不安…"
+                placeholder="例：上司に仕事量が多すぎると伝えたいのに言い出せない、先生に聞きたいことがあるのに診察室では言えなかった、親への感謝をうまく言葉にできない、パートナーへの不満があるけど傷つけたくて言えない…"
                 rows={5}
                 className="w-full resize-none rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-base leading-relaxed text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
               />
