@@ -17,17 +17,17 @@ export const metadata: Metadata = {
     template: "%s | ほんね。",
   },
   description:
-    "先生に伝えたいのに、うまく言葉にできない——そんな気持ちを、ここで整理してから診察室へ。性格統計学とAIがあなたの本音を引き出すコミュニケーション支援ツールです。",
+    "言いたいのに言えない——そんな気持ちを、ここで言葉にしてみませんか。性格統計学とAIがあなたの本音を引き出すコミュニケーション支援ツールです。",
   keywords: [
-    "先生に言えない気持ち",
-    "診察前 準備",
-    "医師 コミュニケーション",
-    "本音 言葉にする",
-    "病院 不安 伝え方",
-    "自分の気持ち 言語化",
+    "言いたいのに言えない",
+    "気持ちを言葉にする",
+    "本音 言語化",
+    "コミュニケーション 苦手",
+    "気持ち 伝え方",
+    "自分の気持ち 整理",
     "気づき 自己理解",
     "ほんね",
-    "患者 コミュニケーション",
+    "感情 言語化",
     "心の声",
   ],
   authors: [{ name: "Medirealize", url: "https://medirealize.jp" }],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "ほんね。",
     title: "ほんね。— 気づいて！私のきもち",
     description:
-      "先生に伝えたいのに、うまく言葉にできない——そんな気持ちを、ここで整理してから診察室へ。",
+      "言いたいのに言えない——そんな気持ちを、ここで言葉にしてみませんか。",
     images: [
       {
         url: `${BASE_URL}/opengraph-image`,
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ほんね。— 気づいて！私のきもち",
     description:
-      "先生に伝えたいのに、うまく言葉にできない——そんな気持ちを、ここで整理してから診察室へ。",
+      "言いたいのに言えない——そんな気持ちを、ここで言葉にしてみませんか。",
     images: [`${BASE_URL}/opengraph-image`],
     site: "@medirealize",
     creator: "@medirealize",
@@ -102,15 +102,15 @@ const jsonLd = {
   name: "ほんね。",
   alternateName: "ほんね。— 気づいて！私のきもち",
   description:
-    "先生に伝えたいのに、うまく言葉にできない気持ちを整理するコミュニケーション支援ツール。",
+    "言いたいのに言えない気持ちを言語化するコミュニケーション支援ツール。",
   url: BASE_URL,
-  applicationCategory: "HealthApplication",
+  applicationCategory: "LifestyleApplication",
   operatingSystem: "iOS, Android, Web",
   inLanguage: "ja",
   isAccessibleForFree: true,
   offers: [
     { "@type": "Offer", price: "0", priceCurrency: "JPY", name: "無料プラン" },
-    { "@type": "Offer", price: "980", priceCurrency: "JPY", name: "プレミアムプラン", billingDuration: "P1M" },
+    { "@type": "Offer", price: "500", priceCurrency: "JPY", name: "プレミアムプラン", billingDuration: "P1M" },
   ],
   author: {
     "@type": "Organization",
@@ -120,7 +120,7 @@ const jsonLd = {
   featureList: [
     "性格統計学に基づく問いかけ",
     "AIによる本音の言語化",
-    "医師への伝え方のサポート",
+    "誰かへの伝え方のサポート",
     "本音の記録と振り返り",
   ],
 };
