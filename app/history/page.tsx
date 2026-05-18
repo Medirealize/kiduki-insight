@@ -219,6 +219,16 @@ export default function HistoryPage() {
             記録をすべて削除する
           </button>
         )}
+
+        {auth.user && (
+          <button
+            type="button"
+            onClick={() => auth.signOut()}
+            className="w-full rounded-xl border border-[#dfe3e8] py-2.5 text-xs text-[#8d949e] transition hover:bg-[#f0f2f5]"
+          >
+            ログアウト（{auth.user.email}）
+          </button>
+        )}
       </div>
     </div>
   );

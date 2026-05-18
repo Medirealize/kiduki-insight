@@ -468,7 +468,7 @@ export default function Home() {
                     <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-white/30 text-[0.6rem] font-bold">
                       {(auth.user.email?.[0] ?? "U").toUpperCase()}
                     </span>
-                    {auth.isPremium ? "★ プレミアム" : "ログイン中"}
+                    {auth.isPremium ? "★ プレミアム" : "ログアウト"}
                   </button>
                 ) : (
                   <button
