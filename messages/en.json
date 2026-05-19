@@ -116,6 +116,10 @@
     "disclaimer": "This app helps you put feelings into words.\nIt does not provide medical diagnosis or professional counseling.",
     "startButton": "Get started"
   },
+  "followUp": {
+    "title": "Explore your honne deeper",
+    "desc": "Prompts to help uncover the words behind your feelings. Tap one to reflect on it from a fresh angle."
+  },
   "history": {
     "title": "My Records",
     "back": "Back to honne.",
