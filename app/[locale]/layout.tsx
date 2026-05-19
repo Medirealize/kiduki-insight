@@ -62,8 +62,15 @@ export async function generateMetadata({
     },
     robots: { index: true, follow: true },
     alternates: {
-      canonical: BASE_URL,
-      languages: { "ja-JP": BASE_URL, "en-US": `${BASE_URL}/en` },
+      // ページごとの正規URL（/ja または /en）
+      canonical: `${BASE_URL}/${locale}`,
+      // hreflang: Googleに言語バリアントを伝える
+      languages: {
+        ja: `${BASE_URL}/ja`,
+        en: `${BASE_URL}/en`,
+        // x-default: 言語未指定ユーザーへのデフォルト → 日本語版
+        "x-default": `${BASE_URL}/ja`,
+      },
     },
     manifest: "/manifest.webmanifest",
     icons: { icon: "/favicon.ico", apple: "/pwa-icon.svg" },
