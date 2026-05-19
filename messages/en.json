@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "honne.",
+    "tagline": "Notice me. My true feelings.",
+    "footer": "This app is a communication support tool that helps you put your feelings into words. If you need professional support, please consult a medical or counseling service.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "legal": "Legal Notice"
+  },
+  "nav": {
+    "history": "My Records",
+    "login": "Log In",
+    "logout": "Log Out",
+    "premium": "★ Premium"
+  },
+  "steps": {
+    "1": "Step 1: Choose your type",
+    "2": "Step 2: Describe what's on your mind",
+    "3": "Step 3: Deeper question 1",
+    "4": "Step 4: Deeper question 2",
+    "5": "Step 5: Deeper question 3",
+    "6": "Preparing your result",
+    "7": "Your result"
+  },
+  "step1": {
+    "prompt": "Choose the option that feels most like you right now. The follow-up questions will adapt to your choice.",
+    "aiToggleLabel": "Polish with AI",
+    "aiToggleDesc": "(When on, a request is sent at the final step. When off, results appear instantly using only on-device data.)",
+    "next": "Next",
+    "groups": {
+      "自分軸": {
+        "title": "I want to think at my own pace",
+        "description": "You feel reassured when you understand the reasons. You prefer to be convinced before moving forward."
+      },
+      "相手軸": {
+        "title": "I want to feel understood first",
+        "description": "You're deeply considerate of others. Feeling heard makes a big difference for you."
+      },
+      "社会軸": {
+        "title": "I'm worried about impact on work or daily life",
+        "description": "Having a clear plan helps you act. You care about fulfilling your responsibilities."
+      }
+    }
+  },
+  "step2": {
+    "prompt": "Write about something you can't say to someone, or feelings you're struggling to put into words. It's okay if it's messy.",
+    "placeholder": "e.g. I want to tell my boss I'm overloaded but can't bring myself to say it. There was something I wanted to ask my doctor but froze in the appointment. I can't find the words to thank my parents. I have frustrations with my partner but don't want to hurt them…",
+    "offlineNotice": "Offline mode is on. Your input won't be sent to any server — results are generated entirely on this device.",
+    "next": "Next"
+  },
+  "step3to5": {
+    "typeLabel": "{group} type question",
+    "loading": "Loading your question…"
+  },
+  "step6": {
+    "inputLabel": "What you wrote: ",
+    "analyzing": "Analyzing your thoughts…",
+    "slowNotice": "This involves AI processing and may take up to a minute depending on your connection."
+  },
+  "step7": {
+    "disclaimer": {
+      "title": "Important notice",
+      "body": "What you see is a hypothesis to spark self-awareness — not a medical diagnosis or treatment recommendation. Please consult a healthcare professional for any health concerns."
+    },
+    "inputSectionTitle": "What you wrote",
+    "inputEmpty": "(nothing entered)",
+    "honneSectionTitle": "Your honne",
+    "honneDisclaimer": "The following is a hypothesis — \"this might be true.\" If it doesn't resonate, trust your own feelings instead.",
+    "retryAi": "Try AI again",
+    "feelingOff": "If the result feels off, that awareness itself is valuable — you've recognized what doesn't fit you.",
+    "legalNote": "This app is a communication support tool based on personality statistics. It does not provide medical diagnoses or treatment advice. If you have health concerns, please see a qualified healthcare provider.",
+    "saveSection": {
+      "title": "💬 Save this honne",
+      "descPremium": "With Premium, save and revisit unlimited entries.",
+      "descFree": "Free plan allows up to {limit} visible entries.",
+      "descFreeRemaining": "{remaining} entries remaining.",
+      "descFreeLocked": "Entries beyond {limit} will be locked.",
+      "saveButton": "Save my honne",
+      "savedMessage": "✓ Saved",
+      "viewHistory": "View my records →"
+    },
+    "premium": {
+      "title": "★ Premium Plan",
+      "desc": "Unlimited saves & AI uses. ¥500/month (tax incl.)",
+      "upgradeButton": "Upgrade now (¥500/month)",
+      "loginToUpgrade": "Log in to upgrade",
+      "limitTitle": "Go unlimited with Premium (¥500/month)",
+      "upgradeLabel": "Upgrade to Premium"
+    },
+    "restart": "Start over",
+    "analysisDesc": {
+      "noAi": "Results are based on personality statistics (offline mode).",
+      "aiDone": "Analyzed in depth using personality statistics and AI.",
+      "limitReached": "Daily limit reached — showing personality-based result.",
+      "aiFailed": "AI generation failed — showing personality-based result.",
+      "base": "Results are based on personality statistics."
+    },
+    "limitError": "You've reached today's limit ({limit} uses). Go unlimited with Premium.",
+    "aiError": "Failed to retrieve AI response. Please try again later.",
+    "aiIncompleteError": "The AI response was incomplete. Please try again later.",
+    "notFound": "No matching result found. Please start over."
+  },
+  "payment": {
+    "success": "🎉 Welcome to Premium!",
+    "successDetail": "Payment complete. All features are now unlimited."
+  },
+  "onboarding": {
+    "title": "honne.",
+    "tagline": "What you want to say, but can't.",
+    "description": "Boss, doctor, partner, family…\nWe help you put those unspoken feelings into words.",
+    "steps": [
+      { "icon": "🪞", "title": "Choose your type", "desc": "Pick the one that feels most like you from 3 options" },
+      { "icon": "💬", "title": "Write your feelings", "desc": "No need to be eloquent — just write what comes to mind" },
+      { "icon": "✨", "title": "Your true feelings emerge", "desc": "Answer 3 questions and your honne becomes visible" }
+    ],
+    "disclaimer": "This app helps you put feelings into words.\nIt does not provide medical diagnosis or professional counseling.",
+    "startButton": "Get started"
+  },
+  "history": {
+    "title": "My Records",
+    "back": "Back to honne.",
+    "kpi": {
+      "totalLogs": "Total saved",
+      "weeklyLogs": "This week",
+      "dailyUsage": "Today's uses",
+      "plan": "Plan",
+      "free": "FREE",
+      "premium": "PREMIUM",
+      "unit": {
+        "count": "",
+        "times": ""
+      }
+    },
+    "premiumBanner": {
+      "badge": "PREMIUM PLAN",
+      "title": "Revisit all your records\nanytime",
+      "features": ["Unlimited history access", "Unlimited AI uses", "AI comprehensive honne report"],
+      "upgradeButton": "Upgrade to Premium (¥500/month)",
+      "loginButton": "Log in to upgrade"
+    },
+    "report": {
+      "badge": "✦ honne. Report",
+      "desc": "AI analyzes your {count} saved entries comprehensively.",
+      "generateButton": "Analyze with AI",
+      "analyzing": "AI is analyzing…",
+      "closeButton": "Close report",
+      "sections": {
+        "pattern": "Worry patterns",
+        "growth": "Psychological shifts",
+        "communication": "Communication tendencies",
+        "advice": "Advice for your next appointment"
+      },
+      "error": "Failed to generate report. Please try again later."
+    },
+    "empty": {
+      "icon": "💬",
+      "title": "No records yet",
+      "desc": "Save a honne and it will appear here.",
+      "goButton": "Find my honne"
+    },
+    "logCount": "{count} entries",
+    "locked": "{count} locked",
+    "deleteAll": "Delete all records",
+    "deleteConfirm": "Delete all records?",
+    "logout": "Log out ({email})"
+  }
+}

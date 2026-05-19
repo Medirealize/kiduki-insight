@@ -1,5 +1,5 @@
-/** 日常の場面で「言えずにいること」のバリエーション */
-export const FOLLOW_UP_VARIATIONS: string[] = [
+/** 日常の場面で「言えずにいること」のバリエーション（日本語） */
+export const FOLLOW_UP_VARIATIONS_JA: string[] = [
   "上司に仕事量が多すぎると伝えたいのに、言い出せない",
   "パートナーへの不満があるけど、傷つけたくて言えない",
   "親に感謝しているけど、素直に伝えるのが恥ずかしい",
@@ -17,8 +17,8 @@ export const FOLLOW_UP_VARIATIONS: string[] = [
   "もっと早く気づけばよかったと後悔している",
 ];
 
-/** 気持ちの奥にある本音を探る深い問いかけ */
-export const FOLLOW_UP_DEEP: string[] = [
+/** 気持ちの奥にある本音を探る深い問いかけ（日本語） */
+export const FOLLOW_UP_DEEP_JA: string[] = [
   "もし遠慮しなくていいとしたら、何を伝えたいですか？",
   "この気持ちを一番わかってほしい人は、誰ですか？",
   "言えなかったことで、後悔していることはありますか？",
@@ -31,6 +31,41 @@ export const FOLLOW_UP_DEEP: string[] = [
   "この気持ちを抱えていることを、誰かに知ってほしいですか？",
   "自分のことを後回しにしてきた、と感じることがありますか？",
   "「こう言ったら嫌われるかも」と思って黙ったことはありますか？",
+];
+
+/** Situational prompts for things left unsaid (English) */
+export const FOLLOW_UP_VARIATIONS_EN: string[] = [
+  "I want to tell my boss I'm overloaded, but I can't bring myself to say it",
+  "I have frustrations with my partner but don't want to hurt them",
+  "I'm grateful to my parents but feel embarrassed to say it directly",
+  "Something feels off with a friend, but I can't find the words",
+  "There was something I wanted to ask my doctor but froze in the appointment",
+  "I keep holding back because I don't want to make them angry",
+  "I end up prioritizing others over my own feelings",
+  "I sometimes feel guilty about asking for help",
+  "I've lost track of what it is that's bothering me",
+  "The words are in my head but come out differently when I speak",
+  "Things I've been putting up with are quietly piling up",
+  "Fear of their reaction is holding me back",
+  "I wonder if what I'm feeling is just selfish",
+  "I want to apologize but don't know how to bring it up",
+  "I regret not noticing sooner",
+];
+
+/** Deep reflection prompts for uncovering true feelings (English) */
+export const FOLLOW_UP_DEEP_EN: string[] = [
+  "If you didn't have to hold back, what would you want to say?",
+  "Who do you most want to understand this feeling?",
+  "Is there something left unsaid that you regret?",
+  "What outcome do you actually hope for?",
+  "What was the moment you felt most hurt?",
+  "What do you think will happen if this continues?",
+  "What would you want to change by telling them?",
+  "If you gave this feeling a name, what would it be?",
+  "Have you ever felt that it's okay to ask someone for help?",
+  "Is there someone you want to know you're carrying this?",
+  "Do you feel like you've been putting yourself last?",
+  "Have you ever stayed quiet thinking \"they might dislike me for this\"?",
 ];
 
 function shuffle<T>(items: T[]): T[] {
@@ -61,17 +96,20 @@ function bigramOverlap(a: string, b: string): number {
 
 export function mergeFollowUpQuestions(
   fromAi: string[],
-  ctx: { group: string; typeCode?: string; worryText?: string }
+  ctx: { group: string; typeCode?: string; worryText?: string; locale?: string }
 ): string[] {
-  const { worryText = "" } = ctx;
+  const { worryText = "", locale = "ja" } = ctx;
+
+  const variations = locale === "en" ? FOLLOW_UP_VARIATIONS_EN : FOLLOW_UP_VARIATIONS_JA;
+  const deep = locale === "en" ? FOLLOW_UP_DEEP_EN : FOLLOW_UP_DEEP_JA;
 
   const ai = fromAi
     .map((s) => s.trim())
     .filter((q) => q.length > 0 && q.length <= 120)
     .filter((q) => bigramOverlap(q, worryText) < 0.5);
 
-  const vars = shuffle([...FOLLOW_UP_VARIATIONS]);
-  const deep = shuffle([...FOLLOW_UP_DEEP]);
+  const vars = shuffle([...variations]);
+  const deepShuffled = shuffle([...deep]);
 
   const out: string[] = [];
   const seen = new Set<string>();
@@ -87,14 +125,14 @@ export function mergeFollowUpQuestions(
   const maxOut = 6;
   let aiI = 0, dI = 0, vI = 0, round = 0;
 
-  while (out.length < maxOut && (aiI < ai.length || dI < deep.length || vI < vars.length)) {
+  while (out.length < maxOut && (aiI < ai.length || dI < deepShuffled.length || vI < vars.length)) {
     const r = round % 3;
     if (r === 0 && aiI < ai.length) pushUnique(ai[aiI++]);
-    else if (r === 1 && dI < deep.length) pushUnique(deep[dI++]);
+    else if (r === 1 && dI < deepShuffled.length) pushUnique(deepShuffled[dI++]);
     else if (r === 2 && vI < vars.length) pushUnique(vars[vI++]);
     else {
       if (aiI < ai.length) pushUnique(ai[aiI++]);
-      else if (dI < deep.length) pushUnique(deep[dI++]);
+      else if (dI < deepShuffled.length) pushUnique(deepShuffled[dI++]);
       else if (vI < vars.length) pushUnique(vars[vI++]);
     }
     round++;
@@ -103,3 +141,7 @@ export function mergeFollowUpQuestions(
 
   return out.slice(0, maxOut);
 }
+
+// 後方互換エイリアス
+export const FOLLOW_UP_VARIATIONS = FOLLOW_UP_VARIATIONS_JA;
+export const FOLLOW_UP_DEEP = FOLLOW_UP_DEEP_JA;
