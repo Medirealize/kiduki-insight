@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
+import { Analytics } from "@vercel/analytics/next";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
@@ -108,6 +109,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <RegisterServiceWorker />
           {children}
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>
