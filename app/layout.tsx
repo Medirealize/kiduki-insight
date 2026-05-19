@@ -221,6 +221,8 @@ export default function RootLayout({
   return (
     <html lang="ja" prefix="og: https://ogp.me/ns#">
       <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PCJRQ6D1W3" />
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PCJRQ6D1W3');` }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdApp) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
