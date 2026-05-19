@@ -9,6 +9,7 @@
   },
   "nav": {
     "history": "ほんねの記録",
+    "back": "戻る",
     "login": "ログイン",
     "logout": "ログアウト",
     "premium": "★ プレミアム"
@@ -115,6 +116,49 @@
     ],
     "disclaimer": "本アプリは気持ちの言語化を助けるツールです。\n医療診断・専門的なカウンセリングは行いません。",
     "startButton": "はじめる"
+  },
+  "groupNames": {
+    "自分軸": "自分軸",
+    "相手軸": "相手軸",
+    "社会軸": "社会軸"
+  },
+  "authModal": {
+    "title": "ほんね。にログイン",
+    "subtitle": "ログインすると記録がクラウドに保存され、どの端末からでも確認できます",
+    "googleButton": "Googleでログイン",
+    "or": "または",
+    "emailSent": "メールを送信しました",
+    "emailSentDesc": "{email} に届いたリンクをタップしてログインしてください",
+    "emailPlaceholder": "メールアドレス",
+    "sending": "送信中…",
+    "emailButton": "メールでログイン",
+    "authNote": "※ 当アプリの認証システムはSupabase社（dbuenqvqvlvnryuunhuu.supabase.co）の仕組みを採用しています。Googleログイン時に該当ドメインが表示されますが、Medirealizeが管理する安全なシステムですのでそのままお進みください。",
+    "termsText": "ログインすることで{link}に同意したことになります",
+    "termsLink": "プライバシーポリシー",
+    "close": "閉じる"
+  },
+  "historyCard": {
+    "typeLabel": "{group}タイプ",
+    "inputLabel": "相談内容",
+    "honneLabel": "あなたのほんね",
+    "adviceLabel": "伝え言葉（案）",
+    "lockTitle": "プレミアムプランで\n過去ログを全件確認",
+    "unlockButton": "ロックを解除する"
+  },
+  "upgradeButton": {
+    "defaultLabel": "プレミアムにアップグレード",
+    "loading": "Stripeへ移動中…",
+    "errorLogin": "ログインが必要です。一度ログアウトして再度ログインしてからお試しください。",
+    "errorCheckout": "決済ページへの移動に失敗しました。時間をおいて再度お試しください。",
+    "errorNetwork": "ネットワークエラーが発生しました。通信環境を確認してください。"
+  },
+  "installPrompt": {
+    "icon": "ほ",
+    "title": "ホーム画面に追加",
+    "iosInstruction": "画面下の{icon}をタップ →「ホーム画面に追加」",
+    "androidInstruction": "アプリとしてインストールできます",
+    "closeLabel": "閉じる",
+    "installButton": "ホーム画面に追加する"
   },
   "followUp": {
     "title": "あなたの本音を、もっと深く",

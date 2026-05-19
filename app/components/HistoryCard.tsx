@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import type { DiagnosisLog } from "@/lib/types/log";
 
 type Props = {
@@ -13,35 +14,40 @@ function dateLabel(iso: string) {
 }
 
 export default function HistoryCard({ log, locked, onUpgrade }: Props) {
+  const t = useTranslations("historyCard");
+  const tGroups = useTranslations("groupNames");
+
+  const groupLabel = (() => {
+    try { return tGroups(log.group as Parameters<typeof tGroups>[0]); }
+    catch { return log.group; }
+  })();
+
   return (
     <div className="relative overflow-hidden rounded-2xl border border-[#dfe3e8] bg-white shadow-[0_2px_12px_rgba(0,0,0,0.07)]">
-      {/* ヘッダー */}
       <div className="flex items-center justify-between border-b border-[#f0f2f5] px-5 py-3">
         <span className="text-xs text-[#8d949e]">{dateLabel(log.createdAt)}</span>
         <span className="rounded-full bg-[#e7f0fd] px-2.5 py-0.5 text-[0.7rem] font-semibold text-[#1877f2]">
-          {log.group}タイプ
+          {t("typeLabel", { group: groupLabel })}
         </span>
       </div>
 
-      {/* 本文（ロック時はブラー） */}
       <div className={`px-5 py-4 space-y-4 ${locked ? "blur-sm select-none pointer-events-none" : ""}`}>
         <div>
-          <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#8d949e]">相談内容</p>
+          <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#8d949e]">{t("inputLabel")}</p>
           <p className="text-sm leading-relaxed text-[#1c1e21]">
             「{log.userInput.slice(0, 60)}{log.userInput.length > 60 ? "…" : ""}」
           </p>
         </div>
         <div>
-          <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#1877f2]">あなたのほんね</p>
+          <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#1877f2]">{t("honneLabel")}</p>
           <p className="text-sm leading-relaxed text-[#1c1e21] line-clamp-3">{log.insight}</p>
         </div>
         <div>
-          <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#8d949e]">医師への一言（案）</p>
+          <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#8d949e]">{t("adviceLabel")}</p>
           <p className="text-sm leading-relaxed text-[#606770]">{log.doctorAdvice}</p>
         </div>
       </div>
 
-      {/* ロックオーバーレイ */}
       {locked && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/70 backdrop-blur-[2px]">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1877f2]/10">
@@ -51,14 +57,16 @@ export default function HistoryCard({ log, locked, onUpgrade }: Props) {
             </svg>
           </div>
           <p className="text-center text-sm font-semibold text-[#1c1e21]">
-            プレミアムプランで<br />過去ログを全件確認
+            {t("lockTitle").split("\n").map((line, i) => (
+              <span key={i}>{line}{i === 0 && <br />}</span>
+            ))}
           </p>
           <button
             type="button"
             onClick={onUpgrade}
             className="rounded-xl bg-[#1877f2] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#166fe5]"
           >
-            ロックを解除する
+            {t("unlockButton")}
           </button>
         </div>
       )}

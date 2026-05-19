@@ -339,7 +339,7 @@ export default function Home() {
         {step > 1 && (
           <div className="mb-4">
             <button type="button" onClick={goBack} className="min-h-[48px] rounded-xl border border-[#ccd0d5] bg-white px-4 py-2.5 text-sm font-medium text-[#606770] transition hover:bg-[#f0f2f5]">
-              ← {locale === "en" ? "Back" : "戻る"}
+              ← {t("nav.back")}
             </button>
           </div>
         )}

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import type { AuthState } from "@/lib/auth/useAuth";
 
 type Props = {
@@ -8,6 +9,8 @@ type Props = {
 };
 
 export default function AuthModal({ auth, onClose }: Props) {
+  const t = useTranslations("authModal");
+  const locale = useLocale();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,13 +36,10 @@ export default function AuthModal({ auth, onClose }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-6 text-center">
-          <p className="text-xl font-bold text-[#1c1e21]">ほんね。にログイン</p>
-          <p className="mt-1 text-sm text-[#606770]">
-            ログインすると記録がクラウドに保存され、どの端末からでも確認できます
-          </p>
+          <p className="text-xl font-bold text-[#1c1e21]">{t("title")}</p>
+          <p className="mt-1 text-sm text-[#606770]">{t("subtitle")}</p>
         </div>
 
-        {/* Google */}
         <button
           type="button"
           onClick={auth.signInWithGoogle}
@@ -51,21 +51,20 @@ export default function AuthModal({ auth, onClose }: Props) {
             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
           </svg>
-          Googleでログイン
+          {t("googleButton")}
         </button>
 
         <div className="my-5 flex items-center gap-3">
           <div className="h-px flex-1 bg-[#dfe3e8]" />
-          <span className="text-xs text-[#8d949e]">または</span>
+          <span className="text-xs text-[#8d949e]">{t("or")}</span>
           <div className="h-px flex-1 bg-[#dfe3e8]" />
         </div>
 
-        {/* Email magic link */}
         {sent ? (
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-4 text-center">
-            <p className="font-semibold text-emerald-700">メールを送信しました</p>
+            <p className="font-semibold text-emerald-700">{t("emailSent")}</p>
             <p className="mt-1 text-sm text-emerald-600">
-              {email} に届いたリンクをタップしてログインしてください
+              {t("emailSentDesc", { email })}
             </p>
           </div>
         ) : (
@@ -74,7 +73,7 @@ export default function AuthModal({ auth, onClose }: Props) {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="メールアドレス"
+              placeholder={t("emailPlaceholder")}
               required
               className="w-full rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-base text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
             />
@@ -84,18 +83,20 @@ export default function AuthModal({ auth, onClose }: Props) {
               disabled={emailLoading}
               className="w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] disabled:opacity-60"
             >
-              {emailLoading ? "送信中…" : "メールでログイン"}
+              {emailLoading ? t("sending") : t("emailButton")}
             </button>
           </form>
         )}
 
         <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2.5 text-[0.72rem] leading-relaxed text-blue-800">
-          ※ 当アプリの認証システムはSupabase社（dbuenqvqvlvnryuunhuu.supabase.co）の仕組みを採用しています。Googleログイン時に該当ドメインが表示されますが、Medirealizeが管理する安全なシステムですのでそのままお進みください。
+          {t("authNote")}
         </div>
         <p className="mt-3 text-center text-xs leading-relaxed text-[#8d949e]">
-          ログインすることで
-          <a href="/privacy" className="underline">プライバシーポリシー</a>
-          に同意したことになります
+          {t.rich("termsText", {
+            link: (chunks) => (
+              <a href={`/${locale}/privacy`} className="underline">{chunks}</a>
+            ),
+          })}
         </p>
 
         <button
@@ -103,7 +104,7 @@ export default function AuthModal({ auth, onClose }: Props) {
           onClick={onClose}
           className="mt-4 w-full py-2 text-sm text-[#8d949e] transition hover:text-[#606770]"
         >
-          閉じる
+          {t("close")}
         </button>
       </div>
     </div>

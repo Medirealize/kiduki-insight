@@ -9,6 +9,7 @@
   },
   "nav": {
     "history": "My Records",
+    "back": "Back",
     "login": "Log In",
     "logout": "Log Out",
     "premium": "★ Premium"
@@ -115,6 +116,49 @@
     ],
     "disclaimer": "This app helps you put feelings into words.\nIt does not provide medical diagnosis or professional counseling.",
     "startButton": "Get started"
+  },
+  "groupNames": {
+    "自分軸": "Analytical",
+    "相手軸": "Empathetic",
+    "社会軸": "Purposeful"
+  },
+  "authModal": {
+    "title": "Log in to honne.",
+    "subtitle": "Save your records to the cloud and access them from any device",
+    "googleButton": "Log in with Google",
+    "or": "or",
+    "emailSent": "Email sent",
+    "emailSentDesc": "Tap the link sent to {email} to log in",
+    "emailPlaceholder": "Email address",
+    "sending": "Sending…",
+    "emailButton": "Log in with email",
+    "authNote": "※ This app uses Supabase (dbuenqvqvlvnryuunhuu.supabase.co) for authentication. You may see this domain during Google login — it is a secure system managed by Medirealize.",
+    "termsText": "By logging in, you agree to our {link}",
+    "termsLink": "Privacy Policy",
+    "close": "Close"
+  },
+  "historyCard": {
+    "typeLabel": "{group} type",
+    "inputLabel": "Your concern",
+    "honneLabel": "Your honne",
+    "adviceLabel": "How to express it",
+    "lockTitle": "View all records\nwith Premium",
+    "unlockButton": "Unlock"
+  },
+  "upgradeButton": {
+    "defaultLabel": "Upgrade to Premium",
+    "loading": "Redirecting to Stripe…",
+    "errorLogin": "Please log in first. Try logging out and back in.",
+    "errorCheckout": "Failed to open checkout page. Please try again later.",
+    "errorNetwork": "Network error. Please check your connection."
+  },
+  "installPrompt": {
+    "icon": "h",
+    "title": "Add to Home Screen",
+    "iosInstruction": "Tap {icon} at the bottom → \"Add to Home Screen\"",
+    "androidInstruction": "Install this app on your device",
+    "closeLabel": "Close",
+    "installButton": "Add to Home Screen"
   },
   "followUp": {
     "title": "Explore your honne deeper",
