@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "ほんね。— 気づいて！私のきもち";
+export const alt = "ほんね。— 言いたいのに、言えない。";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -13,65 +13,110 @@ export default function OgImage() {
           width: "100%",
           height: "100%",
           display: "flex",
+          background: "#0f172a",
+          fontFamily: "sans-serif",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* 左側：青グラデーションパネル */}
+        <div style={{
+          width: "46%",
+          height: "100%",
+          background: "linear-gradient(160deg, #1877F2 0%, #0d47c2 100%)",
+          display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #1877F2 0%, #0d5cbf 100%)",
-          fontFamily: "sans-serif",
           position: "relative",
-        }}
-      >
-        {/* 背景装飾 */}
-        <div style={{
-          position: "absolute", top: -80, right: -80,
-          width: 400, height: 400, borderRadius: "50%",
-          background: "rgba(255,255,255,0.07)",
-          display: "flex",
-        }} />
-        <div style={{
-          position: "absolute", bottom: -60, left: -60,
-          width: 300, height: 300, borderRadius: "50%",
-          background: "rgba(255,255,255,0.05)",
-          display: "flex",
-        }} />
-
-        {/* メインコンテンツ */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+        }}>
+          {/* 装飾円 */}
           <div style={{
-            fontSize: 96, fontWeight: 900, color: "white",
-            letterSpacing: "0.08em", lineHeight: 1,
-            textShadow: "0 4px 24px rgba(0,0,0,0.2)",
+            position: "absolute", top: -60, left: -60,
+            width: 280, height: 280, borderRadius: "50%",
+            background: "rgba(255,255,255,0.08)", display: "flex",
+          }} />
+          <div style={{
+            position: "absolute", bottom: -40, right: -40,
+            width: 200, height: 200, borderRadius: "50%",
+            background: "rgba(255,255,255,0.06)", display: "flex",
+          }} />
+
+          {/* ロゴ */}
+          <div style={{
+            fontSize: 110, fontWeight: 900, color: "white",
+            letterSpacing: "0.06em", lineHeight: 1,
+            display: "flex",
           }}>
             ほんね。
           </div>
           <div style={{
-            fontSize: 28, color: "rgba(255,255,255,0.8)",
-            letterSpacing: "0.22em", fontWeight: 500,
+            marginTop: 12, fontSize: 20, color: "rgba(255,255,255,0.65)",
+            letterSpacing: "0.18em", display: "flex",
           }}>
-            気づいて！私のきもち
-          </div>
-
-          <div style={{
-            marginTop: 24,
-            background: "rgba(255,255,255,0.15)",
-            borderRadius: 16,
-            padding: "16px 40px",
-            display: "flex",
-          }}>
-            <div style={{ fontSize: 22, color: "rgba(255,255,255,0.9)", textAlign: "center" }}>
-              先生に伝えたい気持ちを、言葉にするお手伝い
-            </div>
+            HONNE
           </div>
         </div>
 
-        {/* ドメイン */}
+        {/* 右側：コンテンツ */}
         <div style={{
-          position: "absolute", bottom: 40,
-          fontSize: 20, color: "rgba(255,255,255,0.5)",
-          letterSpacing: "0.1em",
+          flex: 1,
           display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "60px 56px",
+          gap: 0,
         }}>
-          insight.medirealize.jp
+          {/* キャッチコピー */}
+          <div style={{
+            fontSize: 42, fontWeight: 800, color: "white",
+            lineHeight: 1.3, display: "flex", flexDirection: "column",
+          }}>
+            <span style={{ display: "flex" }}>言いたいのに、</span>
+            <span style={{ display: "flex" }}>言えない。</span>
+          </div>
+
+          {/* サブコピー */}
+          <div style={{
+            marginTop: 24, fontSize: 22, color: "rgba(255,255,255,0.6)",
+            lineHeight: 1.6, display: "flex", flexDirection: "column",
+          }}>
+            <span style={{ display: "flex" }}>上司・先生・パートナー・家族…</span>
+            <span style={{ display: "flex" }}>誰かへの本音を、言葉にする。</span>
+          </div>
+
+          {/* 3ステップ */}
+          <div style={{
+            marginTop: 36, display: "flex", flexDirection: "column", gap: 12,
+          }}>
+            {[
+              "① タイプを選ぶ",
+              "② 気持ちを書く",
+              "③ 本音が言葉になる",
+            ].map((step) => (
+              <div key={step} style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+              }}>
+                <div style={{
+                  fontSize: 18, color: "rgba(255,255,255,0.85)",
+                  display: "flex",
+                }}>
+                  {step}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* ドメイン */}
+          <div style={{
+            marginTop: 40, fontSize: 16,
+            color: "rgba(255,255,255,0.3)",
+            letterSpacing: "0.08em", display: "flex",
+          }}>
+            insight.medirealize.jp
+          </div>
         </div>
       </div>
     ),
