@@ -11,8 +11,17 @@ const intlMiddleware = createIntlMiddleware(routing);
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  // /ja/admin/* など locale 付き admin URL → /admin/* へ
+  const localeAdmin = pathname.match(/^\/(ja|en)(\/admin(?:\/.*)?)$/);
+  if (localeAdmin) {
+    return NextResponse.redirect(new URL(localeAdmin[2], req.url));
+  }
+
   // 管理者ルート: next-intl を通さず独自認証チェック
   if (pathname.startsWith("/admin/login")) return NextResponse.next();
+
+  // Supabase OAuth / マジックリンクのコールバック（locale プレフィックス不要）
+  if (pathname.startsWith("/auth")) return NextResponse.next();
 
   if (pathname.startsWith("/admin")) {
     const res = NextResponse.next();
