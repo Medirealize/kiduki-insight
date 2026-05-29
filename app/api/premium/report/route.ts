@@ -40,7 +40,6 @@ export async function POST(req: NextRequest) {
 
     const body = (await req.json()) as ReportRequestBody;
 
-    // プレミアムガード（本番では JWT/セッション検証に差し替え）
     if (body.userToken !== "PREMIUM") {
       return NextResponse.json(
         { error: "プレミアムプランが必要です。" },
@@ -55,25 +54,34 @@ export async function POST(req: NextRequest) {
 
     const logsText = logs
       .map((l, i) =>
-        `【ログ${i + 1}｜${l.createdAt.slice(0, 10)}｜${l.group}タイプ】\n` +
-        `相談：${l.userInput}\n` +
-        `ほんね：${l.insight}\n` +
-        `医師への一言：${l.doctorAdvice}`
+        `【記録${i + 1}｜${l.createdAt.slice(0, 10)}｜${l.group}タイプ】\n` +
+        `相談内容：${l.userInput}\n` +
+        `本音の言語化：${l.insight}\n` +
+        `先生への魔法のフレーズ：${l.doctorAdvice}`
       )
       .join("\n\n");
 
     const prompt = `
-あなたは、患者の複数回の診察前ログを分析する専門カウンセラーです。医療診断は行いません。
+あなたは「プロの患者育成」を支援する思考整理の専門家です。診断・治療・医薬品に関する判断は一切行いません。
 以下の過去ログ（${logs.length}件）を分析し、日本語で400〜500文字のレポートを生成してください。
+
+【分析の視点】
+- 医療相談ではなく、「診察室でのコミュニケーション」と「自己理解の深まり」に焦点を当てて分析してください。
+- ユーザーが繰り返し感じているモヤモヤのパターンと、その奥にある価値観・優先順位を見つけてください。
+- 医師に伝えるフレーズがどう変化・進化してきたかを観察してください。
 
 ${logsText}
 
+【絶対禁止事項】
+- 病名・診断・治療法・薬の評価に関する内容を含めないこと。
+- 「受診すべき」「この治療がいい」などの医療行為に関する指示を含めないこと。
+
 【出力フォーマット（必ずJSONのみ）】
 {
-  "pattern": "繰り返し現れている悩みのパターンや不安のテーマ（2〜3文）",
-  "growth": "時系列で見た自己理解や表現の深まり（2〜3文）",
-  "communication": "医師への伝え方の特徴と傾向（1〜2文）",
-  "advice": "次の診察に向けた具体的なアドバイス（1〜2文）"
+  "pattern": "複数の記録を通じて繰り返し現れているモヤモヤのテーマや、その奥にある価値観のパターン（2〜3文）",
+  "growth": "時系列で見た自己理解の深まりや、本音を言語化する力の変化（2〜3文）",
+  "communication": "先生へのフレーズの特徴・傾向と、コミュニケーションスタイルの変化（1〜2文）",
+  "advice": "次の診察に向けた、コミュニケーション面での具体的な一歩（1〜2文。医療判断は含めないこと）"
 }`.trim();
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
