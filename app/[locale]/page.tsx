@@ -24,6 +24,71 @@ import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 const PROFILE_STORAGE_KEY = "kiduki-insight-profile-v2";
 const PREFS_STORAGE_KEY = "kiduki-insight-prefs-v1";
 
+type Scenario = { id: string; label: string; subtext: string; worryText: string };
+
+const SCENARIOS: Scenario[] = [
+  {
+    id: "treatment_necessity",
+    label: "この検査・治療、本当に今の自分に必要？",
+    subtext: "必要性を整理したいが、反対と思われたくない",
+    worryText: "この検査や治療、本当に今の自分に必要ですか。やらない選択肢も話せますか。\n（気になっていること：必要性や優先順位を一緒に整理したいが、反対すると思われたくない）",
+  },
+  {
+    id: "symptom_communication",
+    label: "症状の説明が下手で、伝わっているか不安",
+    subtext: "自分の伝え方を責められているように感じたくない",
+    worryText: "症状の説明が下手で、ちゃんと伝わっているか不安です。聞き返してもいいですか。\n（気になっていること：説明不足ではなく「自分の伝え方」を責められているように感じたくない）",
+  },
+  {
+    id: "life_constraints",
+    label: "仕事・家庭の事情で通院ペースが守れないかも",
+    subtext: "生活の制約を言い訳に聞こえないか不安",
+    worryText: "仕事や家庭の事情で、通院や治療のペースを守りきれないかもしれません。その点も踏まえた話はできますか。\n（気になっていること：生活の制約を言い訳に聞こえないか不安）",
+  },
+  {
+    id: "bad_results",
+    label: "検査結果が悪い場合、どこまで知るべきか",
+    subtext: "知りたいと知りたくない、両方ある",
+    worryText: "検査結果が悪い場合、どのくらいまで具体的に知るべきか教えてください。\n（気になっていること：知りたいと知りたくない気持ちの両方があり、どう頼めばいいかわからない）",
+  },
+  {
+    id: "medication_adherence",
+    label: "薬を飲み忘れたり、飲みたくない時がある",
+    subtext: "正直に言うと責められそうで怖い",
+    worryText: "薬を飲み忘れたり、飲みたくないと感じるときがあります。正直に言っても大丈夫ですか。\n（気になっていること：服薬について正直に言うと責められるのが怖い）",
+  },
+  {
+    id: "second_opinion",
+    label: "セカンドオピニオンや他院受診を考えている",
+    subtext: "医師との関係を壊したくない",
+    worryText: "セカンドオピニオンや他院受診を考えています。おかしく思われますか。\n（気になっていること：医師との関係を壊したくない）",
+  },
+  {
+    id: "pain_threshold",
+    label: "痛みやつらさ、我慢の基準がわからない",
+    subtext: "大げさと思われたくない",
+    worryText: "痛みやつらさに、我慢の基準がわかりません。どのタイミングで連絡・受診すべきですか。\n（気になっていること：大げさと思われたくない）",
+  },
+  {
+    id: "family_disclosure",
+    label: "家族に病名・経過をどこまで伝えるべきか",
+    subtext: "本人の意思と家族への配慮のバランスが難しい",
+    worryText: "家族に病名や経過をどこまで伝えるべきか、一緒に考える材料をもらえますか。\n（気になっていること：本人の意思と家族への配慮のバランスが難しい）",
+  },
+  {
+    id: "cost_concern",
+    label: "費用の見通し（検査・治療・通院）を聞きたい",
+    subtext: "お金の話を切り出しにくい",
+    worryText: "費用の見通し（検査・治療・通院の目安や負担）について、分かる範囲で教えてください。\n（気になっていること：お金の話を切り出しにくい）",
+  },
+  {
+    id: "summary_request",
+    label: "今日の説明を箇条書きでまとめてもらいたい",
+    subtext: "メモや確認をお願いするのが恥ずかしい",
+    worryText: "今日の説明を、箇条書きや一言でまとめてもらえますか。帰ってから家族と共有したいです。\n（気になっていること：記憶に自信がない、メモをお願いするのが恥ずかしい）",
+  },
+];
+
 type GroupKey = "自分軸" | "相手軸" | "社会軸";
 
 const FollowUpListLazy = dynamic(
@@ -63,14 +128,18 @@ export default function Home() {
   const [aiError, setAiError] = useState<string | null>(null);
   const [nextQuestions, setNextQuestions] = useState<string[]>([]);
 
+  const [selectedScenario, setSelectedScenario] = useState<string | null>(null);
+
   const profileHydratedRef = useRef(false);
   const prefsHydratedRef = useRef(false);
   const stepHeadingRef = useRef<HTMLHeadingElement>(null);
   const stepRef = useRef(step);
   const useAiEnhancementRef = useRef(useAiEnhancement);
+  const selectedScenarioRef = useRef(selectedScenario);
   const navEpochRef = useRef(0);
   stepRef.current = step;
   useAiEnhancementRef.current = useAiEnhancement;
+  selectedScenarioRef.current = selectedScenario;
 
   const group: PersonalityGroup = selectedGroup ?? "自分軸";
   const questions = getAxisQuestions(locale);
@@ -122,6 +191,7 @@ export default function Home() {
     setAiAction(null);
     setAiError(null);
     setNextQuestions([]);
+    setSelectedScenario("other");
     setStep(2);
   }, []);
 
@@ -132,7 +202,14 @@ export default function Home() {
     setTimeout(() => {
       if (step === 6) { setIsLoading(false); setStep(5); }
       else if (step === 7) { setAiInsight(null); setAiAction(null); setAiError(null); setNextQuestions([]); setStep(5); }
-      else if (step === 2) { setStep(1); }
+      else if (step === 2) {
+        if (selectedScenarioRef.current !== null) {
+          setSelectedScenario(null);
+          setWorryText("");
+        } else {
+          setStep(1);
+        }
+      }
       else if (step >= 3 && step <= 5) { setQAnswers((a) => a.slice(0, Math.max(0, step - 3))); setStep((s) => s - 1); }
       setDirection("in");
     }, 200);
@@ -394,27 +471,82 @@ export default function Home() {
             </section>
           )}
 
-          {/* ② 悩み入力 */}
+          {/* ② 場面選択 → 悩み確認・入力 */}
           {step === 2 && (
             <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-              <p className="mb-4 flex items-start gap-2 text-base leading-relaxed text-[#606770]">
-                <svg viewBox="0 0 20 20" className="mt-0.5 h-5 w-5 shrink-0 text-[#1877f2]" fill="currentColor" aria-hidden="true">
-                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                </svg>
-                {t("step2.prompt")}
-              </p>
-              {!useAiEnhancement && (
-                <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs leading-relaxed text-amber-950">
-                  {t("step2.offlineNotice")}
-                </p>
+              {/* 日本語：場面選択カード */}
+              {locale !== "en" && selectedScenario === null && (
+                <>
+                  <p className="mb-1 text-base font-semibold text-[#1c1e21]">診察室でよくある「言いにくい場面」</p>
+                  <p className="mb-5 text-sm leading-relaxed text-[#606770]">当てはまるものを選ぶと、あなたの状況に合わせた言葉を引き出しやすくなります。</p>
+                  <div className="space-y-2">
+                    {SCENARIOS.map((s) => (
+                      <button key={s.id} type="button"
+                        onClick={() => { setSelectedScenario(s.id); setWorryText(s.worryText); }}
+                        className="flex w-full items-start gap-3 rounded-xl border border-[#dfe3e8] bg-white px-4 py-3.5 text-left transition hover:border-[#1877f2]/60 hover:bg-[#f5f8ff] active:scale-[0.99]">
+                        <svg viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                          <path d="M6 12l4-4-4-4" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span>
+                          <span className="block text-sm font-semibold leading-snug text-[#1c1e21]">{s.label}</span>
+                          <span className="mt-1 block text-xs leading-relaxed text-[#8d949e]">{s.subtext}</span>
+                        </span>
+                      </button>
+                    ))}
+                    <button type="button"
+                      onClick={() => { setSelectedScenario("other"); setWorryText(""); }}
+                      className="flex w-full items-center gap-3 rounded-xl border border-dashed border-[#ccd0d5] bg-[#f8f9fb] px-4 py-3.5 text-left transition hover:border-[#1877f2]/50 hover:bg-[#f0f5ff] active:scale-[0.99]">
+                      <svg viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-[#8d949e]" fill="currentColor" aria-hidden="true">
+                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                      </svg>
+                      <span>
+                        <span className="block text-sm font-semibold text-[#606770]">その他・自由に書く</span>
+                        <span className="mt-0.5 block text-xs text-[#8d949e]">上の場面に当てはまらない場合</span>
+                      </span>
+                    </button>
+                  </div>
+                </>
               )}
-              <textarea value={worryText} onChange={(e) => setWorryText(e.target.value)}
-                placeholder={t("step2.placeholder")} rows={5}
-                className="w-full resize-none rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-base leading-relaxed text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20" />
-              {showNextButton && (
-                <button type="button" onClick={() => goNext()} className="mt-6 w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] active:scale-[0.99]">
-                  {t("step2.next")}
-                </button>
+
+              {/* 場面選択後 or 英語 or 自由入力：テキスト確認・編集 */}
+              {(locale === "en" || selectedScenario !== null) && (
+                <>
+                  {/* 選択した場面バッジ（日本語・場面選択時のみ） */}
+                  {locale !== "en" && selectedScenario !== null && selectedScenario !== "other" && (
+                    <div className="mb-4 flex items-center justify-between rounded-xl bg-[#e7f0fd] px-4 py-2.5">
+                      <span className="text-xs font-semibold text-[#1877f2] leading-snug">
+                        {SCENARIOS.find((s) => s.id === selectedScenario)?.label}
+                      </span>
+                      <button type="button"
+                        onClick={() => { setSelectedScenario(null); setWorryText(""); }}
+                        className="ml-3 shrink-0 text-xs text-[#8d949e] underline hover:text-[#1877f2]">
+                        変える
+                      </button>
+                    </div>
+                  )}
+
+                  <p className="mb-4 flex items-start gap-2 text-sm leading-relaxed text-[#606770]">
+                    <svg viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0 text-[#1877f2]" fill="currentColor" aria-hidden="true">
+                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                    </svg>
+                    {locale !== "en" && selectedScenario !== "other"
+                      ? "内容を確認・編集してから次に進んでください。"
+                      : t("step2.prompt")}
+                  </p>
+                  {!useAiEnhancement && (
+                    <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs leading-relaxed text-amber-950">
+                      {t("step2.offlineNotice")}
+                    </p>
+                  )}
+                  <textarea value={worryText} onChange={(e) => setWorryText(e.target.value)}
+                    placeholder={t("step2.placeholder")} rows={5}
+                    className="w-full resize-none rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-sm leading-relaxed text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20" />
+                  {showNextButton && (
+                    <button type="button" onClick={() => goNext()} className="mt-6 w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] active:scale-[0.99]">
+                      {t("step2.next")}
+                    </button>
+                  )}
+                </>
               )}
             </section>
           )}
@@ -559,7 +691,7 @@ export default function Home() {
               )}
 
               <button type="button"
-                onClick={() => { setStep(1); setWorryText(""); setQAnswers([]); setAiInsight(null); setAiAction(null); setAiError(null); setNextQuestions([]); setSavedThisSession(false); }}
+                onClick={() => { setStep(1); setWorryText(""); setQAnswers([]); setAiInsight(null); setAiAction(null); setAiError(null); setNextQuestions([]); setSavedThisSession(false); setSelectedScenario(null); }}
                 className="w-full min-h-[48px] rounded-xl border border-[#ccd0d5] py-3 px-4 font-medium text-[#606770] transition hover:bg-[#f0f2f5]">
                 {t("step7.restart")}
               </button>
