@@ -2,9 +2,9 @@ import Link from "next/link";
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-[160px_1fr] gap-4 border-b border-[#f0f2f5] py-4 text-sm last:border-0">
-      <dt className="font-semibold text-[#1c1e21]">{label}</dt>
-      <dd className="leading-relaxed text-[#606770]">{children}</dd>
+    <div className="grid grid-cols-[160px_1fr] gap-4 border-b border-honne-border-light py-4 text-sm last:border-0">
+      <dt className="font-semibold text-honne-text">{label}</dt>
+      <dd className="leading-relaxed text-honne-secondary">{children}</dd>
     </div>
   );
 }
@@ -18,16 +18,16 @@ export default async function LegalPage({
   const isEn = locale === "en";
 
   return (
-    <div className="min-h-screen w-full bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
-      <div className="border-b border-[#dfe3e8] bg-white">
+    <div className="min-h-screen w-full bg-honne-bg font-sans text-honne-text antialiased">
+      <div className="border-b border-honne-border-light bg-white">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-5 py-3.5">
-          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-sm font-medium text-[#606770] hover:text-[#1877f2]">
+          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-sm font-medium text-honne-secondary hover:text-honne-primary">
             <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
               <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             {isEn ? "Back to honne." : "ほんね。に戻る"}
           </Link>
-          <span className="text-sm font-bold text-[#1c1e21]">
+          <span className="text-sm font-bold text-honne-text">
             {isEn ? "Legal Notice" : "特定商取引法に基づく表記"}
           </span>
           <div className="w-16" />
@@ -35,10 +35,10 @@ export default async function LegalPage({
       </div>
 
       <div className="mx-auto max-w-2xl px-5 py-10">
-        <div className="rounded-2xl border border-[#dfe3e8] bg-white px-8 py-10 shadow-sm">
+        <div className="rounded-2xl border border-honne-border-light bg-white px-8 py-10 shadow-sm">
           {isEn ? (
             <>
-              <h1 className="text-xl font-bold text-[#1c1e21]">Legal Notice (Act on Specified Commercial Transactions)</h1>
+              <h1 className="text-xl font-bold text-honne-text">Legal Notice (Act on Specified Commercial Transactions)</h1>
               <dl className="mt-6">
                 <Row label="Seller">Medirealize</Row>
                 <Row label="Representative">Shinsuke Nomura</Row>
@@ -46,7 +46,7 @@ export default async function LegalPage({
                   Address and phone number will be provided promptly upon request via email.
                 </Row>
                 <Row label="Email">
-                  <a href="mailto:info@medirealize.jp" className="text-[#1877f2] underline">
+                  <a href="mailto:info@medirealize.jp" className="text-honne-primary underline">
                     info@medirealize.jp
                   </a>
                 </Row>
@@ -71,7 +71,7 @@ export default async function LegalPage({
             </>
           ) : (
             <>
-              <h1 className="text-xl font-bold text-[#1c1e21]">特定商取引法に基づく表記</h1>
+              <h1 className="text-xl font-bold text-honne-text">特定商取引法に基づく表記</h1>
               <dl className="mt-6">
                 <Row label="販売業者">メディリアライズ</Row>
                 <Row label="運営責任者">野村 信介</Row>
@@ -79,7 +79,7 @@ export default async function LegalPage({
                   所在地・電話番号については、請求をいただいた場合、遅滞なく電子メール等にて提供いたします。
                 </Row>
                 <Row label="メールアドレス">
-                  <a href="mailto:info@medirealize.jp" className="text-[#1877f2] underline">
+                  <a href="mailto:info@medirealize.jp" className="text-honne-primary underline">
                     info@medirealize.jp
                   </a>
                 </Row>

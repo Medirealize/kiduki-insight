@@ -1,30 +1,70 @@
 @import "tailwindcss";
 
+/* Medirealize LP（medirealize.jp）と揃えたブランドカラー */
+:root {
+  --honne-bg: #f0f2f5;
+  --honne-surface: #ffffff;
+  --honne-text: #1c1e21;
+  --honne-text-muted: #65676b;
+  --honne-text-secondary: #606770;
+  --honne-text-placeholder: #8d949e;
+  --honne-primary: #1877f2;
+  --honne-primary-hover: #166fe5;
+  --honne-primary-tint: #e7f3ff;
+  --honne-primary-subtle: #f5f8ff;
+  --honne-border: #dadde1;
+  --honne-border-light: #e4e6eb;
+  --honne-border-input: #ccd0d5;
+  --honne-dark: #050505;
+  --honne-surface-alt: #f8f9fb;
+  --honne-success-border: #bbf7d0;
+  --honne-success-bg: #f0fdf4;
+  --honne-success-text: #15803d;
+  --background: var(--honne-surface);
+  --foreground: var(--honne-text);
+  --line-height-relaxed: 1.85;
+}
+
+@theme inline {
+  --color-honne-bg: var(--honne-bg);
+  --color-honne-surface: var(--honne-surface);
+  --color-honne-text: var(--honne-text);
+  --color-honne-muted: var(--honne-text-muted);
+  --color-honne-secondary: var(--honne-text-secondary);
+  --color-honne-placeholder: var(--honne-text-placeholder);
+  --color-honne-primary: var(--honne-primary);
+  --color-honne-primary-hover: var(--honne-primary-hover);
+  --color-honne-primary-tint: var(--honne-primary-tint);
+  --color-honne-primary-subtle: var(--honne-primary-subtle);
+  --color-honne-border: var(--honne-border);
+  --color-honne-border-light: var(--honne-border-light);
+  --color-honne-border-input: var(--honne-border-input);
+  --color-honne-dark: var(--honne-dark);
+  --color-honne-surface-alt: var(--honne-surface-alt);
+  --color-honne-success-border: var(--honne-success-border);
+  --color-honne-success-bg: var(--honne-success-bg);
+  --color-honne-success-text: var(--honne-success-text);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: ui-monospace, monospace;
+  --shadow-honne: 0 2px 12px rgba(0, 0, 0, 0.05);
+  --shadow-honne-hover: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --shadow-honne-primary: 0 6px 24px rgba(24, 119, 242, 0.28);
+}
+
 html {
   font-size: 18px;
 }
 
 .page-bg {
-  background-color: #eef1f6;
-  background-image: radial-gradient(#c4d2e8 1.2px, transparent 1.2px);
+  background-color: var(--honne-bg);
+  background-image: radial-gradient(var(--honne-border) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --line-height-relaxed: 1.85;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: ui-monospace, monospace;
-}
-
 body {
-  background: var(--background);
+  background: var(--honne-bg);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   line-height: var(--line-height-relaxed);
@@ -33,7 +73,30 @@ body {
   overflow-x: hidden;
 }
 
-/* スクリーンリーダー専用（Tailwind の sr-only が無い環境向け） */
+/* LP と同じカード・プライマリボタン */
+.honne-card {
+  border: 1px solid var(--honne-border-light);
+  background: var(--honne-surface);
+  box-shadow: var(--shadow-honne);
+}
+
+.honne-btn-primary {
+  background-color: var(--honne-primary);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.15s ease;
+}
+
+.honne-btn-primary:hover {
+  background-color: var(--honne-primary-hover);
+}
+
+.honne-btn-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.4);
+}
+
+/* スクリーンリーダー専用 */
 .sr-only {
   position: absolute;
   width: 1px;

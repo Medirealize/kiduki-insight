@@ -7,31 +7,31 @@ const OPERATOR = "medirealize";
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen w-full bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
+    <div className="min-h-screen w-full bg-honne-bg font-sans text-honne-text antialiased">
       {/* ヘッダー */}
-      <div className="border-b border-[#dfe3e8] bg-white">
+      <div className="border-b border-honne-border-light bg-white">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-5 py-3.5">
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-sm font-medium text-[#606770] hover:text-[#1877f2]"
+            className="flex items-center gap-1.5 text-sm font-medium text-honne-secondary hover:text-honne-primary"
           >
             <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
               <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             ほんね。に戻る
           </Link>
-          <span className="text-sm font-bold text-[#1c1e21]">プライバシーポリシー</span>
+          <span className="text-sm font-bold text-honne-text">プライバシーポリシー</span>
           <div className="w-16" />
         </div>
       </div>
 
       <div className="mx-auto max-w-2xl px-5 py-10">
-        <div className="rounded-2xl border border-[#dfe3e8] bg-white px-8 py-10 shadow-sm">
+        <div className="rounded-2xl border border-honne-border-light bg-white px-8 py-10 shadow-sm">
 
-          <h1 className="text-2xl font-bold text-[#1c1e21]">プライバシーポリシー</h1>
-          <p className="mt-2 text-sm text-[#8d949e]">制定日：{EFFECTIVE_DATE}</p>
+          <h1 className="text-2xl font-bold text-honne-text">プライバシーポリシー</h1>
+          <p className="mt-2 text-sm text-honne-placeholder">制定日：{EFFECTIVE_DATE}</p>
 
-          <p className="mt-6 text-sm leading-relaxed text-[#606770]">
+          <p className="mt-6 text-sm leading-relaxed text-honne-secondary">
             {OPERATOR}（以下「当社」）は、{APP_NAME}（以下「本アプリ」）における利用者の個人情報の取り扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。
           </p>
 
@@ -59,19 +59,19 @@ export default function PrivacyPage() {
                 <strong>OpenAI, L.L.C.（米国）</strong><br />
                 用途：自然言語処理による洞察・質問文の生成（AIオンモード時のみ）<br />
                 送信情報：入力テキスト・タイプ情報（氏名・連絡先は含まない）<br />
-                PP：<a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">openai.com/policies/privacy-policy</a>
+                PP：<a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">openai.com/policies/privacy-policy</a>
               </li>
               <li>
                 <strong>Supabase, Inc.（米国）</strong><br />
                 用途：ログイン認証・記録データのクラウド保存<br />
                 送信情報：メールアドレス・記録内容（ログイン時のみ）<br />
-                PP：<a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">supabase.com/privacy</a>
+                PP：<a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">supabase.com/privacy</a>
               </li>
               <li>
                 <strong>Stripe, Inc.（米国）</strong><br />
                 用途：プレミアムプランの決済処理<br />
                 送信情報：メールアドレス・決済情報（プレミアム登録時のみ）<br />
-                PP：<a href="https://stripe.com/jp/privacy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">stripe.com/jp/privacy</a>
+                PP：<a href="https://stripe.com/jp/privacy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">stripe.com/jp/privacy</a>
               </li>
             </ul>
           </Section>
@@ -114,11 +114,11 @@ export default function PrivacyPage() {
             <p>本ポリシーに関するご質問・ご意見は、以下の窓口までお問い合わせください。</p>
             <p className="mt-2">
               <strong>{OPERATOR}</strong><br />
-              メール：<a href={`mailto:${CONTACT_EMAIL}`} className="text-[#1877f2] underline">{CONTACT_EMAIL}</a>
+              メール：<a href={`mailto:${CONTACT_EMAIL}`} className="text-honne-primary underline">{CONTACT_EMAIL}</a>
             </p>
           </Section>
 
-          <p className="mt-10 text-right text-xs text-[#8d949e]">以上</p>
+          <p className="mt-10 text-right text-xs text-honne-placeholder">以上</p>
         </div>
       </div>
     </div>
@@ -128,8 +128,8 @@ export default function PrivacyPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mt-8">
-      <h2 className="mb-3 text-base font-bold text-[#1c1e21]">{title}</h2>
-      <div className="space-y-2 text-sm leading-relaxed text-[#606770] [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
+      <h2 className="mb-3 text-base font-bold text-honne-text">{title}</h2>
+      <div className="space-y-2 text-sm leading-relaxed text-honne-secondary [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
         {children}
       </div>
     </div>

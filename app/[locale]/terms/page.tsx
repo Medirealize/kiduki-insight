@@ -5,8 +5,8 @@ const CONTACT_EMAIL = "info@medirealize.jp";
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mt-8">
-      <h2 className="mb-3 text-base font-bold text-[#1c1e21]">{title}</h2>
-      <div className="space-y-2 text-sm leading-relaxed text-[#606770]">{children}</div>
+      <h2 className="mb-3 text-base font-bold text-honne-text">{title}</h2>
+      <div className="space-y-2 text-sm leading-relaxed text-honne-secondary">{children}</div>
     </div>
   );
 }
@@ -20,16 +20,16 @@ export default async function TermsPage({
   const isEn = locale === "en";
 
   return (
-    <div className="min-h-screen w-full bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
-      <div className="border-b border-[#dfe3e8] bg-white">
+    <div className="min-h-screen w-full bg-honne-bg font-sans text-honne-text antialiased">
+      <div className="border-b border-honne-border-light bg-white">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-5 py-3.5">
-          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-sm font-medium text-[#606770] hover:text-[#1877f2]">
+          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-sm font-medium text-honne-secondary hover:text-honne-primary">
             <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
               <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             {isEn ? "Back to honne." : "ほんね。に戻る"}
           </Link>
-          <span className="text-sm font-bold text-[#1c1e21]">
+          <span className="text-sm font-bold text-honne-text">
             {isEn ? "Terms of Service" : "利用規約"}
           </span>
           <div className="w-16" />
@@ -37,12 +37,12 @@ export default async function TermsPage({
       </div>
 
       <div className="mx-auto max-w-2xl px-5 py-10">
-        <div className="rounded-2xl border border-[#dfe3e8] bg-white px-8 py-10 shadow-sm">
+        <div className="rounded-2xl border border-honne-border-light bg-white px-8 py-10 shadow-sm">
           {isEn ? (
             <>
-              <h1 className="text-2xl font-bold text-[#1c1e21]">Terms of Service</h1>
-              <p className="mt-2 text-sm text-[#8d949e]">Effective date: May 19, 2026</p>
-              <p className="mt-6 text-sm leading-relaxed text-[#606770]">
+              <h1 className="text-2xl font-bold text-honne-text">Terms of Service</h1>
+              <p className="mt-2 text-sm text-honne-placeholder">Effective date: May 19, 2026</p>
+              <p className="mt-6 text-sm leading-relaxed text-honne-secondary">
                 These Terms of Service ("Terms") govern your use of honne. ("the App") provided by medirealize ("we" or "us"). Please read them carefully before using the App.
               </p>
               <Section title="Article 1 — Purpose of the Service">
@@ -90,14 +90,14 @@ export default async function TermsPage({
               </Section>
               <Section title="Contact">
                 <p>For inquiries regarding these Terms, please contact us:</p>
-                <p>Email: <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#1877f2] underline">{CONTACT_EMAIL}</a></p>
+                <p>Email: <a href={`mailto:${CONTACT_EMAIL}`} className="text-honne-primary underline">{CONTACT_EMAIL}</a></p>
               </Section>
             </>
           ) : (
             <>
-              <h1 className="text-2xl font-bold text-[#1c1e21]">利用規約</h1>
-              <p className="mt-2 text-sm text-[#8d949e]">制定日：2026年5月19日</p>
-              <p className="mt-6 text-sm leading-relaxed text-[#606770]">
+              <h1 className="text-2xl font-bold text-honne-text">利用規約</h1>
+              <p className="mt-2 text-sm text-honne-placeholder">制定日：2026年5月19日</p>
+              <p className="mt-6 text-sm leading-relaxed text-honne-secondary">
                 本規約は、medirealize（以下「当社」）が提供するほんね。（以下「本アプリ」）の利用条件を定めるものです。本アプリをご利用いただく前に、必ずお読みください。
               </p>
               <Section title="第1条（サービスの目的）">
@@ -145,7 +145,7 @@ export default async function TermsPage({
               </Section>
               <Section title="お問い合わせ">
                 <p>本規約に関するお問い合わせは以下までご連絡ください。</p>
-                <p>メール：<a href={`mailto:${CONTACT_EMAIL}`} className="text-[#1877f2] underline">{CONTACT_EMAIL}</a></p>
+                <p>メール：<a href={`mailto:${CONTACT_EMAIL}`} className="text-honne-primary underline">{CONTACT_EMAIL}</a></p>
               </Section>
             </>
           )}

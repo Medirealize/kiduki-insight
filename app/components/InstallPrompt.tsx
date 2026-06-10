@@ -49,26 +49,26 @@ export default function InstallPrompt() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-40 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 rounded-2xl border border-[#dfe3e8] bg-white px-4 py-4 shadow-[0_8px_32px_rgba(0,0,0,0.14)]">
+    <div className="fixed bottom-4 left-1/2 z-40 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 rounded-2xl border border-honne-border-light bg-white px-4 py-4 shadow-[0_8px_32px_rgba(0,0,0,0.14)]">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#1877f2] text-lg font-black text-white">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-honne-primary text-lg font-black text-white">
           {t("icon")}
         </div>
 
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-[#1c1e21]">{t("title")}</p>
+          <p className="text-sm font-semibold text-honne-text">{t("title")}</p>
           {platform === "ios" ? (
-            <p className="mt-0.5 text-xs leading-relaxed text-[#606770]">
+            <p className="mt-0.5 text-xs leading-relaxed text-honne-secondary">
               {t.rich("iosInstruction", {
                 icon: () => (
-                  <svg viewBox="0 0 20 20" className="mx-0.5 inline h-4 w-4 shrink-0 text-[#1877f2]" fill="currentColor">
+                  <svg viewBox="0 0 20 20" className="mx-0.5 inline h-4 w-4 shrink-0 text-honne-primary" fill="currentColor">
                     <path d="M10 2l3 3-1.4 1.4L11 5.8V13H9V5.8L7.4 6.4 6 5l4-3zM4 16h12v-5h2v6a1 1 0 01-1 1H3a1 1 0 01-1-1v-6h2v5z" />
                   </svg>
                 ),
               })}
             </p>
           ) : (
-            <p className="mt-0.5 text-xs leading-relaxed text-[#606770]">
+            <p className="mt-0.5 text-xs leading-relaxed text-honne-secondary">
               {t("androidInstruction")}
             </p>
           )}
@@ -77,7 +77,7 @@ export default function InstallPrompt() {
         <button
           type="button"
           onClick={handleDismiss}
-          className="shrink-0 rounded-full p-1 text-[#8d949e] transition hover:bg-[#f0f2f5]"
+          className="shrink-0 rounded-full p-1 text-honne-placeholder transition hover:bg-honne-bg"
           aria-label={t("closeLabel")}
         >
           <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
@@ -90,7 +90,7 @@ export default function InstallPrompt() {
         <button
           type="button"
           onClick={handleInstall}
-          className="mt-3 w-full rounded-xl bg-[#1877f2] py-2.5 text-sm font-semibold text-white transition hover:bg-[#166fe5]"
+          className="mt-3 w-full rounded-xl bg-honne-primary py-2.5 text-sm font-semibold text-white transition hover:bg-honne-primary-hover"
         >
           {t("installButton")}
         </button>

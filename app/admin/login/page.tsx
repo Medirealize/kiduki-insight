@@ -34,11 +34,11 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f0f2f5] px-5 font-sans">
+    <div className="flex min-h-screen items-center justify-center bg-honne-bg px-5 font-sans">
       <div className="w-full max-w-sm rounded-3xl bg-white px-8 py-10 shadow-lg">
         <div className="mb-6 text-center">
-          <p className="text-2xl font-black text-[#1c1e21]">ほんね。</p>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-[#8d949e]">
+          <p className="text-2xl font-black text-honne-text">ほんね。</p>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-honne-placeholder">
             Admin Dashboard
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
           <div>
             <label
               htmlFor="password"
-              className="mb-1.5 block text-xs font-semibold text-[#606770]"
+              className="mb-1.5 block text-xs font-semibold text-honne-secondary"
             >
               管理者パスワード
             </label>
@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="パスワードを入力"
               required
-              className="w-full rounded-xl border border-[#dfe3e8] bg-[#f0f2f5] px-4 py-3 text-sm text-[#1c1e21] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
+              className="w-full rounded-xl border border-honne-border-light bg-honne-bg px-4 py-3 text-sm text-honne-text outline-none transition focus:border-honne-primary focus:ring-2 focus:ring-honne-primary/20"
             />
           </div>
 
@@ -71,13 +71,13 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading || !password}
-            className="w-full rounded-xl bg-[#1877f2] py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#166fe5] disabled:opacity-50"
+            className="w-full rounded-xl bg-honne-primary py-3 text-sm font-bold text-white shadow-sm transition hover:bg-honne-primary-hover disabled:opacity-50"
           >
             {loading ? "認証中…" : "ログイン"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-[0.65rem] text-[#8d949e]">
+        <p className="mt-6 text-center text-[0.65rem] text-honne-placeholder">
           このページは管理者専用です。
         </p>
       </div>

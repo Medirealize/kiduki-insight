@@ -41,7 +41,7 @@ export default function UpgradeButton({ label, className }: Props) {
         type="button"
         onClick={handleUpgrade}
         disabled={loading}
-        className={className ?? "w-full rounded-xl bg-amber-500 py-3 font-semibold text-white shadow-sm transition hover:bg-amber-600 disabled:opacity-60"}
+        className={className ?? "honne-btn-primary w-full rounded-lg py-3 font-semibold disabled:opacity-60"}
       >
         {loading ? t("loading") : (label ?? t("defaultLabel"))}
       </button>

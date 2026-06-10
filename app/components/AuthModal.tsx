@@ -36,14 +36,14 @@ export default function AuthModal({ auth, onClose }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-6 text-center">
-          <p className="text-xl font-bold text-[#1c1e21]">{t("title")}</p>
-          <p className="mt-1 text-sm text-[#606770]">{t("subtitle")}</p>
+          <p className="text-xl font-bold text-honne-text">{t("title")}</p>
+          <p className="mt-1 text-sm text-honne-secondary">{t("subtitle")}</p>
         </div>
 
         <button
           type="button"
           onClick={auth.signInWithGoogle}
-          className="flex w-full items-center justify-center gap-3 rounded-xl border border-[#dfe3e8] bg-white py-3.5 font-medium text-[#1c1e21] shadow-sm transition hover:bg-[#f0f2f5]"
+          className="flex w-full items-center justify-center gap-3 rounded-xl border border-honne-border-light bg-white py-3.5 font-medium text-honne-text shadow-sm transition hover:bg-honne-bg"
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -55,15 +55,15 @@ export default function AuthModal({ auth, onClose }: Props) {
         </button>
 
         <div className="my-5 flex items-center gap-3">
-          <div className="h-px flex-1 bg-[#dfe3e8]" />
-          <span className="text-xs text-[#8d949e]">{t("or")}</span>
-          <div className="h-px flex-1 bg-[#dfe3e8]" />
+          <div className="h-px flex-1 bg-honne-border-light" />
+          <span className="text-xs text-honne-placeholder">{t("or")}</span>
+          <div className="h-px flex-1 bg-honne-border-light" />
         </div>
 
         {sent ? (
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-4 text-center">
-            <p className="font-semibold text-emerald-700">{t("emailSent")}</p>
-            <p className="mt-1 text-sm text-emerald-600">
+          <div className="rounded-xl border border-honne-success-border bg-honne-success-bg px-4 py-4 text-center">
+            <p className="font-semibold text-honne-success-text">{t("emailSent")}</p>
+            <p className="mt-1 text-sm text-honne-success-text">
               {t("emailSentDesc", { email })}
             </p>
           </div>
@@ -75,13 +75,13 @@ export default function AuthModal({ auth, onClose }: Props) {
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t("emailPlaceholder")}
               required
-              className="w-full rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-base text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20"
+              className="w-full rounded-xl border border-honne-border-input bg-white px-4 py-3 text-base text-honne-text placeholder-honne-placeholder outline-none transition focus:border-honne-primary focus:ring-2 focus:ring-honne-primary/20"
             />
             {error && <p className="text-xs text-red-600">{error}</p>}
             <button
               type="submit"
               disabled={emailLoading}
-              className="w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] disabled:opacity-60"
+              className="w-full rounded-xl bg-honne-primary py-3.5 font-medium text-white shadow-sm transition hover:bg-honne-primary-hover disabled:opacity-60"
             >
               {emailLoading ? t("sending") : t("emailButton")}
             </button>
@@ -91,7 +91,7 @@ export default function AuthModal({ auth, onClose }: Props) {
         <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2.5 text-[0.72rem] leading-relaxed text-blue-800">
           {t("authNote")}
         </div>
-        <p className="mt-3 text-center text-xs leading-relaxed text-[#8d949e]">
+        <p className="mt-3 text-center text-xs leading-relaxed text-honne-placeholder">
           {t.rich("termsText", {
             link: (chunks) => (
               <a href={`/${locale}/privacy`} className="underline">{chunks}</a>
@@ -102,7 +102,7 @@ export default function AuthModal({ auth, onClose }: Props) {
         <button
           type="button"
           onClick={onClose}
-          className="mt-4 w-full py-2 text-sm text-[#8d949e] transition hover:text-[#606770]"
+          className="mt-4 w-full py-2 text-sm text-honne-placeholder transition hover:text-honne-secondary"
         >
           {t("close")}
         </button>

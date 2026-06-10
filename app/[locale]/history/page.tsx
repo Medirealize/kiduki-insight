@@ -60,17 +60,17 @@ export default function HistoryPage() {
   const timeUnit = locale === "en" ? "" : "回";
 
   return (
-    <div className="page-bg min-h-screen w-full overflow-x-hidden font-sans text-[#1c1e21] antialiased">
-      <div className="sticky top-0 z-10 border-b border-[#dfe3e8] bg-white/90 backdrop-blur-sm">
+    <div className="page-bg min-h-screen w-full overflow-x-hidden font-sans text-honne-text antialiased">
+      <div className="sticky top-0 z-10 border-b border-honne-border-light bg-white/90 backdrop-blur-sm">
         <div className="mx-auto flex max-w-md items-center justify-between px-5 py-3.5">
-          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-sm font-medium text-[#606770] transition hover:text-[#1877f2]">
+          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-sm font-medium text-honne-secondary transition hover:text-honne-primary">
             <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             {t("back")}
           </Link>
-          <span className="text-sm font-semibold text-[#1c1e21]">{t("title")}</span>
-          <span className={`rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold ${isPremium ? "bg-[#ffd700]/20 text-[#b8860b]" : "bg-[#f0f2f5] text-[#8d949e]"}`}>
+          <span className="text-sm font-semibold text-honne-text">{t("title")}</span>
+          <span className={`rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold ${isPremium ? "bg-honne-primary-tint text-honne-primary" : "bg-honne-bg text-honne-placeholder"}`}>
             {isPremium ? t("kpi.premium") : t("kpi.free")}
           </span>
         </div>
@@ -79,20 +79,20 @@ export default function HistoryPage() {
       <div className="mx-auto max-w-md px-5 py-8 space-y-6">
         <section className="grid grid-cols-2 gap-3">
           {[
-            { label: t("kpi.totalLogs"), value: `${logs.length}${countUnit}`, color: "text-[#1877f2]" },
-            { label: t("kpi.weeklyLogs"), value: `${weeklyLogs}${countUnit}`, color: "text-emerald-600" },
+            { label: t("kpi.totalLogs"), value: `${logs.length}${countUnit}`, color: "text-honne-primary" },
+            { label: t("kpi.weeklyLogs"), value: `${weeklyLogs}${countUnit}`, color: "text-honne-success-text" },
             { label: t("kpi.dailyUsage"), value: `${dailyUsage}/${isPremium ? "∞" : FREE_DAILY_LIMIT}${timeUnit}`, color: "text-violet-600" },
-            { label: t("kpi.plan"), value: isPremium ? t("kpi.premium") : t("kpi.free"), color: isPremium ? "text-[#b8860b]" : "text-[#8d949e]" },
+            { label: t("kpi.plan"), value: isPremium ? t("kpi.premium") : t("kpi.free"), color: isPremium ? "text-honne-primary" : "text-honne-placeholder" },
           ].map((kpi) => (
-            <div key={kpi.label} className="rounded-2xl border border-[#dfe3e8] bg-white px-4 py-3.5 shadow-sm">
-              <p className="text-[0.65rem] text-[#8d949e]">{kpi.label}</p>
+            <div key={kpi.label} className="rounded-2xl border border-honne-border-light bg-white px-4 py-3.5 shadow-sm">
+              <p className="text-[0.65rem] text-honne-placeholder">{kpi.label}</p>
               <p className={`mt-1 text-xl font-black ${kpi.color}`}>{kpi.value}</p>
             </div>
           ))}
         </section>
 
         {!isPremium && (
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1a1a2e] to-[#16213e] px-6 py-6 text-white shadow-lg">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-honne-primary to-honne-primary-hover px-6 py-6 text-white shadow-honne-primary">
             <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/5 blur-2xl" />
             <p className="text-[0.7rem] font-bold uppercase tracking-widest text-white/50">{t("premiumBanner.badge")}</p>
             <p className="mt-1 text-lg font-bold">
@@ -105,9 +105,9 @@ export default function HistoryPage() {
             </ul>
             <div className="mt-4">
               {auth.user ? (
-                <UpgradeButton label={t("premiumBanner.upgradeButton")} className="w-full rounded-xl bg-white py-2.5 text-sm font-bold text-[#1a1a2e] transition hover:bg-white/90" />
+                <UpgradeButton label={t("premiumBanner.upgradeButton")} className="w-full rounded-lg bg-white py-2.5 text-sm font-bold text-honne-dark transition hover:bg-white/90" />
               ) : (
-                <Link href={`/${locale}`} className="block w-full rounded-xl bg-white py-2.5 text-center text-sm font-bold text-[#1a1a2e] transition hover:bg-white/90">
+                <Link href={`/${locale}`} className="block w-full rounded-lg bg-white py-2.5 text-center text-sm font-bold text-honne-dark transition hover:bg-white/90">
                   {t("premiumBanner.loginButton")}
                 </Link>
               )}
@@ -116,12 +116,12 @@ export default function HistoryPage() {
         )}
 
         {isPremium && logs.length >= 2 && (
-          <div className="rounded-2xl border-2 border-[#ffd700]/40 bg-white px-5 py-5 shadow-[0_4px_16px_rgba(255,215,0,0.1)]">
-            <p className="mb-1 text-[0.7rem] font-bold uppercase tracking-widest text-[#b8860b]">{t("report.badge")}</p>
-            <p className="mb-4 text-sm text-[#606770]">{t("report.desc", { count: logs.length })}</p>
+          <div className="rounded-2xl border-2 border-honne-primary/30 bg-white px-5 py-5 shadow-honne-primary">
+            <p className="mb-1 text-[0.7rem] font-bold uppercase tracking-widest text-honne-primary">{t("report.badge")}</p>
+            <p className="mb-4 text-sm text-honne-secondary">{t("report.desc", { count: logs.length })}</p>
             {!report && (
               <button type="button" onClick={generateReport} disabled={reportLoading}
-                className="w-full rounded-xl bg-gradient-to-r from-[#b8860b] to-[#daa520] py-3 text-sm font-bold text-white shadow-sm transition hover:opacity-90 disabled:opacity-60">
+                className="honne-btn-primary w-full rounded-lg py-3 text-sm font-bold shadow-sm transition disabled:opacity-60">
                 {reportLoading ? t("report.analyzing") : t("report.generateButton")}
               </button>
             )}
@@ -135,12 +135,12 @@ export default function HistoryPage() {
                   { key: "advice", value: report.advice },
                 ] as const).filter((r) => r.value).map((r) => (
                   <div key={r.key}>
-                    <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#b8860b]">{t(`report.sections.${r.key}`)}</p>
-                    <p className="text-sm leading-relaxed text-[#1c1e21]">{r.value}</p>
+                    <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-honne-primary">{t(`report.sections.${r.key}`)}</p>
+                    <p className="text-sm leading-relaxed text-honne-text">{r.value}</p>
                   </div>
                 ))}
                 <button type="button" onClick={() => setReport(null)}
-                  className="w-full rounded-xl border border-[#dfe3e8] py-2 text-xs text-[#8d949e] transition hover:bg-[#f0f2f5]">
+                  className="w-full rounded-xl border border-honne-border-light py-2 text-xs text-honne-placeholder transition hover:bg-honne-bg">
                   {t("report.closeButton")}
                 </button>
               </div>
@@ -149,22 +149,22 @@ export default function HistoryPage() {
         )}
 
         {!hydrated ? (
-          <p className="text-center text-sm text-[#8d949e]">…</p>
+          <p className="text-center text-sm text-honne-placeholder">…</p>
         ) : logs.length === 0 ? (
-          <div className="rounded-2xl border border-[#dfe3e8] bg-white px-6 py-12 text-center shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="rounded-2xl border border-honne-border-light bg-white px-6 py-12 text-center shadow-honne">
             <p className="text-3xl">{t("empty.icon")}</p>
-            <p className="mt-3 font-semibold text-[#1c1e21]">{t("empty.title")}</p>
-            <p className="mt-1 text-sm text-[#8d949e]">{t("empty.desc")}</p>
-            <Link href={`/${locale}`} className="mt-4 inline-block rounded-xl bg-[#1877f2] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#166fe5]">
+            <p className="mt-3 font-semibold text-honne-text">{t("empty.title")}</p>
+            <p className="mt-1 text-sm text-honne-placeholder">{t("empty.desc")}</p>
+            <Link href={`/${locale}`} className="mt-4 inline-block rounded-xl bg-honne-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-honne-primary-hover">
               {t("empty.goButton")}
             </Link>
           </div>
         ) : (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-[#1c1e21]">{t("logCount", { count: logs.length })}</p>
+              <p className="text-sm font-semibold text-honne-text">{t("logCount", { count: logs.length })}</p>
               {!isPremium && logs.length > FREE_LOG_VISIBLE && (
-                <p className="text-xs text-[#8d949e]">{t("locked", { count: logs.length - FREE_LOG_VISIBLE })}</p>
+                <p className="text-xs text-honne-placeholder">{t("locked", { count: logs.length - FREE_LOG_VISIBLE })}</p>
               )}
             </div>
             {logs.map((log, idx) => (
@@ -183,7 +183,7 @@ export default function HistoryPage() {
 
         {auth.user && (
           <button type="button" onClick={() => auth.signOut()}
-            className="w-full rounded-xl border border-[#dfe3e8] py-2.5 text-xs text-[#8d949e] transition hover:bg-[#f0f2f5]">
+            className="w-full rounded-xl border border-honne-border-light py-2.5 text-xs text-honne-placeholder transition hover:bg-honne-bg">
             {t("logout", { email: auth.user.email ?? "" })}
           </button>
         )}

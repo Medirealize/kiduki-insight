@@ -93,7 +93,7 @@ type GroupKey = "自分軸" | "相手軸" | "社会軸";
 
 const FollowUpListLazy = dynamic(
   () => import("@/app/components/FollowUpList"),
-  { loading: () => <p className="text-center text-xs text-[#8d949e]">…</p> }
+  { loading: () => <p className="text-center text-xs text-honne-placeholder">…</p> }
 );
 
 export default function Home() {
@@ -346,15 +346,15 @@ export default function Home() {
   const currentQIndex = step - 3;
 
   return (
-    <div className="page-bg min-h-screen w-full overflow-x-hidden font-sans text-[#1c1e21] antialiased">
+    <div className="page-bg min-h-screen w-full overflow-x-hidden font-sans text-honne-text antialiased">
       {/* プログレスバー */}
-      <div className="sticky top-0 z-10 h-1.5 w-full bg-[#dfe3e8]">
-        <div className="h-full bg-[#1877f2] transition-all duration-500 ease-out" style={{ width: `${(step / TOTAL_STEPS) * 100}%` }} />
+      <div className="sticky top-0 z-10 h-1.5 w-full bg-honne-border">
+        <div className="h-full bg-honne-primary transition-all duration-500 ease-out" style={{ width: `${(step / TOTAL_STEPS) * 100}%` }} />
       </div>
 
       <div className="mx-auto max-w-md px-6 pt-10 pb-8 sm:pt-14 sm:pb-12">
         <header className="mb-10">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#1877F2] to-[#166FE5] px-6 py-10 text-center shadow-[0_6px_24px_rgba(24,119,242,0.28)]">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-honne-primary to-honne-primary-hover px-6 py-10 text-center shadow-honne-primary">
             <div className="pointer-events-none absolute -right-8 -top-8 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-white/5 blur-2xl" />
             <div className="pointer-events-none absolute left-5 top-5 flex gap-1.5 opacity-30">
@@ -404,9 +404,9 @@ export default function Home() {
         </header>
 
         {paymentSuccess && (
-          <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-center">
-            <p className="font-semibold text-emerald-700">{t("payment.success")}</p>
-            <p className="mt-1 text-sm text-emerald-600">{t("payment.successDetail")}</p>
+          <div className="mb-6 rounded-2xl border border-honne-success-border bg-honne-success-bg px-5 py-4 text-center">
+            <p className="font-semibold text-honne-success-text">{t("payment.success")}</p>
+            <p className="mt-1 text-sm text-honne-success-text">{t("payment.successDetail")}</p>
           </div>
         )}
 
@@ -415,7 +415,7 @@ export default function Home() {
 
         {step > 1 && (
           <div className="mb-4">
-            <button type="button" onClick={goBack} className="min-h-[48px] rounded-xl border border-[#ccd0d5] bg-white px-4 py-2.5 text-sm font-medium text-[#606770] transition hover:bg-[#f0f2f5]">
+            <button type="button" onClick={goBack} className="min-h-[48px] rounded-xl border border-honne-border-input bg-white px-4 py-2.5 text-sm font-medium text-honne-secondary transition hover:bg-honne-bg">
               ← {t("nav.back")}
             </button>
           </div>
@@ -425,8 +425,8 @@ export default function Home() {
 
           {/* ① タイプ選択 */}
           {step === 1 && (
-            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-              <p className="mb-5 text-base leading-relaxed text-[#606770]">{t("step1.prompt")}</p>
+            <section className="rounded-2xl border border-honne-border-light bg-white px-5 py-7 shadow-honne">
+              <p className="mb-5 text-base leading-relaxed text-honne-secondary">{t("step1.prompt")}</p>
               <div className="space-y-3">
                 {GROUP_OPTIONS.map((opt, idx) => {
                   const icons = [
@@ -437,34 +437,34 @@ export default function Home() {
                   const selected = selectedGroup === opt.group;
                   return (
                     <button key={opt.group} type="button" onClick={() => setSelectedGroup(opt.group)}
-                      className={`flex w-full items-start gap-4 rounded-xl border-2 px-4 py-4 text-left transition active:scale-[0.99] ${selected ? "border-[#1877f2] bg-[#e7f0fd]" : "border-[#dfe3e8] bg-white hover:border-[#1877f2]/40 hover:bg-[#f5f8ff]"}`}
+                      className={`flex w-full items-start gap-4 rounded-xl border-2 px-4 py-4 text-left transition active:scale-[0.99] ${selected ? "border-honne-primary bg-honne-primary-tint" : "border-honne-border-light bg-white hover:border-honne-primary/40 hover:bg-honne-primary-subtle"}`}
                       aria-pressed={selected}>
-                      <span className={selected ? "text-[#1877f2]" : "text-[#8d949e]"}>{icons[idx]}</span>
+                      <span className={selected ? "text-honne-primary" : "text-honne-placeholder"}>{icons[idx]}</span>
                       <span>
-                        <span className="block font-semibold text-[#1c1e21]">{opt.title}</span>
-                        <span className="mt-0.5 block text-sm leading-relaxed text-[#606770]">{opt.description}</span>
+                        <span className="block font-semibold text-honne-text">{opt.title}</span>
+                        <span className="mt-0.5 block text-sm leading-relaxed text-honne-secondary">{opt.description}</span>
                       </span>
                     </button>
                   );
                 })}
               </div>
               <div className="mt-5">
-                <label className="flex min-h-[52px] cursor-pointer items-start gap-3 rounded-xl border border-[#e4e6eb] bg-[#f8f9fb] px-4 py-3">
+                <label className="flex min-h-[52px] cursor-pointer items-start gap-3 rounded-xl border border-honne-border-light bg-honne-surface-alt px-4 py-3">
                   <input id="use-ai-toggle" type="checkbox" checked={useAiEnhancement}
                     onChange={(e) => {
                       const v = e.target.checked;
                       setUseAiEnhancement(v);
                       try { localStorage.setItem(PREFS_STORAGE_KEY, JSON.stringify({ useAiEnhancement: v })); prefsHydratedRef.current = true; } catch { /* ignore */ }
                     }}
-                    className="mt-1 h-5 w-5 shrink-0 accent-[#1877f2]" />
-                  <span className="text-[0.8125rem] leading-relaxed text-[#606770]">
-                    <span className="font-medium text-[#1c1e21]">{t("step1.aiToggleLabel")}</span>
+                    className="mt-1 h-5 w-5 shrink-0 accent-honne-primary" />
+                  <span className="text-[0.8125rem] leading-relaxed text-honne-secondary">
+                    <span className="font-medium text-honne-text">{t("step1.aiToggleLabel")}</span>
                     {" "}{t("step1.aiToggleDesc")}
                   </span>
                 </label>
               </div>
               {showNextButton && (
-                <button type="button" onClick={() => goNext()} className="mt-6 w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] active:scale-[0.99]">
+                <button type="button" onClick={() => goNext()} className="mt-6 w-full rounded-xl bg-honne-primary py-3.5 font-medium text-white shadow-sm transition hover:bg-honne-primary-hover active:scale-[0.99]">
                   {t("step1.next")}
                 </button>
               )}
@@ -473,35 +473,35 @@ export default function Home() {
 
           {/* ② 場面選択 → 悩み確認・入力 */}
           {step === 2 && (
-            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+            <section className="rounded-2xl border border-honne-border-light bg-white px-5 py-7 shadow-honne">
               {/* 日本語：場面選択カード */}
               {locale !== "en" && selectedScenario === null && (
                 <>
-                  <p className="mb-1 text-base font-semibold text-[#1c1e21]">診察室でよくある「言いにくい場面」</p>
-                  <p className="mb-5 text-sm leading-relaxed text-[#606770]">当てはまるものを選ぶと、あなたの状況に合わせた言葉を引き出しやすくなります。</p>
+                  <p className="mb-1 text-base font-semibold text-honne-text">診察室でよくある「言いにくい場面」</p>
+                  <p className="mb-5 text-sm leading-relaxed text-honne-secondary">当てはまるものを選ぶと、あなたの状況に合わせた言葉を引き出しやすくなります。</p>
                   <div className="space-y-2">
                     {SCENARIOS.map((s) => (
                       <button key={s.id} type="button"
                         onClick={() => { setSelectedScenario(s.id); setWorryText(s.worryText); }}
-                        className="flex w-full items-start gap-3 rounded-xl border border-[#dfe3e8] bg-white px-4 py-3.5 text-left transition hover:border-[#1877f2]/60 hover:bg-[#f5f8ff] active:scale-[0.99]">
-                        <svg viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0 text-[#1877f2]" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        className="flex w-full items-start gap-3 rounded-xl border border-honne-border-light bg-white px-4 py-3.5 text-left transition hover:border-honne-primary/60 hover:bg-honne-primary-subtle active:scale-[0.99]">
+                        <svg viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0 text-honne-primary" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                           <path d="M6 12l4-4-4-4" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         <span>
-                          <span className="block text-sm font-semibold leading-snug text-[#1c1e21]">{s.label}</span>
-                          <span className="mt-1 block text-xs leading-relaxed text-[#8d949e]">{s.subtext}</span>
+                          <span className="block text-sm font-semibold leading-snug text-honne-text">{s.label}</span>
+                          <span className="mt-1 block text-xs leading-relaxed text-honne-placeholder">{s.subtext}</span>
                         </span>
                       </button>
                     ))}
                     <button type="button"
                       onClick={() => { setSelectedScenario("other"); setWorryText(""); }}
-                      className="flex w-full items-center gap-3 rounded-xl border border-dashed border-[#ccd0d5] bg-[#f8f9fb] px-4 py-3.5 text-left transition hover:border-[#1877f2]/50 hover:bg-[#f0f5ff] active:scale-[0.99]">
-                      <svg viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-[#8d949e]" fill="currentColor" aria-hidden="true">
+                      className="flex w-full items-center gap-3 rounded-xl border border-dashed border-honne-border-input bg-honne-surface-alt px-4 py-3.5 text-left transition hover:border-honne-primary/50 hover:bg-honne-primary-subtle active:scale-[0.99]">
+                      <svg viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-honne-placeholder" fill="currentColor" aria-hidden="true">
                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
                       </svg>
                       <span>
-                        <span className="block text-sm font-semibold text-[#606770]">その他・自由に書く</span>
-                        <span className="mt-0.5 block text-xs text-[#8d949e]">上の場面に当てはまらない場合</span>
+                        <span className="block text-sm font-semibold text-honne-secondary">その他・自由に書く</span>
+                        <span className="mt-0.5 block text-xs text-honne-placeholder">上の場面に当てはまらない場合</span>
                       </span>
                     </button>
                   </div>
@@ -513,20 +513,20 @@ export default function Home() {
                 <>
                   {/* 選択した場面バッジ（日本語・場面選択時のみ） */}
                   {locale !== "en" && selectedScenario !== null && selectedScenario !== "other" && (
-                    <div className="mb-4 flex items-center justify-between rounded-xl bg-[#e7f0fd] px-4 py-2.5">
-                      <span className="text-xs font-semibold text-[#1877f2] leading-snug">
+                    <div className="mb-4 flex items-center justify-between rounded-xl bg-honne-primary-tint px-4 py-2.5">
+                      <span className="text-xs font-semibold text-honne-primary leading-snug">
                         {SCENARIOS.find((s) => s.id === selectedScenario)?.label}
                       </span>
                       <button type="button"
                         onClick={() => { setSelectedScenario(null); setWorryText(""); }}
-                        className="ml-3 shrink-0 text-xs text-[#8d949e] underline hover:text-[#1877f2]">
+                        className="ml-3 shrink-0 text-xs text-honne-placeholder underline hover:text-honne-primary">
                         変える
                       </button>
                     </div>
                   )}
 
-                  <p className="mb-4 flex items-start gap-2 text-sm leading-relaxed text-[#606770]">
-                    <svg viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0 text-[#1877f2]" fill="currentColor" aria-hidden="true">
+                  <p className="mb-4 flex items-start gap-2 text-sm leading-relaxed text-honne-secondary">
+                    <svg viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0 text-honne-primary" fill="currentColor" aria-hidden="true">
                       <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                     </svg>
                     {locale !== "en" && selectedScenario !== "other"
@@ -534,15 +534,15 @@ export default function Home() {
                       : t("step2.prompt")}
                   </p>
                   {!useAiEnhancement && (
-                    <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs leading-relaxed text-amber-950">
+                    <p className="mb-4 rounded-xl border border-honne-border-light bg-honne-primary-tint px-3 py-2.5 text-xs leading-relaxed text-honne-text">
                       {t("step2.offlineNotice")}
                     </p>
                   )}
                   <textarea value={worryText} onChange={(e) => setWorryText(e.target.value)}
                     placeholder={t("step2.placeholder")} rows={5}
-                    className="w-full resize-none rounded-xl border border-[#ccd0d5] bg-white px-4 py-3 text-sm leading-relaxed text-[#1c1e21] placeholder-[#8d949e] outline-none transition focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20" />
+                    className="w-full resize-none rounded-xl border border-honne-border-input bg-white px-4 py-3 text-sm leading-relaxed text-honne-text placeholder-honne-placeholder outline-none transition focus:border-honne-primary focus:ring-2 focus:ring-honne-primary/20" />
                   {showNextButton && (
-                    <button type="button" onClick={() => goNext()} className="mt-6 w-full rounded-xl bg-[#1877f2] py-3.5 font-medium text-white shadow-sm transition hover:bg-[#166fe5] active:scale-[0.99]">
+                    <button type="button" onClick={() => goNext()} className="mt-6 w-full rounded-xl bg-honne-primary py-3.5 font-medium text-white shadow-sm transition hover:bg-honne-primary-hover active:scale-[0.99]">
                       {t("step2.next")}
                     </button>
                   )}
@@ -553,8 +553,8 @@ export default function Home() {
 
           {/* ③④⑤ 深掘り質問 */}
           {step >= 3 && step <= 5 && (
-            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-              <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[#e7f0fd] px-3 py-1 text-[0.75rem] font-semibold text-[#1877f2]">
+            <section className="rounded-2xl border border-honne-border-light bg-white px-5 py-7 shadow-honne">
+              <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-honne-primary-tint px-3 py-1 text-[0.75rem] font-semibold text-honne-primary">
                 <svg viewBox="0 0 12 12" className="h-3 w-3" fill="currentColor" aria-hidden="true">
                   <circle cx="6" cy="6" r="5" />
                   <path d="M6 4v3M6 8.5v.5" stroke="white" strokeWidth="1.3" strokeLinecap="round" />
@@ -563,7 +563,7 @@ export default function Home() {
               </span>
               {axisQuestions[currentQIndex] ? (
                 <>
-                  <p className="mb-6 text-base leading-relaxed text-[#1c1e21]">{axisQuestions[currentQIndex].text}</p>
+                  <p className="mb-6 text-base leading-relaxed text-honne-text">{axisQuestions[currentQIndex].text}</p>
                   <div className="space-y-3">
                     {(["A", "B"] as const).map((ans) => (
                       <button key={ans} type="button"
@@ -572,18 +572,18 @@ export default function Home() {
                           const epoch = navEpochRef.current;
                           setTimeout(() => goNext(epoch), 120);
                         }}
-                        className="min-h-[52px] w-full rounded-xl border border-[#ccd0d5] bg-white py-3.5 text-left px-4 font-medium text-[#1c1e21] transition hover:border-[#1877f2] hover:bg-[#f0f2f5] active:scale-[0.99]">
+                        className="min-h-[52px] w-full rounded-xl border border-honne-border-input bg-white py-3.5 text-left px-4 font-medium text-honne-text transition hover:border-honne-primary hover:bg-honne-bg active:scale-[0.99]">
                         {axisQuestions[currentQIndex][ans]}
                       </button>
                     ))}
                   </div>
                 </>
               ) : (
-                <p className="mt-4 text-center text-xs text-[#8d949e]">{t("step3to5.loading")}</p>
+                <p className="mt-4 text-center text-xs text-honne-placeholder">{t("step3to5.loading")}</p>
               )}
               <div className="mt-5 flex justify-center gap-2">
                 {[0, 1, 2].map((i) => (
-                  <span key={i} className={`block rounded-full transition-all duration-300 ${i < currentQIndex ? "h-2 w-2 bg-[#1877f2]" : i === currentQIndex ? "h-2 w-6 bg-[#1877f2]" : "h-2 w-2 bg-[#dfe3e8]"}`} />
+                  <span key={i} className={`block rounded-full transition-all duration-300 ${i < currentQIndex ? "h-2 w-2 bg-honne-primary" : i === currentQIndex ? "h-2 w-6 bg-honne-primary" : "h-2 w-2 bg-honne-border"}`} />
                 ))}
               </div>
             </section>
@@ -591,48 +591,48 @@ export default function Home() {
 
           {/* ⑥ 解析演出 */}
           {step === 6 && (
-            <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-center">
+            <section className="rounded-2xl border border-honne-border-light bg-white px-5 py-7 shadow-honne text-center">
               {worryText.trim() && (
-                <p className="mb-4 text-left text-base leading-relaxed text-[#606770]">
-                  {t("step6.inputLabel")}<span className="font-medium text-[#1c1e21]">「{worryText.trim().slice(0, 60)}{worryText.trim().length > 60 ? "…" : ""}」</span>
+                <p className="mb-4 text-left text-base leading-relaxed text-honne-secondary">
+                  {t("step6.inputLabel")}<span className="font-medium text-honne-text">「{worryText.trim().slice(0, 60)}{worryText.trim().length > 60 ? "…" : ""}」</span>
                 </p>
               )}
-              <div className="inline-block h-10 w-10 animate-spin rounded-full border-2 border-[#dfe3e8] border-t-[#1877f2]" />
-              <p className="mt-4 text-sm font-medium leading-relaxed text-[#1c1e21]">{t("step6.analyzing")}</p>
-              <p className="mt-1 text-xs leading-relaxed text-[#65676b]">{t("step6.slowNotice")}</p>
+              <div className="inline-block h-10 w-10 animate-spin rounded-full border-2 border-honne-border-light border-t-honne-primary" />
+              <p className="mt-4 text-sm font-medium leading-relaxed text-honne-text">{t("step6.analyzing")}</p>
+              <p className="mt-1 text-xs leading-relaxed text-honne-muted">{t("step6.slowNotice")}</p>
             </section>
           )}
 
           {/* ⑦ 最終結果 */}
           {step === 7 && result && (
             <section className="space-y-6">
-              <div className="rounded-2xl border border-amber-100 bg-amber-50/90 px-5 py-4 text-[13px] leading-relaxed text-amber-950 shadow-[0_1px_6px_rgba(0,0,0,0.04)]">
-                <p className="font-semibold text-amber-900">{t("step7.disclaimer.title")}</p>
+              <div className="rounded-2xl border border-honne-border-light bg-honne-surface-alt px-5 py-4 text-[13px] leading-relaxed text-honne-secondary shadow-honne">
+                <p className="font-semibold text-honne-text">{t("step7.disclaimer.title")}</p>
                 <p className="mt-1.5">{t("step7.disclaimer.body")}</p>
               </div>
 
-              <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-7 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-                <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">{t("step7.inputSectionTitle")}</p>
-                <p className="text-[18px] leading-[1.8] text-[#1c1e21]">「{worryText.trim() || t("step7.inputEmpty")}」</p>
-                <p className="mt-3 text-sm leading-relaxed text-[#606770]">{resultAnalysisDescription}</p>
+              <div className="rounded-2xl border border-honne-border-light bg-white px-5 py-7 shadow-honne">
+                <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-honne-primary">{t("step7.inputSectionTitle")}</p>
+                <p className="text-[18px] leading-[1.8] text-honne-text">「{worryText.trim() || t("step7.inputEmpty")}」</p>
+                <p className="mt-3 text-sm leading-relaxed text-honne-secondary">{resultAnalysisDescription}</p>
               </div>
 
-              <div className="rounded-2xl border-2 border-[#1877f2]/40 bg-white px-5 py-7 shadow-[0_4px_16px_rgba(24,119,242,0.12)]">
-                <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-[#1877f2]">{t("step7.honneSectionTitle")}</p>
-                <p className="mb-3 text-xs leading-relaxed text-[#8d949e]">※ {t("step7.honneDisclaimer")}</p>
-                <p className="text-[18px] leading-[1.8] text-[#1c1e21]">{aiInsight ?? result.insight}</p>
+              <div className="rounded-2xl border-2 border-honne-primary/40 bg-white px-5 py-7 shadow-honne-primary">
+                <p className="mb-2 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-honne-primary">{t("step7.honneSectionTitle")}</p>
+                <p className="mb-3 text-xs leading-relaxed text-honne-placeholder">※ {t("step7.honneDisclaimer")}</p>
+                <p className="text-[18px] leading-[1.8] text-honne-text">{aiInsight ?? result.insight}</p>
               </div>
 
               {aiError && (
                 <div className="space-y-3">
-                  <p className="text-center text-xs text-[#fa3e3e]">{aiError}</p>
+                  <p className="text-center text-xs text-red-600">{aiError}</p>
                   {aiError.includes(locale === "en" ? "limit" : "利用回数") && (
-                    <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-center">
-                      <p className="mb-2 text-xs font-semibold text-amber-900">{t("step7.premium.limitTitle")}</p>
+                    <div className="rounded-xl border border-honne-border-light bg-honne-primary-tint px-4 py-3 text-center">
+                      <p className="mb-2 text-xs font-semibold text-honne-text">{t("step7.premium.limitTitle")}</p>
                       {auth.user ? (
-                        <UpgradeButton label={t("step7.premium.upgradeLabel")} className="rounded-xl bg-amber-500 px-6 py-2 text-sm font-semibold text-white transition hover:bg-amber-600" />
+                        <UpgradeButton label={t("step7.premium.upgradeLabel")} className="honne-btn-primary rounded-lg px-6 py-2 text-sm font-semibold" />
                       ) : (
-                        <button type="button" onClick={() => setShowAuthModal(true)} className="rounded-xl bg-amber-500 px-6 py-2 text-sm font-semibold text-white transition hover:bg-amber-600">
+                        <button type="button" onClick={() => setShowAuthModal(true)} className="honne-btn-primary rounded-lg px-6 py-2 text-sm font-semibold">
                           {t("step7.premium.loginToUpgrade")}
                         </button>
                       )}
@@ -642,19 +642,19 @@ export default function Home() {
               )}
 
               {useAiEnhancement && !aiError?.includes(locale === "en" ? "limit" : "利用回数") && (aiError || (!aiInsight && !aiAction)) && (
-                <button type="button" onClick={retryAiGeneration} className="min-h-[48px] w-full rounded-xl border-2 border-[#1877f2] bg-white py-3.5 text-sm font-medium text-[#1877f2] transition hover:bg-[#e7f3ff]">
+                <button type="button" onClick={retryAiGeneration} className="min-h-[48px] w-full rounded-xl border-2 border-honne-primary bg-white py-3.5 text-sm font-medium text-honne-primary transition hover:bg-honne-primary-tint">
                   {t("step7.retryAi")}
                 </button>
               )}
 
-              <p className="text-center text-sm leading-relaxed text-[#65676b]">{t("step7.feelingOff")}</p>
-              <p className="mx-auto max-w-md text-center text-[12px] leading-relaxed text-[#8d949e]">{t("step7.legalNote")}</p>
+              <p className="text-center text-sm leading-relaxed text-honne-muted">{t("step7.feelingOff")}</p>
+              <p className="mx-auto max-w-md text-center text-[12px] leading-relaxed text-honne-placeholder">{t("step7.legalNote")}</p>
 
               {!savedThisSession ? (
-                <div className="rounded-2xl border border-[#dfe3e8] bg-[#f8f9fb] px-5 py-4 space-y-3">
+                <div className="rounded-2xl border border-honne-border-light bg-honne-surface-alt px-5 py-4 space-y-3">
                   <div>
-                    <p className="mb-1 text-[0.75rem] font-semibold text-[#1c1e21]">{t("step7.saveSection.title")}</p>
-                    <p className="mb-3 text-xs leading-relaxed text-[#8d949e]">
+                    <p className="mb-1 text-[0.75rem] font-semibold text-honne-text">{t("step7.saveSection.title")}</p>
+                    <p className="mb-3 text-xs leading-relaxed text-honne-placeholder">
                       {isPremium
                         ? t("step7.saveSection.descPremium")
                         : logs.length >= FREE_LOG_VISIBLE
@@ -663,18 +663,18 @@ export default function Home() {
                     </p>
                     <button type="button"
                       onClick={() => { addLog({ group, userInput: worryText.trim(), insight: aiInsight ?? result.insight, doctorAdvice: aiAction ?? result.action, selectedQuestions: [] }); setSavedThisSession(true); }}
-                      className="w-full rounded-xl bg-[#1877f2] py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#166fe5]">
+                      className="w-full rounded-xl bg-honne-primary py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-honne-primary-hover">
                       {t("step7.saveSection.saveButton")}
                     </button>
                   </div>
                   {!isPremium && (
-                    <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
-                      <p className="mb-0.5 text-[0.75rem] font-semibold text-amber-900">{t("step7.premium.title")}</p>
-                      <p className="mb-2 text-xs text-amber-800">{t("step7.premium.desc")}</p>
+                    <div className="rounded-xl border border-honne-border-light bg-honne-primary-tint px-4 py-3">
+                      <p className="mb-0.5 text-[0.75rem] font-semibold text-honne-text">{t("step7.premium.title")}</p>
+                      <p className="mb-2 text-xs text-honne-secondary">{t("step7.premium.desc")}</p>
                       {auth.user ? (
-                        <UpgradeButton label={t("step7.premium.upgradeButton")} className="w-full rounded-xl bg-amber-500 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600" />
+                        <UpgradeButton label={t("step7.premium.upgradeButton")} className="honne-btn-primary w-full rounded-lg py-2.5 text-sm font-semibold shadow-sm" />
                       ) : (
-                        <button type="button" onClick={() => setShowAuthModal(true)} className="w-full rounded-xl bg-amber-500 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600">
+                        <button type="button" onClick={() => setShowAuthModal(true)} className="honne-btn-primary w-full rounded-lg py-2.5 text-sm font-semibold shadow-sm">
                           {t("step7.premium.loginToUpgrade")}
                         </button>
                       )}
@@ -682,9 +682,9 @@ export default function Home() {
                   )}
                 </div>
               ) : (
-                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-center">
-                  <p className="text-sm font-semibold text-emerald-700">{t("step7.saveSection.savedMessage")}</p>
-                  <Link href={`/${locale}/history`} className="mt-1.5 block text-xs text-emerald-600 underline">
+                <div className="rounded-2xl border border-honne-success-border bg-honne-success-bg px-5 py-4 text-center">
+                  <p className="text-sm font-semibold text-honne-success-text">{t("step7.saveSection.savedMessage")}</p>
+                  <Link href={`/${locale}/history`} className="mt-1.5 block text-xs text-honne-success-text underline">
                     {t("step7.saveSection.viewHistory")}
                   </Link>
                 </div>
@@ -692,7 +692,7 @@ export default function Home() {
 
               <button type="button"
                 onClick={() => { setStep(1); setWorryText(""); setQAnswers([]); setAiInsight(null); setAiAction(null); setAiError(null); setNextQuestions([]); setSavedThisSession(false); setSelectedScenario(null); }}
-                className="w-full min-h-[48px] rounded-xl border border-[#ccd0d5] py-3 px-4 font-medium text-[#606770] transition hover:bg-[#f0f2f5]">
+                className="w-full min-h-[48px] rounded-xl border border-honne-border-input py-3 px-4 font-medium text-honne-secondary transition hover:bg-honne-bg">
                 {t("step7.restart")}
               </button>
 
@@ -701,13 +701,13 @@ export default function Home() {
           )}
 
           {step === 7 && !result && (
-            <p className="rounded-2xl border border-[#dfe3e8] bg-white p-6 text-center text-[#65676b] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+            <p className="rounded-2xl border border-honne-border-light bg-white p-6 text-center text-honne-muted shadow-honne">
               {t("step7.notFound")}
             </p>
           )}
         </div>
 
-        <footer className="mt-12 border-t border-[#dfe3e8] pt-6 text-center text-xs text-[#8d949e]">
+        <footer className="mt-12 border-t border-honne-border-light pt-6 text-center text-xs text-honne-placeholder">
           <p>{t("app.footer")}</p>
           <div className="mt-2 flex flex-wrap justify-center gap-4">
             <Link href={`/${locale}/privacy`} className="hover:underline">{t("app.privacy")}</Link>

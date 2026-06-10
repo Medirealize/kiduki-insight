@@ -5,8 +5,8 @@ const CONTACT_EMAIL = "info@medirealize.jp";
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mt-8">
-      <h2 className="mb-3 text-base font-bold text-[#1c1e21]">{title}</h2>
-      <div className="space-y-2 text-sm leading-relaxed text-[#606770] [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
+      <h2 className="mb-3 text-base font-bold text-honne-text">{title}</h2>
+      <div className="space-y-2 text-sm leading-relaxed text-honne-secondary [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
         {children}
       </div>
     </div>
@@ -22,16 +22,16 @@ export default async function PrivacyPage({
   const isEn = locale === "en";
 
   return (
-    <div className="min-h-screen w-full bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
-      <div className="border-b border-[#dfe3e8] bg-white">
+    <div className="min-h-screen w-full bg-honne-bg font-sans text-honne-text antialiased">
+      <div className="border-b border-honne-border-light bg-white">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-5 py-3.5">
-          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-sm font-medium text-[#606770] hover:text-[#1877f2]">
+          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-sm font-medium text-honne-secondary hover:text-honne-primary">
             <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
               <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             {isEn ? "Back to honne." : "ほんね。に戻る"}
           </Link>
-          <span className="text-sm font-bold text-[#1c1e21]">
+          <span className="text-sm font-bold text-honne-text">
             {isEn ? "Privacy Policy" : "プライバシーポリシー"}
           </span>
           <div className="w-16" />
@@ -39,13 +39,13 @@ export default async function PrivacyPage({
       </div>
 
       <div className="mx-auto max-w-2xl px-5 py-10">
-        <div className="rounded-2xl border border-[#dfe3e8] bg-white px-8 py-10 shadow-sm">
+        <div className="rounded-2xl border border-honne-border-light bg-white px-8 py-10 shadow-sm">
 
           {isEn ? (
             <>
-              <h1 className="text-2xl font-bold text-[#1c1e21]">Privacy Policy</h1>
-              <p className="mt-2 text-sm text-[#8d949e]">Effective date: May 17, 2026</p>
-              <p className="mt-6 text-sm leading-relaxed text-[#606770]">
+              <h1 className="text-2xl font-bold text-honne-text">Privacy Policy</h1>
+              <p className="mt-2 text-sm text-honne-placeholder">Effective date: May 17, 2026</p>
+              <p className="mt-6 text-sm leading-relaxed text-honne-secondary">
                 medirealize ("we" or "us") has established this Privacy Policy ("Policy") regarding the handling of personal information of users of honne. ("the App").
               </p>
 
@@ -73,19 +73,19 @@ export default async function PrivacyPage({
                     <strong>OpenAI, L.L.C. (USA)</strong><br />
                     Purpose: Natural language processing for generating insights and questions (AI mode only)<br />
                     Data sent: Input text and type info (no name or contact info)<br />
-                    Privacy Policy: <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">openai.com/policies/privacy-policy</a>
+                    Privacy Policy: <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">openai.com/policies/privacy-policy</a>
                   </li>
                   <li>
                     <strong>Supabase, Inc. (USA)</strong><br />
                     Purpose: Login authentication and cloud storage of records<br />
                     Data sent: Email address and record content (when logged in only)<br />
-                    Privacy Policy: <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">supabase.com/privacy</a>
+                    Privacy Policy: <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">supabase.com/privacy</a>
                   </li>
                   <li>
                     <strong>Stripe, Inc. (USA)</strong><br />
                     Purpose: Payment processing for the Premium plan<br />
                     Data sent: Email address and payment information (Premium registration only)<br />
-                    Privacy Policy: <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">stripe.com/privacy</a>
+                    Privacy Policy: <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">stripe.com/privacy</a>
                   </li>
                 </ul>
               </Section>
@@ -128,17 +128,17 @@ export default async function PrivacyPage({
                 <p>For questions or comments regarding this Policy, please contact us:</p>
                 <p className="mt-2">
                   <strong>medirealize</strong><br />
-                  Email: <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#1877f2] underline">{CONTACT_EMAIL}</a>
+                  Email: <a href={`mailto:${CONTACT_EMAIL}`} className="text-honne-primary underline">{CONTACT_EMAIL}</a>
                 </p>
               </Section>
 
-              <p className="mt-10 text-right text-xs text-[#8d949e]">— End —</p>
+              <p className="mt-10 text-right text-xs text-honne-placeholder">— End —</p>
             </>
           ) : (
             <>
-              <h1 className="text-2xl font-bold text-[#1c1e21]">プライバシーポリシー</h1>
-              <p className="mt-2 text-sm text-[#8d949e]">制定日：2026年5月17日</p>
-              <p className="mt-6 text-sm leading-relaxed text-[#606770]">
+              <h1 className="text-2xl font-bold text-honne-text">プライバシーポリシー</h1>
+              <p className="mt-2 text-sm text-honne-placeholder">制定日：2026年5月17日</p>
+              <p className="mt-6 text-sm leading-relaxed text-honne-secondary">
                 medirealize（以下「当社」）は、ほんね。（以下「本アプリ」）における利用者の個人情報の取り扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。
               </p>
 
@@ -166,19 +166,19 @@ export default async function PrivacyPage({
                     <strong>OpenAI, L.L.C.（米国）</strong><br />
                     用途：自然言語処理による洞察・質問文の生成（AIオンモード時のみ）<br />
                     送信情報：入力テキスト・タイプ情報（氏名・連絡先は含まない）<br />
-                    PP：<a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">openai.com/policies/privacy-policy</a>
+                    PP：<a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">openai.com/policies/privacy-policy</a>
                   </li>
                   <li>
                     <strong>Supabase, Inc.（米国）</strong><br />
                     用途：ログイン認証・記録データのクラウド保存<br />
                     送信情報：メールアドレス・記録内容（ログイン時のみ）<br />
-                    PP：<a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">supabase.com/privacy</a>
+                    PP：<a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">supabase.com/privacy</a>
                   </li>
                   <li>
                     <strong>Stripe, Inc.（米国）</strong><br />
                     用途：プレミアムプランの決済処理<br />
                     送信情報：メールアドレス・決済情報（プレミアム登録時のみ）<br />
-                    PP：<a href="https://stripe.com/jp/privacy" target="_blank" rel="noopener noreferrer" className="text-[#1877f2] underline">stripe.com/jp/privacy</a>
+                    PP：<a href="https://stripe.com/jp/privacy" target="_blank" rel="noopener noreferrer" className="text-honne-primary underline">stripe.com/jp/privacy</a>
                   </li>
                 </ul>
               </Section>
@@ -221,11 +221,11 @@ export default async function PrivacyPage({
                 <p>本ポリシーに関するご質問・ご意見は、以下の窓口までお問い合わせください。</p>
                 <p className="mt-2">
                   <strong>medirealize</strong><br />
-                  メール：<a href={`mailto:${CONTACT_EMAIL}`} className="text-[#1877f2] underline">{CONTACT_EMAIL}</a>
+                  メール：<a href={`mailto:${CONTACT_EMAIL}`} className="text-honne-primary underline">{CONTACT_EMAIL}</a>
                 </p>
               </Section>
 
-              <p className="mt-10 text-right text-xs text-[#8d949e]">以上</p>
+              <p className="mt-10 text-right text-xs text-honne-placeholder">以上</p>
             </>
           )}
         </div>

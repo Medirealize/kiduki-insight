@@ -13,7 +13,7 @@ export default function OgImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          background: "#0f172a",
+          background: "#050505",
           fontFamily: "sans-serif",
           position: "relative",
           overflow: "hidden",

@@ -43,18 +43,18 @@ export default async function AdminPage() {
   const chartMax            = Math.max(...chart.map((d) => d.count), 1);
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#f0f2f5] font-sans text-[#1c1e21] antialiased">
+    <div className="min-h-screen w-full overflow-x-hidden bg-honne-bg font-sans text-honne-text antialiased">
       {/* ヘッダー */}
-      <div className="sticky top-0 z-10 border-b border-[#dfe3e8] bg-white/95 backdrop-blur-sm">
+      <div className="sticky top-0 z-10 border-b border-honne-border-light bg-white/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-5 py-3.5">
           <div className="flex items-center gap-3">
-            <span className="rounded-lg bg-[#1877f2] px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-widest text-white">
+            <span className="rounded-lg bg-honne-primary px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-widest text-white">
               ADMIN
             </span>
-            <span className="text-sm font-bold text-[#1c1e21]">ほんね。管理者ダッシュボード</span>
+            <span className="text-sm font-bold text-honne-text">ほんね。管理者ダッシュボード</span>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-xs text-[#606770] hover:text-[#1877f2]">
+            <Link href="/" className="text-xs text-honne-secondary hover:text-honne-primary">
               サイトへ →
             </Link>
             <AdminLogoutButton />
@@ -77,22 +77,22 @@ export default async function AdminPage() {
 
         {/* KPI グリッド */}
         <section>
-          <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-widest text-[#8d949e]">
+          <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-widest text-honne-placeholder">
             全ユーザー KPI
           </p>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
-              { label: "総登録ユーザー数",   value: totalUsers.toLocaleString(),          unit: "人",    color: "text-[#1877f2]",   icon: "👥" },
+              { label: "総登録ユーザー数",   value: totalUsers.toLocaleString(),          unit: "人",    color: "text-honne-primary",   icon: "👥" },
               { label: "総蓄積ログ件数",     value: totalLogs.toLocaleString(),            unit: "件",    color: "text-emerald-600", icon: "📝" },
               { label: "平均ログ記録数",     value: avgLogsPerUser.toFixed(1),             unit: "件/人", color: "text-violet-600",  icon: "📊" },
               { label: "課金導線クリック率", value: conversionClickRate.toFixed(1),        unit: "%",     color: "text-[#b8860b]",   icon: "💳" },
             ].map((kpi) => (
-              <div key={kpi.label} className="rounded-2xl border border-[#dfe3e8] bg-white px-4 py-4 shadow-sm">
+              <div key={kpi.label} className="rounded-2xl border border-honne-border-light bg-white px-4 py-4 shadow-sm">
                 <p className="text-lg">{kpi.icon}</p>
-                <p className="mt-1 text-[0.65rem] leading-tight text-[#8d949e]">{kpi.label}</p>
+                <p className="mt-1 text-[0.65rem] leading-tight text-honne-placeholder">{kpi.label}</p>
                 <p className={`mt-2 text-2xl font-black ${kpi.color}`}>
                   {kpi.value}
-                  <span className="ml-0.5 text-xs font-normal text-[#8d949e]">{kpi.unit}</span>
+                  <span className="ml-0.5 text-xs font-normal text-honne-placeholder">{kpi.unit}</span>
                 </p>
               </div>
             ))}
@@ -100,13 +100,13 @@ export default async function AdminPage() {
         </section>
 
         {/* 直近2週間の日別ログ数チャート */}
-        <section className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-5 shadow-sm">
+        <section className="rounded-2xl border border-honne-border-light bg-white px-5 py-5 shadow-sm">
           <div className="mb-5 flex items-center justify-between">
-            <p className="text-[0.7rem] font-bold uppercase tracking-widest text-[#8d949e]">
+            <p className="text-[0.7rem] font-bold uppercase tracking-widest text-honne-placeholder">
               直近2週間の新規ログ記録数（全ユーザー合計）
             </p>
             {isMock && (
-              <span className="rounded-full bg-[#f0f2f5] px-2 py-0.5 text-[0.6rem] text-[#8d949e]">
+              <span className="rounded-full bg-honne-bg px-2 py-0.5 text-[0.6rem] text-honne-placeholder">
                 未接続
               </span>
             )}
@@ -125,7 +125,7 @@ export default async function AdminPage() {
                     {d.count}件
                   </div>
                   <div
-                    className="w-full rounded-t-md bg-[#1877f2] transition-all duration-500 group-hover:bg-[#166fe5]"
+                    className="w-full rounded-t-md bg-honne-primary transition-all duration-500 group-hover:bg-honne-primary-hover"
                     style={{ height: `${Math.max(heightPct, d.count > 0 ? 4 : 0)}%`, minHeight: d.count > 0 ? "4px" : "2px", opacity: d.count > 0 ? 1 : 0.15 }}
                   />
                 </div>
@@ -137,7 +137,7 @@ export default async function AdminPage() {
             {chart.map((d, i) => (
               <div key={d.date} className="flex-1 text-center">
                 {(i === 0 || i === 6 || i === 13) && (
-                  <span className="text-[0.55rem] text-[#8d949e]">{d.date}</span>
+                  <span className="text-[0.55rem] text-honne-placeholder">{d.date}</span>
                 )}
               </div>
             ))}
@@ -146,11 +146,11 @@ export default async function AdminPage() {
 
         {/* ── 開発者セクション ── */}
         <section className="space-y-6">
-          <p className="text-[0.7rem] font-bold uppercase tracking-widest text-[#8d949e]">開発者メモ</p>
+          <p className="text-[0.7rem] font-bold uppercase tracking-widest text-honne-placeholder">開発者メモ</p>
 
           {/* App Store レディネス */}
-          <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-5 shadow-sm">
-            <p className="mb-4 text-sm font-bold text-[#1c1e21]">📱 App Store 進出レディネス</p>
+          <div className="rounded-2xl border border-honne-border-light bg-white px-5 py-5 shadow-sm">
+            <p className="mb-4 text-sm font-bold text-honne-text">📱 App Store 進出レディネス</p>
             <div className="space-y-2 text-sm">
               {[
                 { done: true,  label: "プライバシーポリシー公開（/privacy）" },
@@ -165,30 +165,30 @@ export default async function AdminPage() {
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-2.5">
                   <span className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded text-[0.65rem] font-bold ${
-                    item.done ? "bg-emerald-100 text-emerald-700" : "bg-[#f0f2f5] text-[#8d949e]"
+                    item.done ? "bg-emerald-100 text-emerald-700" : "bg-honne-bg text-honne-placeholder"
                   }`}>
                     {item.done ? "✓" : "○"}
                   </span>
-                  <span className={item.done ? "text-[#606770]" : "text-[#1c1e21]"}>{item.label}</span>
+                  <span className={item.done ? "text-honne-secondary" : "text-honne-text"}>{item.label}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* 進出タイミング考察 */}
-          <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-5 shadow-sm">
-            <p className="mb-3 text-sm font-bold text-[#1c1e21]">⏱ 進出タイミング考察</p>
-            <div className="space-y-3 text-sm text-[#606770] leading-relaxed">
-              <p><span className="font-semibold text-[#1c1e21]">医療機器リスク：</span>本アプリは「コミュニケーション支援ツール」であり診断を行わないため、薬機法上の医療機器に該当しない設計。ただし表現・機能追加時は都度確認が必要。</p>
-              <p><span className="font-semibold text-[#1c1e21]">推奨タイミング：</span>月間アクティブユーザー50人・有料転換3件を確認してからApp Store申請。それ以前はWeb版でPMF（プロダクトマーケットフィット）を検証する。</p>
-              <p><span className="font-semibold text-[#1c1e21]">B2B展開：</span>クリニック1院あたり月額¥5,000〜¥30,000の導入プランを検討。患者教育コストを削減する訴求が有効。</p>
+          <div className="rounded-2xl border border-honne-border-light bg-white px-5 py-5 shadow-sm">
+            <p className="mb-3 text-sm font-bold text-honne-text">⏱ 進出タイミング考察</p>
+            <div className="space-y-3 text-sm text-honne-secondary leading-relaxed">
+              <p><span className="font-semibold text-honne-text">医療機器リスク：</span>本アプリは「コミュニケーション支援ツール」であり診断を行わないため、薬機法上の医療機器に該当しない設計。ただし表現・機能追加時は都度確認が必要。</p>
+              <p><span className="font-semibold text-honne-text">推奨タイミング：</span>月間アクティブユーザー50人・有料転換3件を確認してからApp Store申請。それ以前はWeb版でPMF（プロダクトマーケットフィット）を検証する。</p>
+              <p><span className="font-semibold text-honne-text">B2B展開：</span>クリニック1院あたり月額¥5,000〜¥30,000の導入プランを検討。患者教育コストを削減する訴求が有効。</p>
             </div>
           </div>
 
           {/* 推奨ロードマップ */}
-          <div className="rounded-2xl border border-[#dfe3e8] bg-white px-5 py-5 shadow-sm">
-            <p className="mb-3 text-sm font-bold text-[#1c1e21]">🗺 推奨ロードマップ</p>
-            <ol className="space-y-2 text-sm text-[#606770]">
+          <div className="rounded-2xl border border-honne-border-light bg-white px-5 py-5 shadow-sm">
+            <p className="mb-3 text-sm font-bold text-honne-text">🗺 推奨ロードマップ</p>
+            <ol className="space-y-2 text-sm text-honne-secondary">
               {[
                 "SNS（X / Instagram）で認知拡大 → Web版でユーザー獲得",
                 "有料転換10件達成 → 価格・機能の仮説検証",
@@ -197,7 +197,7 @@ export default async function AdminPage() {
                 "利用規約 / 特商法ページ追加 → 法務整備完了",
               ].map((step, i) => (
                 <li key={i} className="flex gap-2.5">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1877f2]/10 text-[0.65rem] font-bold text-[#1877f2]">{i + 1}</span>
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-honne-primary/10 text-[0.65rem] font-bold text-honne-primary">{i + 1}</span>
                   {step}
                 </li>
               ))}
@@ -205,7 +205,7 @@ export default async function AdminPage() {
           </div>
         </section>
 
-        <p className="pb-4 text-center text-[0.65rem] text-[#8d949e]">
+        <p className="pb-4 text-center text-[0.65rem] text-honne-placeholder">
           管理者専用ページ — 外部公開禁止
         </p>
       </div>
