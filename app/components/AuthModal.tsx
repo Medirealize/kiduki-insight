@@ -81,7 +81,7 @@ export default function AuthModal({ auth, onClose }: Props) {
             <button
               type="submit"
               disabled={emailLoading}
-              className="w-full rounded-xl bg-honne-primary py-3.5 font-medium text-white shadow-sm transition hover:bg-honne-primary-hover disabled:opacity-60"
+              className="honne-btn-primary w-full rounded-full py-3.5 font-medium disabled:opacity-60"
             >
               {emailLoading ? t("sending") : t("emailButton")}
             </button>

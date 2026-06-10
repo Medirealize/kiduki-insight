@@ -354,7 +354,7 @@ export default function Home() {
 
       <div className="mx-auto max-w-md px-6 pt-10 pb-8 sm:pt-14 sm:pb-12">
         <header className="mb-10">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-honne-primary to-honne-primary-hover px-6 py-10 text-center shadow-honne-primary">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-honne-primary-light via-honne-primary to-honne-primary-hover px-6 py-10 text-center shadow-honne-primary">
             <div className="pointer-events-none absolute -right-8 -top-8 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-white/5 blur-2xl" />
             <div className="pointer-events-none absolute left-5 top-5 flex gap-1.5 opacity-30">
@@ -464,7 +464,7 @@ export default function Home() {
                 </label>
               </div>
               {showNextButton && (
-                <button type="button" onClick={() => goNext()} className="mt-6 w-full rounded-xl bg-honne-primary py-3.5 font-medium text-white shadow-sm transition hover:bg-honne-primary-hover active:scale-[0.99]">
+                <button type="button" onClick={() => goNext()} className="honne-btn-primary mt-6 w-full rounded-full py-3.5 font-medium active:scale-[0.99]">
                   {t("step1.next")}
                 </button>
               )}
@@ -542,7 +542,7 @@ export default function Home() {
                     placeholder={t("step2.placeholder")} rows={5}
                     className="w-full resize-none rounded-xl border border-honne-border-input bg-white px-4 py-3 text-sm leading-relaxed text-honne-text placeholder-honne-placeholder outline-none transition focus:border-honne-primary focus:ring-2 focus:ring-honne-primary/20" />
                   {showNextButton && (
-                    <button type="button" onClick={() => goNext()} className="mt-6 w-full rounded-xl bg-honne-primary py-3.5 font-medium text-white shadow-sm transition hover:bg-honne-primary-hover active:scale-[0.99]">
+                    <button type="button" onClick={() => goNext()} className="honne-btn-primary mt-6 w-full rounded-full py-3.5 font-medium active:scale-[0.99]">
                       {t("step2.next")}
                     </button>
                   )}
@@ -663,7 +663,7 @@ export default function Home() {
                     </p>
                     <button type="button"
                       onClick={() => { addLog({ group, userInput: worryText.trim(), insight: aiInsight ?? result.insight, doctorAdvice: aiAction ?? result.action, selectedQuestions: [] }); setSavedThisSession(true); }}
-                      className="w-full rounded-xl bg-honne-primary py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-honne-primary-hover">
+                      className="honne-btn-primary w-full rounded-full py-2.5 text-sm font-semibold">
                       {t("step7.saveSection.saveButton")}
                     </button>
                   </div>

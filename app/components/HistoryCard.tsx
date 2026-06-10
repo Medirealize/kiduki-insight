@@ -64,7 +64,7 @@ export default function HistoryCard({ log, locked, onUpgrade }: Props) {
           <button
             type="button"
             onClick={onUpgrade}
-            className="rounded-xl bg-honne-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-honne-primary-hover"
+            className="honne-btn-primary rounded-full px-5 py-2.5 text-sm font-semibold"
           >
             {t("unlockButton")}
           </button>

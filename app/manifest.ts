@@ -10,8 +10,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "自分の気持ちに気づき、言葉にするためのコミュニケーション支援ツールです。医学的診断は行いません。",
     start_url: "/",
     display: "standalone",
-    background_color: "#f0f2f5",
-    theme_color: "#1877f2",
+    background_color: "#fff5f5",
+    theme_color: "#f88379",
     orientation: "portrait-primary",
     icons: [
       {

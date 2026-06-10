@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading || !password}
-            className="w-full rounded-xl bg-honne-primary py-3 text-sm font-bold text-white shadow-sm transition hover:bg-honne-primary-hover disabled:opacity-50"
+            className="honne-btn-primary w-full rounded-full py-3 text-sm font-bold disabled:opacity-50"
           >
             {loading ? "認証中…" : "ログイン"}
           </button>

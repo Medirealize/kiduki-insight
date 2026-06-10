@@ -59,7 +59,7 @@ export default function OnboardingModal() {
         </p>
 
         <button type="button" onClick={handleStart}
-          className="w-full rounded-xl bg-honne-primary py-4 text-base font-bold text-white shadow-sm transition hover:bg-honne-primary-hover active:scale-[0.99]">
+          className="honne-btn-primary w-full rounded-full py-4 text-base font-bold active:scale-[0.99]">
           {t("startButton")}
         </button>
       </div>

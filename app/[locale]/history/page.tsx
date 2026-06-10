@@ -92,7 +92,7 @@ export default function HistoryPage() {
         </section>
 
         {!isPremium && (
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-honne-primary to-honne-primary-hover px-6 py-6 text-white shadow-honne-primary">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-honne-primary-light via-honne-primary to-honne-primary-hover px-6 py-6 text-white shadow-honne-primary">
             <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/5 blur-2xl" />
             <p className="text-[0.7rem] font-bold uppercase tracking-widest text-white/50">{t("premiumBanner.badge")}</p>
             <p className="mt-1 text-lg font-bold">
@@ -155,7 +155,7 @@ export default function HistoryPage() {
             <p className="text-3xl">{t("empty.icon")}</p>
             <p className="mt-3 font-semibold text-honne-text">{t("empty.title")}</p>
             <p className="mt-1 text-sm text-honne-placeholder">{t("empty.desc")}</p>
-            <Link href={`/${locale}`} className="mt-4 inline-block rounded-xl bg-honne-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-honne-primary-hover">
+            <Link href={`/${locale}`} className="honne-btn-primary mt-4 inline-block rounded-full px-5 py-2.5 text-sm font-semibold">
               {t("empty.goButton")}
             </Link>
           </div>

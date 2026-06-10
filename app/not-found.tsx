@@ -18,7 +18,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="mt-8 inline-block rounded-xl bg-honne-primary px-8 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-honne-primary-hover"
+          className="honne-btn-primary mt-8 inline-block rounded-full px-8 py-3 text-sm font-semibold"
         >
           トップページへ戻る
         </Link>

@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-label="¢×ê¢¤³ó">
-  <rect width="192" height="192" rx="36" fill="#1877f2"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-label="???">
+  <defs>
+    <linearGradient id="coral" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f9928a"/>
+      <stop offset="50%" stop-color="#f88379"/>
+      <stop offset="100%" stop-color="#e87068"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="36" fill="url(#coral)"/>
   <path fill="#ffffff" d="M56 128c0-24 16-44 40-44s40 20 40 44v12H56v-12zm40-60c-16 0-28 12-28 28s12 28 28 28 28-12 28-28-12-28-28-28z"/>
 </svg>

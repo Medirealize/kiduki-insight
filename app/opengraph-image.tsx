@@ -13,36 +13,34 @@ export default function OgImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          background: "#050505",
+          background: "linear-gradient(135deg, #f4f9f6 0%, #fffaf9 45%, #fdf2f2 100%)",
           fontFamily: "sans-serif",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        {/* 左側：青グラデーションパネル */}
+        {/* 左側：コーラルグラデーションパネル */}
         <div style={{
           width: "46%",
           height: "100%",
-          background: "linear-gradient(160deg, #1877F2 0%, #0d47c2 100%)",
+          background: "linear-gradient(160deg, #f9928a 0%, #f88379 50%, #e87068 100%)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
         }}>
-          {/* 装飾円 */}
           <div style={{
             position: "absolute", top: -60, left: -60,
             width: 280, height: 280, borderRadius: "50%",
-            background: "rgba(255,255,255,0.08)", display: "flex",
+            background: "rgba(255,255,255,0.12)", display: "flex",
           }} />
           <div style={{
             position: "absolute", bottom: -40, right: -40,
             width: 200, height: 200, borderRadius: "50%",
-            background: "rgba(255,255,255,0.06)", display: "flex",
+            background: "rgba(255,255,255,0.08)", display: "flex",
           }} />
 
-          {/* ロゴ */}
           <div style={{
             fontSize: 110, fontWeight: 900, color: "white",
             letterSpacing: "0.06em", lineHeight: 1,
@@ -51,7 +49,7 @@ export default function OgImage() {
             ほんね。
           </div>
           <div style={{
-            marginTop: 12, fontSize: 20, color: "rgba(255,255,255,0.65)",
+            marginTop: 12, fontSize: 20, color: "rgba(255,255,255,0.75)",
             letterSpacing: "0.18em", display: "flex",
           }}>
             HONNE
@@ -67,25 +65,22 @@ export default function OgImage() {
           padding: "60px 56px",
           gap: 0,
         }}>
-          {/* キャッチコピー */}
           <div style={{
-            fontSize: 42, fontWeight: 800, color: "white",
+            fontSize: 42, fontWeight: 800, color: "#4a3e3e",
             lineHeight: 1.3, display: "flex", flexDirection: "column",
           }}>
             <span style={{ display: "flex" }}>言いたいのに、</span>
-            <span style={{ display: "flex" }}>言えない。</span>
+            <span style={{ display: "flex", color: "#f06292" }}>言えない。</span>
           </div>
 
-          {/* サブコピー */}
           <div style={{
-            marginTop: 24, fontSize: 22, color: "rgba(255,255,255,0.6)",
+            marginTop: 24, fontSize: 22, color: "#8c8282",
             lineHeight: 1.6, display: "flex", flexDirection: "column",
           }}>
             <span style={{ display: "flex" }}>上司・先生・パートナー・家族…</span>
             <span style={{ display: "flex" }}>誰かへの本音を、言葉にする。</span>
           </div>
 
-          {/* 3ステップ */}
           <div style={{
             marginTop: 36, display: "flex", flexDirection: "column", gap: 12,
           }}>
@@ -100,7 +95,7 @@ export default function OgImage() {
                 gap: 10,
               }}>
                 <div style={{
-                  fontSize: 18, color: "rgba(255,255,255,0.85)",
+                  fontSize: 18, color: "#4a3e3e",
                   display: "flex",
                 }}>
                   {step}
@@ -109,10 +104,9 @@ export default function OgImage() {
             ))}
           </div>
 
-          {/* ドメイン */}
           <div style={{
             marginTop: 40, fontSize: 16,
-            color: "rgba(255,255,255,0.3)",
+            color: "#a89a9a",
             letterSpacing: "0.08em", display: "flex",
           }}>
             insight.medirealize.jp

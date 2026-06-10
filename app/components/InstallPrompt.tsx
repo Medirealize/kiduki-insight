@@ -90,7 +90,7 @@ export default function InstallPrompt() {
         <button
           type="button"
           onClick={handleInstall}
-          className="mt-3 w-full rounded-xl bg-honne-primary py-2.5 text-sm font-semibold text-white transition hover:bg-honne-primary-hover"
+          className="honne-btn-primary mt-3 w-full rounded-full py-2.5 text-sm font-semibold"
         >
           {t("installButton")}
         </button>
